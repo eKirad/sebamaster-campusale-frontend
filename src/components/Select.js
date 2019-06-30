@@ -22,12 +22,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-const setValues = (oldValues) => {
-
-}
-
-
 export const SimpleSelect = ({ categories }) => {
 
     const classes = useStyles();
@@ -56,7 +50,7 @@ export const SimpleSelect = ({ categories }) => {
                       }}
                 >
                     {categories.map(category => (
-                        <MenuItem value={category._id}>
+                        <MenuItem key={category._id} value={category._id}>
                             {category.name}
                         </MenuItem>
                     ))}

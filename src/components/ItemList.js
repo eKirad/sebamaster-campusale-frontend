@@ -33,7 +33,7 @@ export const ItemList = ({ items }) => {
 					<TableCell align="right">Price</TableCell>
 				</TableRow>
 			</TableHead>
-			<TableBody onSelect>
+			<TableBody>
 				{items.map(item => (
 					<TableRow key={item.itemName}>
 						<TableCell component="th" scope="row" >

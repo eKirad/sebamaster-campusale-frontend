@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin  = require('html-webpack-plugin');
+const TransformObjectRestSpreact = require('babel-plugin-transform-object-rest-spread');
 
 module.exports = {
     entry:{
@@ -18,7 +19,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react']
+                        presets: ['env', 'react', 'babel-preset-stage-0']
                     }
                 }
             }

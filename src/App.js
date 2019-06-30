@@ -5,6 +5,9 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 // View imports
 import { ItemListCategoryView } from './views/ItemListCategoryView';
 import { ItemDetailView } from './views/ItemDetailView';
+import { UserLoginView } from './views/UserLoginView';
+import { UserSignupView } from './views/UserSignupView';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -14,6 +17,9 @@ export default class App extends React.Component {
             routes: [
                 { component: ItemListCategoryView, path: '/', exact: true },
                 { component: ItemDetailView, path: '/item/:id' },
+                { component: UserLoginView, path: '/login' },
+                { component: UserSignupView, path: '/signup' },
+                
             ]
         }
     }
