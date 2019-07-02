@@ -4,6 +4,7 @@ import React from 'react';
 // Component imports
 import Header from './Header';
 import Footer from './Footer';
+import AuthorizedHeader from './AuthorizedHeader';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -28,12 +29,23 @@ export default class Page extends React.Component {
         console.log(`Is there any authorized user?`);
         console.log(`${ UserService.isAutehnticated() }`)
         console.log(this.state.user)
-        return(
-            <section>
-                <Header/>
-                {this.props.children}
-                <Footer/>
+        
+        
+        if (this.state.user) {
+            return(
+                <section>
+                    <AuthorizedHeader myUsername = {this.state.user.username}/>
+                        {this.props.children}
+                    <Footer/>
             </section>
-        )
+            )
+        } else {
+            return(
+                <section>
+                   <Header/>
+                        {this.props.children}
+                    <Footer/>
+                </section>)
+        }
     }
 }

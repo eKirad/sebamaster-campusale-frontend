@@ -108,14 +108,14 @@ export default function ButtonAppBar() {
                 Signup
           </Button>
           <span>
-          <IconButton 
+          <Button 
             className = { loginButtonHover ? classes.headerButtonHovered : classes.headerButton }
             onMouseOver = { toggleLoginButtonHover }
             onMouseLeave = { toggleLoginButtonHover }
             component={Link} 
             to= {`/login`}>
-              <UserIcon/>
-          </IconButton>
+              Login
+          </Button>
           </span>
           
         </Toolbar>
