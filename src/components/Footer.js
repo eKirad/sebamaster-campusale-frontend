@@ -32,7 +32,7 @@ export default function Footer() {
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
               <div className={classes.grow} >
-                {/* <StyledLink>
+                <StyledLink>
                   About CampuSale
                 </StyledLink>
                 <StyledLink>
@@ -40,7 +40,7 @@ export default function Footer() {
                 </StyledLink>
                 <StyledLink>
                   Sitemap
-                </StyledLink> */}
+                </StyledLink>
               </div>
               <span>
                 Copyright 2019 CampuSale. All rights reserved.

@@ -8,7 +8,7 @@ export default class UserService {
     constructor() { }
 
     static getCurrentUser() {
-        const token = window.localStorage['jtwToken'];
+        const token = window.localStorage['jwtToken'];
         if (!token) {
             return { };
         }
@@ -69,6 +69,10 @@ export default class UserService {
 
     // ?
     static isAutehnticated() {
-        return window.localStorage['jtwToken'] ? true : false;
+        return window.localStorage['jwtToken'] ? true : false;
+    }
+
+    static logout(){
+        window.localStorage.removeItem('jwtToken');
     }
 }

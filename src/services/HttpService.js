@@ -25,12 +25,16 @@ export default class HttpService {
 
     static post(uri, data, onSuccess, onError) {
         const token = window.localStorage['jwtToken'];
+        console.log(`Token inside the HttpsService's psot() method`);
+        
+        console.log(token);
         let header = new Headers();
         if (token) {
             header.append('Authorization', `JWT ${token}`);
         }
 
         header.append('Content-type', 'application/json');
+        console.log(header);
 
         fetch(uri, {
             method: 'POST',
@@ -47,7 +51,6 @@ export default class HttpService {
             }
         })
         .then((res) => {
-            console.log(res)
             if (res.error) {
                 onError(res.error);
             } else {

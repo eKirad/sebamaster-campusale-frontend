@@ -3,6 +3,8 @@ import Page from './Page';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
+import withRouter from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import {ItemList} from './ItemList';
 import {Category} from './Category';

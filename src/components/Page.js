@@ -1,10 +1,12 @@
 // React imports
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import Redirect from 'react-router-dom';
 
 // Component imports
 import Header from './Header';
 import Footer from './Footer';
-import AuthorizedHeader from './AuthorizedHeader';
+import {AuthorizedHeader} from './AuthorizedHeader';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -17,6 +19,8 @@ export default class Page extends React.Component {
             title: ``,
             user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
         }
+
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
@@ -25,19 +29,27 @@ export default class Page extends React.Component {
         });
     }
 
+    logout() {
+        UserService.logout();
+        this.state = {
+            user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
+        }
+
+        // Re-render component after sign-out does not work properly
+        this.props.history.push('/');
+    }
+
     render() {
-        console.log(`Is there any authorized user?`);
-        console.log(`${ UserService.isAutehnticated() }`)
-        console.log(this.state.user)
-        
-        
+
         if (this.state.user) {
             return(
                 <section>
-                    <AuthorizedHeader myUsername = {this.state.user.username}/>
+                    <AuthorizedHeader myUsername = {this.state.user.username}
+                         onLogout = {this.logout}
+                    />
                         {this.props.children}
                     <Footer/>
-            </section>
+                </section>
             )
         } else {
             return(

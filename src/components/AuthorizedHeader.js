@@ -1,5 +1,8 @@
+// React imports
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+// Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,11 +15,12 @@ import FavIcon from '@material-ui/icons/Favorite';
 import SignoutIcon from '@material-ui/icons/ExitToApp';
 import Menu from '@material-ui/core/Menu';
 import MenuList from '@material-ui/core/MenuList'
-
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+// Service imports
+import UserService from '../services/UserService';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,15 +51,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AuthorizedHeader(myUsername) {
-    console.log(`Inside AuthorizedHeader`)
-    console.log(myUsername);
+export const AuthorizedHeader = ({ myUsername, onLogout }) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
 
     const handleShowAccountMenu = (event) => {
-        console.log(`Clicked!`);
-        console.log(event.target)
         setAccountButton(event.target);
     }
     
@@ -68,69 +68,63 @@ export default function AuthorizedHeader(myUsername) {
         alignContent: 'center',
     }
 
+
+    const handleLogout = () => {
+        onLogout();
+    }
+
   return (
     <div className={classes.root} >
-      <AppBar position="static" className = {classes.toolbar}>
-        <Toolbar className = { classes.toolbar }>
-          <IconButton 
-            edge="start" 
-            // className={ menuButtonHover ? classes.menuButtonHovered : classes.menuButton } 
-            color="inherit" 
-            aria-label="Menu"
-            onClick = { handleShowAccountMenu }
-            // onMouseOver = { toggleMenuButtonHover }
-            // onMouseLeave = { toggleMenuButtonHover }
-            >
-           
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            CampuSale
-          </Typography>
-          <span>
-          <IconButton onClick = { handleShowAccountMenu }> 
-            <UserIcon/>
-          </IconButton>
-          <Menu
-                id="simple-menu"
-                anchorEl = {accountButton}
-                keepMounted
-                open = { Boolean(accountButton) }
-                onClose = { handleHideAccountMenu }
-                
-            >
-                <MenuList className = { classes.menuList }>
-                <b>{myUsername.myUsername}</b>
-                </MenuList>
-                <MenuItem >
-                    <ListItemIcon>
-                        <UserIcon></UserIcon>
-                    </ListItemIcon>
-                    <ListItemText>
-                        Profile
-                    </ListItemText>
-                </MenuItem>
-                <MenuItem onClick = {handleHideAccountMenu}>
-                    <ListItemIcon>
-                        <FavIcon></FavIcon>
-                    </ListItemIcon>
-                    <ListItemText>
-                        Wishlist
-                    </ListItemText>
-                </MenuItem>
-                <MenuItem onClick = {handleHideAccountMenu}>
-                    <ListItemIcon>
-                        <SignoutIcon></SignoutIcon>
-                    </ListItemIcon>
-                    <ListItemText>
-                        Sign out
-                    </ListItemText>
-                </MenuItem>
-            </Menu>
-          </span>
-          
-        </Toolbar>
-      </AppBar>
+        <AppBar position="static" className = {classes.toolbar}>
+            <Toolbar className = { classes.toolbar }>
+                <IconButton>
+                    <MenuIcon/>
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                    CampuSale
+                </Typography>
+                <span>
+                    <IconButton onClick = {handleShowAccountMenu}> 
+                        <UserIcon/>
+                    </IconButton>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl = {accountButton}
+                        keepMounted
+                        open = {Boolean(accountButton)}
+                        onClose = {handleHideAccountMenu}
+                    >
+                        <MenuList className = {classes.menuList}>
+                            <b>{myUsername}</b>
+                        </MenuList>
+                        <MenuItem >
+                            <ListItemIcon>
+                                <UserIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Profile
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <ListItemIcon>
+                            <FavIcon/>
+                        </ListItemIcon>
+                        <ListItemText>
+                            Wishlist
+                        </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                            <ListItemIcon>
+                                <SignoutIcon/>
+                            </ListItemIcon>
+                            <ListItemText onClick = {handleLogout}>
+                                Sign out
+                            </ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </span> 
+            </Toolbar>
+        </AppBar>
     </div>
   );
 }
