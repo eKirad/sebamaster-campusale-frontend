@@ -5,10 +5,8 @@ export default class ItemService {
     constructor() { }
 
     static getAllItems() {
-        console.log('called items service')
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/items`, (data) => {
-                console.log('data' + data);
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

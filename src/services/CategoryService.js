@@ -9,7 +9,6 @@ export class CategoryService {
     static getCategories() {
         return new Promise((resolve, reject) => {
             HttpService.get(this.categoriesURI(), (data) => {
-                console.log('From CategoryService' + data)
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

@@ -67,6 +67,8 @@ export class UserSignup extends React.Component {
             password: this.state.password
         }
 
+        console.log(user)
+
         this.props.onSubmit(user);
     }
 

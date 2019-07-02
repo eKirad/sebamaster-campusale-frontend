@@ -1,11 +1,10 @@
 // React imports
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 // Material UI imports
-import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export class UserLogin extends React.Component {
+class UserLogin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,15 +40,14 @@ export class UserLogin extends React.Component {
 
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
 
     handleChangeUsername(event) {
         this.setState({
             username: event.target.value
         })
     }
-
 
     handleChangePassword(event) {
         this.setState({
@@ -74,9 +72,6 @@ export class UserLogin extends React.Component {
     }
 
     render() {
-        console.log(`And the state.username is  = ${this.state.username}`)
-        console.log(`And the state.password is  = ${this.state.password}`)
-        
         return (
             <Page>
             <form className="md-grid" onSubmit = { this.handleSubmit }>
@@ -115,4 +110,6 @@ export class UserLogin extends React.Component {
             </Page>
         )
     }
-}
+};
+
+export default withRouter(UserLogin);

@@ -4,7 +4,6 @@ export default class HttpService {
     static baseURI() { return `http://localhost:3000/api/v1`; };
     
     static get(uri, onSuccess, onError) {
-        console.log('inside')
         // JWT token .. TODO
         // header .. TODO
         fetch(uri, {
@@ -39,7 +38,8 @@ export default class HttpService {
             body: JSON.stringify(data)
         })
         .then((res) => {
-            if (this.checkIfAuthorized(res)) {
+            if (this.checkIfAuthorized(res) === false) {
+                // The user is unauthorized
                 window.location = '/#login';
                 return;
             } else {
@@ -47,13 +47,13 @@ export default class HttpService {
             }
         })
         .then((res) => {
+            console.log(res)
             if (res.error) {
                 onError(res.error);
             } else {
                 if (res.hasOwnProperty('token')) {
-                    window.localStorage['jtwToken'] = res.token();
+                    window.localStorage['jwtToken'] = res.token;
                 }
-
                 onSuccess(res);
             }
         })
@@ -63,6 +63,6 @@ export default class HttpService {
     }
 
     static checkIfAuthorized(res) {
-        return res.status === 401 ? true : false;
+        return res.status === 401 ? false : true;
     }
 }

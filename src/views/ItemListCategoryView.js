@@ -29,7 +29,6 @@ export class ItemListCategoryView extends React.Component {
 
         ItemService.getAllItems()
         .then((items) => {
-            console.log(items)
             this.setState({
                 items: items,
                 loading: false
@@ -39,7 +38,6 @@ export class ItemListCategoryView extends React.Component {
 
         CategoryService.getCategories()
         .then((categories) => {
-            console.log(categories)
             this.setState({
                 categories: categories,
             })
@@ -49,8 +47,6 @@ export class ItemListCategoryView extends React.Component {
 
 
     render() {
-        console.log('here' + this.state.items);
-
         if (this.state.loading) {
             return (<Loading/>);
         } 

@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Component imports
-import  {UserSignup}  from '../components/UserSignup';
+import  { UserSignup }  from '../components/UserSignup';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -14,8 +14,11 @@ export class UserSignupView extends React.Component {
     }
 
     signup(user) {
+        console.log('inside signup')
+        console.log(user);
         UserService.register(user.username, user.password)
             .then((data) => {
+                console.log('data');
                 this.props.history.push('/');
             })
             .catch((e) => {

@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Component imports
-import { UserLogin } from '../components/UserLogin';
+import  UserLogin  from '../components/UserLogin';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -12,10 +12,12 @@ export class UserLoginView extends React.Component {
         super(props);
     }
 
-    login() {
+    login(user) {
         UserService.login(user.username, user.password)
             .then((data) => {
-                console.log(data);
+                console.log(`Data inside the UserLoginView`)
+                // console.log(data);
+                this.props.history.push('/');
             })
     }
 
