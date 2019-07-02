@@ -7,6 +7,8 @@ import { ItemListCategoryView } from './views/ItemListCategoryView';
 import { ItemDetailView } from './views/ItemDetailView';
 import { UserLoginView } from './views/UserLoginView';
 import { UserSignupView } from './views/UserSignupView';
+import { UserProfileView } from './views/UserProfileView';
+
 
 
 export default class App extends React.Component {
@@ -19,6 +21,7 @@ export default class App extends React.Component {
                 { component: ItemDetailView, path: '/item/:id' },
                 { component: UserLoginView, path: '/login' },
                 { component: UserSignupView, path: '/signup' },
+                { component: UserProfileView, path: '/profile/:id' },
                 
             ]
         }

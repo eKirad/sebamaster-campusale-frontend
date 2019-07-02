@@ -67,12 +67,21 @@ export default class UserService {
         });
     }
 
-    // ?
     static isAutehnticated() {
         return window.localStorage['jwtToken'] ? true : false;
     }
 
     static logout(){
         window.localStorage.removeItem('jwtToken');
+    }
+
+    static getProfile(userId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${HttpService.baseURI()}/profile/${userId}`, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
     }
 }

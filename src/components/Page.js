@@ -44,7 +44,7 @@ export default class Page extends React.Component {
         if (this.state.user) {
             return(
                 <section>
-                    <AuthorizedHeader myUsername = {this.state.user.username}
+                    <AuthorizedHeader user = {this.state.user}
                          onLogout = {this.logout}
                     />
                         {this.props.children}

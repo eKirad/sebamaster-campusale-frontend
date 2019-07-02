@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const AuthorizedHeader = ({ myUsername, onLogout }) => {
+export const AuthorizedHeader = ({ user, onLogout }) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
 
@@ -104,9 +104,11 @@ export const AuthorizedHeader = ({ myUsername, onLogout }) => {
                         onClose = {handleHideAccountMenu}
                     >
                         <MenuList className = {classes.menuList}>
-                            <b>{myUsername}</b>
+                            <b>{user.username}</b>
                         </MenuList>
-                        <MenuItem >
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/profile/${user.id}`}>
                             <ListItemIcon>
                                 <UserIcon/>
                             </ListItemIcon>

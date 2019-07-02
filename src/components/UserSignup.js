@@ -113,7 +113,6 @@ export class UserSignup extends React.Component {
                             >
                                 Sign up
                         </Button>
-
                     </CardContent>
                 </Card>
             </form>

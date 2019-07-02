@@ -30,8 +30,12 @@ export class UserSignupView extends React.Component {
     }
 
     render() {
+
         return(
-            <UserSignup onSubmit = { (user) => this.signup(user) }/>
+            <p>Jekooo</p>
         );
+        // return(
+        //     <UserSignup onSubmit = { (user) => this.signup(user) }/>
+        // );
     }
 }
