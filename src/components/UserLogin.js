@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     container: {
       display: 'flex',
       flexWrap: 'wrap',
+      backgroundColor: "#6197FA"
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -28,7 +29,11 @@ const useStyles = makeStyles(theme => ({
     menu: {
       width: 200,
     },
+    cardStyle: {
+        alignContent: 'center'
+    }
   }));
+
 
 class UserLogin extends React.Component {
     constructor(props) {
@@ -73,10 +78,14 @@ class UserLogin extends React.Component {
     }
 
     render() {
+        const cardStyle = {
+            textAlign: 'center'
+        }
+
         return (
-            <Page>
-            <form className="md-grid" onSubmit = { this.handleSubmit }>
-                <Card >
+            <Page >
+            <form  onSubmit = { this.handleSubmit }>
+                <Card style = {cardStyle}>
                     <CardContent>
                         <TextField 
                             label = "Username"
@@ -104,7 +113,6 @@ class UserLogin extends React.Component {
                             >
                                 Login
                         </Button>
-
                     </CardContent>
                 </Card>
             </form>

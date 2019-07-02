@@ -41,9 +41,12 @@ export default function Footer() {
                 <StyledLink>
                   Sitemap
                 </StyledLink>
+                <StyledLink>
+                  Become a partner
+                </StyledLink>
               </div>
               <span>
-                Copyright 2019 CampuSale. All rights reserved.
+                Copyright ©2019 CampuSale. All rights reserved.
               </span>
             </Toolbar>
           </AppBar>

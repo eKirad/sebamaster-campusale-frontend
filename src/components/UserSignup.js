@@ -78,13 +78,14 @@ export class UserSignup extends React.Component {
     }
 
     render() {
-        console.log(`And the state.username is  = ${this.state.username}`)
-        console.log(`And the state.password is  = ${this.state.password}`)
-        
+        const cardStyle = {
+            textAlign: 'center'
+        }
+
         return (
             <Page>
             <form className="md-grid" onSubmit = { this.handleSubmit }>
-                <Card >
+                <Card style = {cardStyle}>
                     <CardContent>
                         <TextField 
                             label = "Username"

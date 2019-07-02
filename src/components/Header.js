@@ -11,6 +11,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+// Component imports
+import {StyledLink} from './StyledLink';
+
 // Service imports
 import UserService from '../services/UserService';
 
@@ -36,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
     toolbar: {
         // backgroundColor: "#636468"
+        // backgroundColor: "#7288FF"
         backgroundColor: "#5308D6"
     }
   }));
@@ -75,7 +79,11 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className = {classes.title}>
-            CampuSale
+            <StyledLink
+              to = {'/'}
+            >
+              CampuSale
+            </StyledLink>
           </Typography>
           <Button 
             className = {signupButtonHover ? classes.headerButtonHovered : classes.headerButton}

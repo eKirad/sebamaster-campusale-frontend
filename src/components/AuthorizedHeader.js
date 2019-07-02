@@ -19,6 +19,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+// Component imports
+import {StyledLink} from './StyledLink';
+
 // Service imports
 import UserService from '../services/UserService';
 
@@ -76,15 +79,21 @@ export const AuthorizedHeader = ({ myUsername, onLogout }) => {
   return (
     <div className={classes.root} >
         <AppBar position="static" className = {classes.toolbar}>
-            <Toolbar className = { classes.toolbar }>
-                <IconButton>
+            <Toolbar className = {classes.toolbar}>
+                <IconButton color="inherit" >
                     <MenuIcon/>
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
+                <StyledLink
+                    to = {'/'}
+                >
                     CampuSale
+                </StyledLink>
                 </Typography>
                 <span>
-                    <IconButton onClick = {handleShowAccountMenu}> 
+                    <IconButton 
+                        color = "inherit"
+                        onClick = {handleShowAccountMenu}> 
                         <UserIcon/>
                     </IconButton>
                     <Menu
