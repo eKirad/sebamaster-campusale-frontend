@@ -30,7 +30,6 @@ export default class App extends React.Component {
 
     componentDidMount(){
         document.title = this.state.title;
-
     }
 
 

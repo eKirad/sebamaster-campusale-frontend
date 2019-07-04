@@ -20,7 +20,27 @@ const classes = makeStyles(theme => ({
     },
   }));
 
-export const ItemListCategory = ({items, categories}) => {
+export const ItemListCategory = ({items, categories, props, onSelectCategory}) => {
+
+    console.log(`These are the items inside ItemListCategory`)
+    console.log(items);
+
+    console.log(`These are the props inherited from ItemListCategoryView`)
+    console.log(props);
+
+    // const filterItemsByCategory = (id) => {
+    //     items = items
+    //         .filter(item => item.categoryId === id);
+    //     console.log(items);
+    // }
+    
+    const onSelectedCategory = (selectedCategory) => {
+        console.log(`Inside the onSelectedCategory() of ItemListCategory`)
+        console.log(selectedCategory);
+        onSelectCategory(selectedCategory);
+        // filterItemsByCategory(selectedCategory.value);
+        // props.history.push('/');
+    }
 
     return(
         <Page>
@@ -28,7 +48,10 @@ export const ItemListCategory = ({items, categories}) => {
             <Grid container spacing={3}>
                 <Grid item xs={2}>
                     <Paper className={classes.paper}>
-                        <Category categories = {categories}/>
+                        <Category 
+                            categories = {categories}
+                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
+                        />
                     </Paper>
                 </Grid>
                 <Grid item xs={10}>

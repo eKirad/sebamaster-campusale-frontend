@@ -16,8 +16,12 @@ export class ItemListCategoryView extends React.Component {
         this.state = {
             loading: false,
             items: [ ],
+            initialItems: [ ],
             categories: [ ]
         }
+
+        console.log(`The props inherited by App`)
+        console.log(this.props.history)
     };
 
 
@@ -30,6 +34,7 @@ export class ItemListCategoryView extends React.Component {
         .then((items) => {
             this.setState({
                 items: items,
+                initialItems: items,
                 loading: false
             })
         })
@@ -45,11 +50,30 @@ export class ItemListCategoryView extends React.Component {
     }
 
 
+    filterItemsByCategory(id, initialItems) {
+        console.log(id);
+        this.state.items = this.state.initialItems
+            .filter(item => item.categoryId === id);
+    }
+
+    onSelectCategory(selectedCategory) {
+        console.log(`Inside onSelectCategory() in the ItemListCategoryView`)
+        console.log(selectedCategory);
+        this.filterItemsByCategory(selectedCategory.value, this.state.initialItems);
+        this.props.history.push('/');
+    }
+
+
     render() {
         if (this.state.loading) {
             return (<Loading/>);
         } 
 
-        return <ItemListCategory items = {this.state.items} categories = {this.state.categories}/>;
+        return <ItemListCategory 
+            items = {this.state.items} 
+            categories = {this.state.categories}
+            props = {this.props}
+            onSelectCategory = {(selectedCategory) => this.onSelectCategory(selectedCategory)}
+        />;
     }
 }

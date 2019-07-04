@@ -22,10 +22,10 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const SimpleSelect = ({ data }) => {
+export const SimpleSelect = ({data, onSelect}) => {
     const classes = useStyles();
     const [ values, setValues ] = useState({
-        value: ``
+        name: ``
     })
 
     const handleChange = (event) => {
@@ -33,6 +33,9 @@ export const SimpleSelect = ({ data }) => {
             ...oldValues,
             [event.target.name]: event.target.value,
           }));
+
+          console.log(event.target);
+          onSelect(event.target);
     }
     
     return(
@@ -42,16 +45,16 @@ export const SimpleSelect = ({ data }) => {
                     {data.label}
                 </InputLabel>
                 <Select
-                    value = {values.value}
+                    value = {values.name}
                     onChange = {handleChange}
                     disabled = {data.isDisabled}
                     inputProps = {{
-                        name: `value`,
+                        name: `name`,
                         id: `simple-select`
                     }}
                 >
                     {data.data.map(selectOption => (
-                        <MenuItem key={selectOption._id} value={selectOption.name}>
+                        <MenuItem key={selectOption._id} value={selectOption._id}>
                             {selectOption.name}
                         </MenuItem>
                     ))}

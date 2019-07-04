@@ -49,7 +49,7 @@ export const ItemList = ({items}) => {
 							<Link
 								style = {linkStyle} 
 								to = {`/item/${item._id}`}>
-									"Img comes here"
+									Img comes here
 							</Link>
 						</TableCell>
 						<TableCell component="th" scope="row"  align="center">
