@@ -8,7 +8,7 @@ import { ItemDetailView } from './views/ItemDetailView';
 import { UserLoginView } from './views/UserLoginView';
 import { UserSignupView } from './views/UserSignupView';
 import { UserProfileView } from './views/UserProfileView';
-
+import { WishlistView } from './views/WishlistView';
 
 
 export default class App extends React.Component {
@@ -22,7 +22,7 @@ export default class App extends React.Component {
                 { component: UserLoginView, path: '/login' },
                 { component: UserSignupView, path: '/signup' },
                 { component: UserProfileView, path: '/profile/:id' },
-                
+                { component: WishlistView, path: '/wishlist/:id' },
             ]
         }
     }

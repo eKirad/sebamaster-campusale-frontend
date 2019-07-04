@@ -84,9 +84,7 @@ export const ItemList = ({items}) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					<Grid item xs={10}>
 						<h1>There are no discounts that match the search criteria.</h1>
-					</Grid>
 				</TableBody>
 			</Table>
 		);
