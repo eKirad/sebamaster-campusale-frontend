@@ -1,11 +1,14 @@
+// React imports
 import React from 'react';
-import Page from './Page';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-
 import withRouter from 'react-router-dom';
 
+// Material UI imports
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+
+// Component imports
+import Page from './Page';
 import {ItemList} from './ItemList';
 import {Category} from './Category';
 
@@ -21,25 +24,10 @@ const classes = makeStyles(theme => ({
   }));
 
 export const ItemListCategory = ({items, categories, props, onSelectCategory}) => {
-
-    console.log(`These are the items inside ItemListCategory`)
-    console.log(items);
-
-    console.log(`These are the props inherited from ItemListCategoryView`)
-    console.log(props);
-
-    // const filterItemsByCategory = (id) => {
-    //     items = items
-    //         .filter(item => item.categoryId === id);
-    //     console.log(items);
-    // }
-    
     const onSelectedCategory = (selectedCategory) => {
         console.log(`Inside the onSelectedCategory() of ItemListCategory`)
         console.log(selectedCategory);
         onSelectCategory(selectedCategory);
-        // filterItemsByCategory(selectedCategory.value);
-        // props.history.push('/');
     }
 
     return(

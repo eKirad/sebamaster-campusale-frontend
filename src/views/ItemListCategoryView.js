@@ -50,16 +50,26 @@ export class ItemListCategoryView extends React.Component {
     }
 
 
-    filterItemsByCategory(id, initialItems) {
+    filterItemsByCategory(id) {
         console.log(id);
-        this.state.items = this.state.initialItems
-            .filter(item => item.categoryId === id);
+        if (id === `allCategories`) {
+            console.log(`yes`)
+            this.state.items = [ ];
+            this.state.initialItems
+                .forEach(item => {
+                    this.state.items.push(item);
+                });
+        } else {
+            this.state.items = this.state.initialItems
+                .filter(item => item.categoryId === id);
+        }
+
     }
 
     onSelectCategory(selectedCategory) {
         console.log(`Inside onSelectCategory() in the ItemListCategoryView`)
         console.log(selectedCategory);
-        this.filterItemsByCategory(selectedCategory.value, this.state.initialItems);
+        this.filterItemsByCategory(selectedCategory.value);
         this.props.history.push('/');
     }
 

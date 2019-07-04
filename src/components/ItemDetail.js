@@ -1,4 +1,4 @@
-// Default imports
+// React imports
 import React from 'react';
 
 // Material UI imports
@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 
 // Component imports
 import Page from './Page';
-
 
 const classes = makeStyles(theme => ({
     root: {

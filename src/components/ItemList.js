@@ -9,6 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
 
 // Component imports
 import Page from './Page';
@@ -32,42 +33,62 @@ export const ItemList = ({items}) => {
 		textDecoration: 'none'
 	}	
 	
-	return (
-		<Table>
-			<TableHead>
-				<TableRow>
-					<TableCell align="center">Img</TableCell>
-					<TableCell align="center">Item</TableCell>
-					<TableCell align="center">New price</TableCell>
-					<TableCell align="center">Old price</TableCell>
-				</TableRow>
-			</TableHead>
-			<TableBody>
-				{items.map(item => (
-					<TableRow key={item._id}>
-						<TableCell align="center">
-							<Link
-								style = {linkStyle} 
-								to = {`/item/${item._id}`}>
-									Img comes here
-							</Link>
-						</TableCell>
-						<TableCell component="th" scope="row"  align="center">
-							<Link 
-								style = {linkStyle}
-								to = {`/item/${item._id}`}>
-								{item.name} - {item.description}
-							</Link>
-						</TableCell>
-						<TableCell align="center">EUR {item.newPrice}</TableCell>
-						<TableCell align="center">
-							<strike>
-								EUR {item.oldPrice}
-							</strike>
-						</TableCell>
+	if (items.length !== 0) {
+		return (
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableCell align="center">Img</TableCell>
+						<TableCell align="center">Item</TableCell>
+						<TableCell align="center">New price</TableCell>
+						<TableCell align="center">Old price</TableCell>
 					</TableRow>
-				))}
-			</TableBody>
-		</Table>
-);
+				</TableHead>
+				<TableBody>
+					{items.map(item => (
+						<TableRow key={item._id}>
+							<TableCell align="center">
+								<Link
+									style = {linkStyle} 
+									to = {`/item/${item._id}`}>
+										Img comes here
+								</Link>
+							</TableCell>
+							<TableCell component="th" scope="row"  align="center">
+								<Link 
+									style = {linkStyle}
+									to = {`/item/${item._id}`}>
+									{item.name} - {item.description}
+								</Link>
+							</TableCell>
+							<TableCell align="center">EUR {item.newPrice}</TableCell>
+							<TableCell align="center">
+								<strike>
+									EUR {item.oldPrice}
+								</strike>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		);
+	} else {
+		return (
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableCell align="center">Img</TableCell>
+						<TableCell align="center">Item</TableCell>
+						<TableCell align="center">New price</TableCell>
+						<TableCell align="center">Old price</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					<Grid item xs={10}>
+						<h1>There are no discounts that match the search criteria.</h1>
+					</Grid>
+				</TableBody>
+			</Table>
+		);
+	}
 }

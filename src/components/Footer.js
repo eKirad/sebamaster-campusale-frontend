@@ -12,7 +12,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 // Component imports
 import {StyledLink} from './StyledLink';
 
-
 const useStyles = makeStyles(theme => ({
     appBar: {
       top: 'auto',
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer() {
     const classes = useStyles();
-    return (
+    return(
         <React.Fragment>
           <CssBaseline />
           <AppBar position="fixed" color="primary" className={classes.appBar}>

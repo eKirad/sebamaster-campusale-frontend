@@ -49,22 +49,17 @@ export default function ButtonAppBar() {
   const [ menuButtonHover, setMenuButtonHover ] = useState(false);
   const [ loginButtonHover, setLoginButtonHover ] = useState(false);
   const [ signupButtonHover, setSignupButtonHover ] = useState(false);
-  
   const authenticatedUser = () => UserService.isAutehnticated() ? 
     UserService.getCurrentUser() : undefined;
-  
-  const [ user, setUser ] = useState(authenticatedUser())
-
   const toggleMenuButtonHover = () => setMenuButtonHover(!menuButtonHover);
   const toggleLoginButtonHover = () => setLoginButtonHover(!loginButtonHover);
   const toggleSignupButtonHover = () => setSignupButtonHover(!signupButtonHover);
-
 
   const handleMouseOver = () => {
     console.log('hover')
   }
 
-  return (
+  return(
     <div className={classes.root} >
       <AppBar position="static" className = {classes.toolbar}>
         <Toolbar className = {classes.toolbar}>

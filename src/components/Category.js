@@ -5,6 +5,14 @@ import React from 'react';
 import { SimpleSelect } from './SimpleSelect';
 
 export const Category = ({categories, onSelectedCategory}) => {
+    // Set the AllCategories option to be markable
+    categories
+        .forEach(category => {
+            if (category.name === `All categories` && category.description === `All`) {
+                category._id = `allCategories`;
+            }
+        });
+    
     const data = {
         isEnabled: true,
         label: `Categories`,
@@ -12,8 +20,6 @@ export const Category = ({categories, onSelectedCategory}) => {
     }
 
     const onSelect = (selectedOption) => {
-        console.log(`Inside onSelect() in Category`)
-        console.log(selectedOption);
         onSelectedCategory(selectedOption);
     }
 

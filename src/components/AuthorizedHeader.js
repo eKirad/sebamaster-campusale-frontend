@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -67,12 +68,6 @@ export const AuthorizedHeader = ({ user, onLogout }) => {
         setAccountButton(null);
     }
     
-    const menuListStyle = {
-        align: 'center',
-        alignContent: 'center',
-    }
-
-
     const handleLogout = () => {
         // onLogout();
         UserService.logout();
