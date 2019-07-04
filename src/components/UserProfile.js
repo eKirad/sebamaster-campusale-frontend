@@ -21,16 +21,16 @@ const simpleSelectStyle = {
 
 
 export const UserProfile = ({user}) => {
-    console.log(user)
-    const [ disabled, setDisabled ] = useState(true);
-    const [ usernameTextFieldData, setUsernameTextFieldData ] = useState({
-        name: user.username,
-        isDisabled: true
-    });
     const [ emailTextFieldData, setEmailTextFieldData ] = useState({
         name: user.email,
         isDisabled: true
     });
+
+    const [ passwordTextFieldData, setPasswordTextFieldData ] = useState({
+        name: user.password,
+        isDisabled: true
+    });
+
     const [ selectGenderData, setSelectGenderData ] = useState({
         isDisabled: true,
         label: `Gender`,
@@ -40,6 +40,12 @@ export const UserProfile = ({user}) => {
             { _id: 3, name: `unknown` },
         ]
     });
+    
+    const [ birthDateTextFieldData, setBirthdateTextFieldData ] = useState({
+        name: user.birthdate,
+        isDisabled: true
+    });
+
     const [ selectLocationData, setSelectLocationData ] = useState({
         isDisabled: true,
         label: `Location`,
@@ -50,12 +56,19 @@ export const UserProfile = ({user}) => {
         ]
     });
 
-    const handleCLick = () => {
-        setDisabled(false);
-        console.log(`After change = ${name}`)
-    }
-
     const handleEditProfile = () => {
+        setEmailTextFieldData({...emailTextFieldData,
+            isDisabled: false
+        });
+
+        setPasswordTextFieldData({...passwordTextFieldData,
+            isDisabled: false
+        });
+
+        setBirthdateTextFieldData({...birthDateTextFieldData,
+            isDisabled: false
+        });
+
         setSelectGenderData({...selectGenderData,
             isDisabled: false
         });
@@ -64,13 +77,10 @@ export const UserProfile = ({user}) => {
             isDisabled: false
         });
 
-        setUsernameTextFieldData({...usernameTextFieldData,
-            isDisabled: false
-        });
-
         setEmailTextFieldData({...emailTextFieldData,
             isDisabled: false
         });
+
     }
 
     return(
@@ -81,8 +91,8 @@ export const UserProfile = ({user}) => {
                         label = "Username"
                         id = "usernameField"
                         type = "text"
-                        value = {usernameTextFieldData.name}
-                        disabled = {usernameTextFieldData.isDisabled}
+                        value = {user.username}
+                        disabled = {true}
                         // onChange = { this.handleChangeUsername }
                         // error = "Username is a required field"
                         /> <br/>
@@ -100,11 +110,20 @@ export const UserProfile = ({user}) => {
                         id = "passwordField"
                         type = "password"
                         required = {true}
-                        value = {user.password}
-                        disabled = {true}
+                        value = {passwordTextFieldData.name}
+                        disabled = {passwordTextFieldData.isDisabled}
                         // onChange = { this.handleChangePassword }
                         // error = "Password is a required field"
-                        /> <br/> 
+                    /> <br/> 
+                    <TextField 
+                        label = "Birthdate"
+                        id = "birthdateField"
+                        type = "date"
+                        value = {user.password}
+                        disabled = {birthDateTextFieldData.isDisabled}
+                        // onChange = { this.handleChangePassword }
+                        // error = "Password is a required field"
+                    /> <br/> 
                     <SimpleSelect 
                         style = {simpleSelectStyle}
                         data = {selectGenderData}
@@ -115,9 +134,9 @@ export const UserProfile = ({user}) => {
                         data = {selectLocationData}
                         disabled = {selectLocationData.isDisabled}
                     />
-                    <IconButton onClick = {handleEditProfile}>
-                        <EditIcon/>
-                    </IconButton>
+                    <Button onClick = {handleEditProfile}>
+                        Edit profile
+                    </Button>
                     <Button>
                         Save
                     </Button>

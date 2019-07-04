@@ -3,7 +3,7 @@ import React from 'react';
 
 // Component imports
 import { UserProfile } from '../components/UserProfile';
-
+import { Loading } from '../components/Loading';
 
 // Service imports
 import UserService from '../services/UserService'
@@ -12,7 +12,9 @@ export  class UserProfileView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
+            // user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
+            user: undefined,
+            loading: true
         }
     }
 
@@ -22,7 +24,8 @@ export  class UserProfileView extends React.Component {
             .getCurrentUser2()
             .then((user) => {
                 this.setState({
-                    user: user
+                    user: user,
+                    loading: false
                 })
             })
             .catch(e => { console.error(e); })
@@ -35,8 +38,11 @@ export  class UserProfileView extends React.Component {
     }
 
     render() {
-        console.log(`Inside the state of the USerProfileView`)
-        console.log(this.state.user.username)
+
+        if (this.state.loading) {
+            return (<Loading/>);
+        }
+        
         return(
             <UserProfile user = {this.state.user}/>
         );
