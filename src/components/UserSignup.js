@@ -37,10 +37,12 @@ export class UserSignup extends React.Component {
         super(props);
         this.state = {
             username: ``,
-            password: ``
+            password: ``,
+            email: ``
         }
 
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -49,6 +51,14 @@ export class UserSignup extends React.Component {
     handleChangeUsername(event) {
         this.setState({
             username: event.target.value
+        });
+
+        console.log(this.state.username)
+    }
+
+    handleChangeEmail(event) {
+        this.setState({
+            email: event.target.value
         })
     }
 
@@ -64,7 +74,8 @@ export class UserSignup extends React.Component {
         console.log(`The username is = ${this.state.username}`);
         const user = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            email: this.state.email
         }
 
         console.log(user)
@@ -84,32 +95,41 @@ export class UserSignup extends React.Component {
 
         return (
             <Page>
-            <form className="md-grid" onSubmit = { this.handleSubmit }>
+            <form className="md-grid" onSubmit = {this.handleSubmit}>
                 <Card style = {cardStyle}>
                     <CardContent>
                         <TextField 
                             label = "Username"
                             id = "usernameField"
-                            required = { true }
+                            required = {true}
                             type = "text"
-                            value = { this.state.username }
-                            onChange = { this.handleChangeUsername }
+                            value = {this.state.username}
+                            onChange = {this.handleChangeUsername}
                             // error = "Username is a required field"
-                            /> <br/>
+                        /> <br/>
+                        <TextField 
+                            label = "Email"
+                            id = "emailField"
+                            required = {true}
+                            type = "text"
+                            value = {this.state.email}
+                            onChange = {this.handleChangeEmail}
+                            // error = "Username is a required field"
+                        /> <br/>
                         <TextField 
                             label = "Password"
                             id = "passwordField"
                             type = "password"
-                            required = { true }
-                            value = { this.state.password }
-                            onChange = { this.handleChangePassword }
+                            required = {true}
+                            value = {this.state.password}
+                            onChange = {this.handleChangePassword}
                             // error = "Password is a required field"
                             /> <br/> <br/>
                         <Button 
                             variant="contained"
                             id = "submitBtn"
                             type = "submit"
-                            disabled = { this.validateTextFields() }
+                            disabled = {this.validateTextFields()}
                             >
                                 Sign up
                         </Button>

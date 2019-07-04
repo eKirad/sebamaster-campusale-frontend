@@ -1,5 +1,5 @@
 // Default imports
-import React from 'react';
+import React, { useState } from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,40 +22,41 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const SimpleSelect = ({ categories }) => {
-
+export const SimpleSelect = ({ data }) => {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        category: ''
-      });
+    const [ values, setValues ] = useState({
+        value: ``
+    })
 
-      const handleChange = (event) => {
-        console.log(event.target);
+    const handleChange = (event) => {
         setValues(oldValues => ({
             ...oldValues,
             [event.target.name]: event.target.value,
           }));
     }
-
-    return (
-        <form className={classes.root} autoComplete="off">
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="category-simple">Category</InputLabel>
+    
+    return(
+        <form>
+            <FormControl className = {classes.formControl}>
+                <InputLabel htmlFor = "select-simple">
+                    {data.label}
+                </InputLabel>
                 <Select
-                    value={values.category}
-                    onChange={handleChange}
-                    inputProps={{
-                        name: 'category',
-                        id: 'category-simple',
-                      }}
+                    value = {values.value}
+                    onChange = {handleChange}
+                    disabled = {data.isDisabled}
+                    inputProps = {{
+                        name: `value`,
+                        id: `simple-select`
+                    }}
                 >
-                    {categories.map(category => (
-                        <MenuItem key={category._id} value={category._id}>
-                            {category.name}
+                    {data.data.map(selectOption => (
+                        <MenuItem key={selectOption._id} value={selectOption.name}>
+                            {selectOption.name}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
         </form>
-    );  
+    );
 }

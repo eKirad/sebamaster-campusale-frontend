@@ -1,7 +1,7 @@
 // React imports
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// make this class and check
 export const AuthorizedHeader = ({ user, onLogout }) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
@@ -73,7 +74,15 @@ export const AuthorizedHeader = ({ user, onLogout }) => {
 
 
     const handleLogout = () => {
-        onLogout();
+        // onLogout();
+        UserService.logout();
+        if(this.props.location.pathname != '/') {
+            this.props.history.push('/');
+        }
+        else {
+            console.log('yes')
+            window.location.reload();
+        }
     }
 
   return (
@@ -139,3 +148,5 @@ export const AuthorizedHeader = ({ user, onLogout }) => {
     </div>
   );
 }
+
+// default withRouter(AuthorizedHeader);

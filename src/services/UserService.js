@@ -21,12 +21,41 @@ export default class UserService {
         
         const returnObj = {
             id : JSON.parse(window.atob(base64)).id,
-            username: JSON.parse(window.atob(base64)).username
+            username: JSON.parse(window.atob(base64)).username,
         }
+
+        console.log(JSON.parse(window.atob(base64)))
 
         // console.log(`the return obj is`);
         // console.log(returnObj);
         return returnObj;
+    }
+
+    // Used in the ProfileView to display further user data, such as email. Maybe the getCurrentUser(())
+    // is no longer needed, need to check
+    static getCurrentUser2() {
+        const token = window.localStorage['jwtToken'];
+        if (!token) {
+            return { };
+        }
+
+        const base64Url = token
+            .split('.')[1];
+        const base64 = base64Url
+            .replace('-', '+')
+            .replace('_', '/');
+        
+        const id = JSON.parse(window.atob(base64)).id;
+        
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${HttpService.baseURI()}/user/${id}`, (data) => {
+                console.log(`the use inside the UserService`)
+                console.log(data)
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
     }
 
     static login(username, password) {
@@ -43,13 +72,14 @@ export default class UserService {
         });
     }
 
-    static register(username, password) {
+    static register(username, password, email) {
         console.log('inside UserService register')
         console.log(username);
         console.log(password);
         const myObj = {
             username: username,
-            password: password
+            password: password,
+            email: email
         }
         
         console.log('inside UserService.register()')
@@ -58,7 +88,8 @@ export default class UserService {
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/signup`, {
                 username,
-                password
+                password,
+                email
             }, (data) => {
                 resolve(data);
             }, (textStatus) => {

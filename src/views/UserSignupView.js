@@ -16,7 +16,7 @@ export class UserSignupView extends React.Component {
     signup(user) {
         console.log('inside signup')
         console.log(user);
-        UserService.register(user.username, user.password)
+        UserService.register(user.username, user.password, user.email)
             .then((data) => {
                 console.log('data');
                 this.props.history.push('/');
@@ -32,10 +32,7 @@ export class UserSignupView extends React.Component {
     render() {
 
         return(
-            <p>Jekooo</p>
+            <UserSignup onSubmit = { (user) => this.signup(user) }/>
         );
-        // return(
-        //     <UserSignup onSubmit = { (user) => this.signup(user) }/>
-        // );
     }
 }

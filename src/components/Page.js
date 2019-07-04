@@ -36,7 +36,12 @@ export default class Page extends React.Component {
         }
 
         // Re-render component after sign-out does not work properly
-        this.props.history.push('/');
+        // if(this.props.location.pathname != '/') {
+        //     this.props.history.push('/');
+        // }
+        // else {
+        //     window.location.reload();
+        // }
     }
 
     render() {

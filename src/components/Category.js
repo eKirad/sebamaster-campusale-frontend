@@ -2,10 +2,16 @@
 import React from 'react';
 
 // Component imports
-import { SimpleSelect } from './Select';
+import { SimpleSelect } from './SimpleSelect';
 
 export const Category = ({ categories }) => {
+    const data = {
+        isEnabled: true,
+        label: `Categories`,
+        data: categories
+    }
+
     return (
-        <SimpleSelect categories = {categories}/>
+        <SimpleSelect data = {data}/>
     );
 };
