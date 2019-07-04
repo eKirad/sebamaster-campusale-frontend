@@ -13,7 +13,6 @@ import { CategoryService } from '../services/CategoryService';
 export class ItemListCategoryView extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             loading: false,
             items: [ ],

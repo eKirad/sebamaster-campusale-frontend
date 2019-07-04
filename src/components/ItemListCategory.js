@@ -20,7 +20,7 @@ const classes = makeStyles(theme => ({
     },
   }));
 
-export const ItemListCategory = ({ items, categories }) => {
+export const ItemListCategory = ({items, categories}) => {
 
     return(
         <Page>

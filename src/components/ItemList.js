@@ -1,14 +1,18 @@
+// React imports
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-
+// Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
+// Component imports
 import Page from './Page';
-import { Link } from 'react-router-dom';
+import {StyledLink} from './StyledLink';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -21,27 +25,46 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export const ItemList = ({ items }) => {
+export const ItemList = ({items}) => {
+	const linkStyle = {
+		color: 'black',
+		margin: '10px',
+		textDecoration: 'none'
+	}	
+	
 	return (
-
-		<Table >
+		<Table>
 			<TableHead>
 				<TableRow>
-					<TableCell>Item type</TableCell>
-					<TableCell align="right">Item name</TableCell>
-					<TableCell align="right">Description</TableCell>
-					<TableCell align="right">Price</TableCell>
+					<TableCell align="center">Img</TableCell>
+					<TableCell align="center">Item</TableCell>
+					<TableCell align="center">New price</TableCell>
+					<TableCell align="center">Old price</TableCell>
 				</TableRow>
 			</TableHead>
 			<TableBody>
 				{items.map(item => (
-					<TableRow key={item.itemName}>
-						<TableCell component="th" scope="row" >
-							<Link to={`/item/${item._id}`}>{item.itemName}</Link>
+					<TableRow key={item._id}>
+						<TableCell align="center">
+							<Link
+								style = {linkStyle} 
+								to = {`/item/${item._id}`}>
+									"Img comes here"
+							</Link>
 						</TableCell>
-						<TableCell align="right">{item.description}</TableCell>
-						<TableCell align="right">{item.price}</TableCell>
-						<TableCell align="right">{item.companyId}</TableCell>
+						<TableCell component="th" scope="row"  align="center">
+							<Link 
+								style = {linkStyle}
+								to = {`/item/${item._id}`}>
+								{item.name} - {item.description}
+							</Link>
+						</TableCell>
+						<TableCell align="center">EUR {item.newPrice}</TableCell>
+						<TableCell align="center">
+							<strike>
+								EUR {item.oldPrice}
+							</strike>
+						</TableCell>
 					</TableRow>
 				))}
 			</TableBody>
