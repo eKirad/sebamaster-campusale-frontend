@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Component imports
-import { ItemListCategory } from '../components/ItemListCategory';
+import { ItemListFilter } from '../components/ItemListFilter';
 import { Loading } from '../components/Loading';
 
 // Service imports
@@ -10,7 +10,7 @@ import ItemService from '../services/ItemService';
 import { CategoryService } from '../services/CategoryService';
 
 
-export class ItemListCategoryView extends React.Component {
+export class ItemListFilterView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,7 +67,7 @@ export class ItemListCategoryView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        console.log(`Inside the filterItemsBySearchKeyword method inside the ItemListCategory`);
+        console.log(`Inside the filterItemsBySearchKeyword method inside the ItemListFilter`);
         console.log(`this is the keyword = ${keyword}`);
         this.state.items = this.state.items
             .filter(item => item.name.toLowerCase().includes(keyword));
@@ -76,14 +76,14 @@ export class ItemListCategoryView extends React.Component {
     }
 
     onSelectCategory(selectedCategory) {
-        console.log(`Inside onSelectCategory() in the ItemListCategoryView`)
+        console.log(`Inside onSelectCategory() in the ItemListFilterView`)
         console.log(selectedCategory);
         this.filterItemsByCategory(selectedCategory.value);
         this.props.history.push('/');
     }
 
     onFilter(filterCriteria) {
-        console.log(`Inside the ItemListCategory view to check the filter criteria`);
+        console.log(`Inside the ItemListFilter view to check the filter criteria`);
         console.log(`The filter criteria is = ${filterCriteria}`);
         this.filterItemsBySearchKeyword(filterCriteria);
     }
@@ -94,7 +94,7 @@ export class ItemListCategoryView extends React.Component {
             return (<Loading/>);
         } 
 
-        return <ItemListCategory 
+        return <ItemListFilter 
             items = {this.state.items} 
             categories = {this.state.categories}
             props = {this.props}

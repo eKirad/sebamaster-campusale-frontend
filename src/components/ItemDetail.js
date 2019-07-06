@@ -28,9 +28,14 @@ export class ItemDetail extends React.Component {
         super(params);
     }
 
+    
+    onFiltered(filterCriteria) {
+        this.props.onFilter(filterCriteria);
+    }
+
     render() {
         return(
-            <Page>
+            <Page onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}>
             <div className={classes.root}>
                 <Grid container spacing={10}>
                     <Grid item xs={2}>

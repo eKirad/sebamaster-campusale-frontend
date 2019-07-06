@@ -3,7 +3,7 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 // View imports
-import { ItemListCategoryView } from './views/ItemListCategoryView';
+import { ItemListFilterView } from './views/ItemListFilterView';
 import { ItemDetailView } from './views/ItemDetailView';
 import { UserLoginView } from './views/UserLoginView';
 import { UserSignupView } from './views/UserSignupView';
@@ -17,7 +17,7 @@ export default class App extends React.Component {
         this.state = {
             title: 'CampuSale',
             routes: [
-                { component: ItemListCategoryView, path: '/', exact: true },
+                { component: ItemListFilterView, path: '/', exact: true },
                 { component: ItemDetailView, path: '/item/:id' },
                 { component: UserLoginView, path: '/login' },
                 { component: UserSignupView, path: '/signup' },

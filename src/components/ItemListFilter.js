@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Page from './Page';
 import {ItemList} from './ItemList';
 import {Category} from './Category';
+import {Filter} from './Filter';
 
 const classes = makeStyles(theme => ({
     root: {
@@ -23,9 +24,9 @@ const classes = makeStyles(theme => ({
     },
   }));
 
-export const ItemListCategory = ({items, categories, props, onSelectCategory, onFilter}) => {
+export const ItemListFilter = ({items, categories, props, onSelectCategory, onFilter}) => {
     const onSelectedCategory = (selectedCategory) => {
-        console.log(`Inside the onSelectedCategory() of ItemListCategory`)
+        console.log(`Inside the onSelectedCategory() of ItemListFilter`)
         console.log(selectedCategory);
         onSelectCategory(selectedCategory);
     }
@@ -40,10 +41,13 @@ export const ItemListCategory = ({items, categories, props, onSelectCategory, on
             <Grid container spacing={3}>
                 <Grid item xs={2}>
                     <Paper className={classes.paper}>
-                        <Category 
+                        <Filter
+                            categories = {categories}
+                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}/>
+                        {/* <Category 
                             categories = {categories}
                             onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
-                        />
+                        /> */}
                     </Paper>
                 </Grid>
                 <Grid item xs={10}>
