@@ -44,6 +44,10 @@ export default class Page extends React.Component {
         // }
     }
 
+    onFiltered(filterCriteria) {
+        this.props.onFiltered(filterCriteria);
+    }
+
     render() {
 
         if (this.state.user) {
@@ -51,6 +55,7 @@ export default class Page extends React.Component {
                 <section>
                     <AuthorizedHeader user = {this.state.user}
                          onLogout = {this.logout}
+                         onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
                     />
                         {this.props.children}
                     <Footer/>

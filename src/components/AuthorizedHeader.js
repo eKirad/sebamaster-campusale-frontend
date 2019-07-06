@@ -19,9 +19,14 @@ import MenuList from '@material-ui/core/MenuList'
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import Grid from '@material-ui/core/Grid';
+
 
 // Component imports
-import {StyledLink} from './StyledLink';
+import { StyledLink } from './StyledLink';
+import { Search } from './Search';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -45,6 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
+    verticalAlign: 'center',
   },
   toolbar: {
       // backgroundColor: "#636468"
@@ -52,11 +58,18 @@ const useStyles = makeStyles(theme => ({
   },
   menuList: {
       textAlign: 'center'
-  }
+  },  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  iconButton: {
+    padding: 10,
+  },
 }));
 
 // make this class and check
-export const AuthorizedHeader = ({ user, onLogout }) => {
+export const AuthorizedHeader = ({ user, onLogout, onFiltered}) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
 
@@ -66,6 +79,10 @@ export const AuthorizedHeader = ({ user, onLogout }) => {
     
     const handleHideAccountMenu = () => {
         setAccountButton(null);
+    }
+
+    const onFilter = (filterCriteria) => {
+        onFiltered(filterCriteria);
     }
     
     const handleLogout = () => {
@@ -84,16 +101,22 @@ export const AuthorizedHeader = ({ user, onLogout }) => {
     <div className={classes.root} >
         <AppBar position="static" className = {classes.toolbar}>
             <Toolbar className = {classes.toolbar}>
-                <IconButton color="inherit" >
-                    <MenuIcon/>
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                <StyledLink
-                    to = {'/'}
-                >
-                    CampuSale
-                </StyledLink>
-                </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={3}>
+                        <Typography variant="h6" className={classes.title}>
+                            <StyledLink
+                                to = {'/'}
+                            >
+                                CampuSale
+                            </StyledLink>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Search
+                                onFilter = {(filterCriteria) => onFilter(filterCriteria)}
+                            />
+                        </Grid>
+                    </Grid>
                 <span>
                     <IconButton 
                         color = "inherit"

@@ -23,15 +23,19 @@ const classes = makeStyles(theme => ({
     },
   }));
 
-export const ItemListCategory = ({items, categories, props, onSelectCategory}) => {
+export const ItemListCategory = ({items, categories, props, onSelectCategory, onFilter}) => {
     const onSelectedCategory = (selectedCategory) => {
         console.log(`Inside the onSelectedCategory() of ItemListCategory`)
         console.log(selectedCategory);
         onSelectCategory(selectedCategory);
     }
 
+    const onFiltered = (filterCriteria) => {
+        onFilter(filterCriteria);
+    }
+
     return(
-        <Page>
+        <Page onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={2}>

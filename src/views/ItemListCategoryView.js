@@ -66,11 +66,26 @@ export class ItemListCategoryView extends React.Component {
 
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        console.log(`Inside the filterItemsBySearchKeyword method inside the ItemListCategory`);
+        console.log(`this is the keyword = ${keyword}`);
+        this.state.items = this.state.items
+            .filter(item => item.name.toLowerCase().includes(keyword));
+
+        this.props.history.push('/');
+    }
+
     onSelectCategory(selectedCategory) {
         console.log(`Inside onSelectCategory() in the ItemListCategoryView`)
         console.log(selectedCategory);
         this.filterItemsByCategory(selectedCategory.value);
         this.props.history.push('/');
+    }
+
+    onFilter(filterCriteria) {
+        console.log(`Inside the ItemListCategory view to check the filter criteria`);
+        console.log(`The filter criteria is = ${filterCriteria}`);
+        this.filterItemsBySearchKeyword(filterCriteria);
     }
 
 
@@ -84,6 +99,7 @@ export class ItemListCategoryView extends React.Component {
             categories = {this.state.categories}
             props = {this.props}
             onSelectCategory = {(selectedCategory) => this.onSelectCategory(selectedCategory)}
+            onFilter = {(filterCriteria) => this.onFilter(filterCriteria)}
         />;
     }
 }
