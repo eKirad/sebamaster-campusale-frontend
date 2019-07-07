@@ -16,25 +16,47 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function valuetext(value) {
-  return `${value} EUR`;
+    return `${value} EUR`;
 }
 
-export default function RangeSlider() {
+const marks = [
+  {
+    value: 0,
+    label: '0 EUR',
+  },
+  {
+    value: 20,
+    label: '20 EUR',
+  },
+  {
+    value: 100,
+    label: '100 EUR',
+  },
+];
+
+
+export const RangeSlider = ({ onSelectPriceRange }) => {
     const classes = useStyles();
-    const [value, setValue] = React.useState([20, 40])
+    const [value, setValue] = React.useState([200, 600])
 
     const handleChange = (event, newValue) => {
-        setValue(newValue)
+        const [minPrice, maxPrice] = newValue;
+        setValue(newValue);
+        onSelectPriceRange(minPrice, maxPrice);
     }
 
 
     return(
         <Slider
-            value={value}
-            onChange={handleChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={valuetext}
+            value = {value}
+            onChange = {handleChange}
+            valueLabelDisplay = "auto"
+            aria-labelledby ="range-slider"
+            getAriaValueText = {valuetext}
+            step = {100}
+            min = {0}
+            max = {1000}
+            marks
       />
     );
 }

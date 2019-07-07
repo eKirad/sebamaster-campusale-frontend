@@ -97,6 +97,13 @@ export class ItemListFilterView extends React.Component {
         this.props.history.push('/');
     }
 
+    filterItemsByPriceRange(minPrice, maxPrice) {
+        // TODO
+        this.state.items = this.state.items
+            .filter(item => (item.newPrice >= minPrice && item.newPrice <= maxPrice));
+        this.props.history.push('/');
+    }
+
     handleSelectCategory(selectedCategory) {
         this.setState({
             selectedCategoryId: selectedCategory.value, 
@@ -107,6 +114,10 @@ export class ItemListFilterView extends React.Component {
 
     handleEnterKeyword(filterCriteria) {
         this.filterItemsBySearchKeyword(filterCriteria);
+    }
+
+    handleSelectPriceRance(minSelectedPrice, maxSelectedPrice) {
+        this.filterItemsByPriceRange(minSelectedPrice, maxSelectedPrice);
     }
 
     handleSelectPartner(selectedPartner) {
@@ -151,6 +162,7 @@ export class ItemListFilterView extends React.Component {
             props = {this.props}
             onSelectCategory = {(selectedCategory) => this.handleSelectCategory(selectedCategory)}
             onSelectPartner = {(selectedPartner) => this.handleSelectPartner(selectedPartner)}
+            onSelectPriceRange = {(minSelectedPrice, maxSelectedPrice) => this.handleSelectPriceRance(minSelectedPrice, maxSelectedPrice)}
             onEnterKeyword = {(filterCriteria) => this.handleEnterKeyword(filterCriteria)}
         />;
     }

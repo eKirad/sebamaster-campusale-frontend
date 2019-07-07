@@ -30,7 +30,8 @@ export const ItemListFilter = ({
     partners, 
     props, 
     onSelectCategory,
-    onSelectPartner, 
+    onSelectPartner,
+    onSelectPriceRange,
     onEnterKeyword}) => {
     const onSelectedCategory = (selectedCategory) => {
         console.log(`Inside the onSelectedCategory() of ItemListFilter`)
@@ -53,7 +54,9 @@ export const ItemListFilter = ({
                             categories = {categories}
                             partners = {partners}
                             onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}
-                            onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}/>
+                            onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}
+                            onSelectPriceRange = {(minSelectedPrice, maxSelectedPrice) => onSelectPriceRange(minSelectedPrice, maxSelectedPrice)}
+                            />
                     </Paper>
                 </Grid>
                 <Grid item xs={9}>
