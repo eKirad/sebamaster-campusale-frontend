@@ -24,12 +24,20 @@ const classes = makeStyles(theme => ({
     },
   }));
 
-export const ItemListFilter = ({items, categories, props, onSelectCategory, onFilter}) => {
+export const ItemListFilter = ({
+    items, 
+    categories, 
+    partners, 
+    props, 
+    onSelectCategory,
+    onSelectPartner, 
+    onFilter}) => {
     const onSelectedCategory = (selectedCategory) => {
         console.log(`Inside the onSelectedCategory() of ItemListFilter`)
         console.log(selectedCategory);
         onSelectCategory(selectedCategory);
     }
+
 
     const onFiltered = (filterCriteria) => {
         onFilter(filterCriteria);
@@ -39,18 +47,16 @@ export const ItemListFilter = ({items, categories, props, onSelectCategory, onFi
         <Page onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
         <div className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                     <Paper className={classes.paper}>
                         <Filter
                             categories = {categories}
-                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}/>
-                        {/* <Category 
-                            categories = {categories}
-                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
-                        /> */}
+                            partners = {partners}
+                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}
+                            onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}/>
                     </Paper>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={9}>
                     <Paper className={classes.paper}>
                         <ItemList items = {items}/>                        
                     </Paper>

@@ -9,6 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
 import Grid from '@material-ui/core/Grid';
 
 // Component imports
@@ -33,6 +35,8 @@ export const ItemList = ({items}) => {
 		textDecoration: 'none'
 	}	
 	
+
+
 	if (items.length !== 0) {
 		return (
 			<Table>

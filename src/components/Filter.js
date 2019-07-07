@@ -8,25 +8,31 @@ import Grid from '@material-ui/core/Grid';
 import { SimpleSelect } from './SimpleSelect';
 import {Category} from './Category';
 import RangeSlider from './RangeSlider';
+import {SimpleExpansionPanel} from './SimpleExpansionPanel';
 
-export const Filter = ({ categories, onSelectedCategory}) => {
+export const Filter = ({ categories, partners, onSelectedCategory, onSelectPartner}) => {
 	const linkStyle = {
-		padding: '30px',
-	}	
+		paddingLeft: '30px',
+    }
+    
 
     return(
         <Grid>
             <p>Filter</p>
-            <Grid item xs = {10}>
+            <Grid item xs = {12}>
             <Category 
                 categories = {categories}
                 onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
             />
             </Grid>
-            <Grid item xs = {10}
-            style = {linkStyle}>
-                <RangeSlider
-                />
+                <SimpleExpansionPanel 
+                    partners = {partners}
+                    onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}
+                    />
+            <Grid 
+                item xs = {10}
+                style = {linkStyle}>
+                <RangeSlider/>
             </Grid>
         </Grid>
     );

@@ -1,14 +1,14 @@
 // Service imports
 import HttpService from './HttpService';
 
-export default class CategoryService {
+export default class PartnerService {
     constructor() { }
 
-    static categoriesURI() { return `${HttpService.baseURI()}/categories`; }
-
-    static getCategories() {
+    static getAllPartners() {
         return new Promise((resolve, reject) => {
-            HttpService.get(this.categoriesURI(), (data) => {
+            HttpService.get(`${HttpService.baseURI()}/partners`, (data) => {
+                console.log(`PARTNER SERVICE`);
+                console.log(`${data}`)
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

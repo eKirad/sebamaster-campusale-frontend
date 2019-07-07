@@ -5,7 +5,7 @@ import Redirect from 'react-router-dom';
 
 // Component imports
 import Header from './Header';
-import Footer from './Footer';
+import {Footer} from './Footer';
 import {AuthorizedHeader} from './AuthorizedHeader';
 
 // Service imports
@@ -49,7 +49,6 @@ export default class Page extends React.Component {
     }
 
     render() {
-
         if (this.state.user) {
             return(
                 <section>
@@ -64,7 +63,7 @@ export default class Page extends React.Component {
         } else {
             return(
                 <section>
-                   <Header/>
+                    <Header/>
                         {this.props.children}
                     <Footer/>
                 </section>)

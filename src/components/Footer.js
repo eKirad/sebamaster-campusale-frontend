@@ -7,7 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
 
 // Component imports
 import {StyledLink} from './StyledLink';
@@ -23,17 +29,67 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Footer() {
+
+
+
+export const Footer = ({ props }) => {
+    console.log(`These are the props`)
+    console.log(props)
+    
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    console.log(open)
+
+    const Transition = React.forwardRef(function Transition(props, ref) {
+        return <Slide direction="up" ref={ref} {...props} />;
+    });
+    
+    const handleClickOpen = () => {
+        setOpen(true);
+      }
+    
+    const handleClose = () => {
+        setOpen(false);
+        console.log(`The props:`)
+        console.log(props)
+        // props.history to re-render the ItemListFilterView component
+    }
+
     return(
         <React.Fragment>
           <CssBaseline />
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
               <div className={classes.grow} >
-                <StyledLink>
-                  About CampuSale
+                <StyledLink
+                    onClick = {handleClickOpen}
+                >
+                    About CampuSale
                 </StyledLink>
+                <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        {`CampuSale`}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            <b>CampuSale</b> is a platform that helps students find and filter different 
+                                items and local base services in Munich with student discounts. 
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick = {handleClose}>
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <StyledLink>
                   Help & Contact
                 </StyledLink>
