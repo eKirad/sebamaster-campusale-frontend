@@ -52,9 +52,10 @@ export default class Page extends React.Component {
         if (this.state.user) {
             return(
                 <section>
-                    <AuthorizedHeader user = {this.state.user}
-                         onLogout = {this.logout}
-                         onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
+                    <AuthorizedHeader 
+                        user = {this.state.user}
+                        onLogout = {this.logout}
+                        onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
                     />
                         {this.props.children}
                     <Footer/>

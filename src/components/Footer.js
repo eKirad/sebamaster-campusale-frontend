@@ -96,7 +96,8 @@ export const Footer = ({ props }) => {
                 <StyledLink>
                   Sitemap
                 </StyledLink>
-                <StyledLink>
+                <StyledLink
+                   to = {'/become-partner'}>
                   Become a partner
                 </StyledLink>
               </div>

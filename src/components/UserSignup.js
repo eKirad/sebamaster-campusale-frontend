@@ -75,9 +75,11 @@ export class UserSignup extends React.Component {
         const user = {
             username: this.state.username,
             password: this.state.password,
-            email: this.state.email
+            email: this.state.email,
+            role: `student`
         }
 
+        console.log(`Inside HANDLE SUBMIT`)
         console.log(user)
 
         this.props.onSubmit(user);
