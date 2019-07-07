@@ -75,13 +75,19 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsByPartnerId(partnerId) {
-        if (this.state.selectedCategoryId === undefined) {
+        if (this.state.selectedCategoryId === undefined 
+            || this.state.selectedCategoryId === `allCategories`) {
             this.state.items = this.state.initialItems
             .filter(item => item.partnerId === partnerId)
         } else {
             this.state.items = this.state.items
             .filter(item => item.partnerId === partnerId)
         }
+    }
+
+    filterItemsByCategoryIdAndPartnerId(categoryId, partnerId) {
+        this.state.items = this.state.initialItems
+            .filter(item => (item.categoryId === categoryId && item.partnerId === partnerId));
     }
 
     filterItemsBySearchKeyword(keyword) {
@@ -106,14 +112,13 @@ export class ItemListFilterView extends React.Component {
     handleSelectPartner(selectedPartner) {
         if (selectedPartner) {
             // If a brand is selected --> check if there is any selected category
-            if (this.state.selectedCategoryId !== undefined) {
+            if (this.state.selectedCategoryId !== undefined &&
+                    this.state.selectedCategoryId !== `allCategories`) {
                 // There is an already selected category --> filter according to the selected
                 // brand & category
-
-                this.filterItemsByCategory(this.state.selectedCategoryId);
-                this.filterItemsByPartnerId(selectedPartner._id);
+                this.filterItemsByCategoryIdAndPartnerId(this.state.selectedCategoryId,
+                        selectedPartner._id);
                 this.props.history.push('/');
-
             } else {
                 // There is no selected category --> filter according to the selected brand
                 console.log(`Hey, here I come again`)
@@ -121,8 +126,7 @@ export class ItemListFilterView extends React.Component {
                 this.props.history.push('/');
             }
         } else {
-            // If no brand is selected --> check if there is any selected category
-            
+            // If no brand is selected --> check if there is any selected category 
             if (this.state.selectedCategoryId !== undefined) {
                 // There is a selected category --> filter the items according to the
                 // already selected category
@@ -130,7 +134,6 @@ export class ItemListFilterView extends React.Component {
                 this.props.history.push('/');
             } else {
                 // There is no selected category --> display all the items
-                
                 this.state.items = this.state.initialItems;
                 this.props.history.push('/');
             }
