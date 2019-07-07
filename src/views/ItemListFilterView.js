@@ -22,9 +22,6 @@ export class ItemListFilterView extends React.Component {
             selectedCategoryId: undefined,
             partners: [ ]
         }
-
-        console.log(`The props inherited by App`)
-        console.log(this.props.history)
     };
 
 
@@ -33,6 +30,7 @@ export class ItemListFilterView extends React.Component {
             loading: true
         });
 
+        // Get all the items
         ItemService.getAllItems()
             .then((items) => {
                 this.setState({
@@ -43,6 +41,7 @@ export class ItemListFilterView extends React.Component {
             })
             .catch(e => { console.error(e); });
 
+        // Get all the categories
         CategoryService.getCategories()
             .then((categories) => {
                 this.setState({
@@ -51,6 +50,7 @@ export class ItemListFilterView extends React.Component {
             })
             .catch(e => { console.error(e); });
 
+        // Get all the partners
         PartnerService.getAllPartners()
             .then((partners) => {
                 this.setState({
@@ -62,9 +62,7 @@ export class ItemListFilterView extends React.Component {
 
 
     filterItemsByCategory(id) {
-        console.log(id);
         if (id === `allCategories`) {
-            console.log(`yes`)
             this.state.items = [ ];
             this.state.initialItems
                 .forEach(item => {
@@ -76,28 +74,24 @@ export class ItemListFilterView extends React.Component {
         }
     }
 
-    filterByPartners(partnersIds) {
-        console.log(`FilterByPartners`)        
-        console.log(partnersIds);
-        partnersIds
-            .forEach(partnerId => {
-                this.state.items = this.state.items
-                    .filter(item => item.partnerId === partnerId);
-            });
+    filterItemsByPartnerId(partnerId) {
+        if (this.state.selectedCategoryId === undefined) {
+            this.state.items = this.state.initialItems
+            .filter(item => item.partnerId === partnerId)
+        } else {
+            this.state.items = this.state.items
+            .filter(item => item.partnerId === partnerId)
+        }
     }
 
     filterItemsBySearchKeyword(keyword) {
-        console.log(`Inside the filterItemsBySearchKeyword method inside the ItemListFilter`);
-        console.log(`this is the keyword = ${keyword}`);
         this.state.items = this.state.items
             .filter(item => item.name.toLowerCase().includes(keyword));
 
         this.props.history.push('/');
     }
 
-    onSelectCategory(selectedCategory) {
-        console.log(`Inside onSelectCategory() in the ItemListFilterView`)
-        console.log(selectedCategory);
+    handleSelectCategory(selectedCategory) {
         this.setState({
             selectedCategoryId: selectedCategory.value, 
         })
@@ -105,39 +99,28 @@ export class ItemListFilterView extends React.Component {
         this.props.history.push('/');
     }
 
-    onFilter(filterCriteria) {
+    handleEnterKeyword(filterCriteria) {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
 
-    onSelectPartner(selectedPartners) {
- 
-        if (selectedPartners.length !== 0) {
+    handleSelectPartner(selectedPartner) {
+        if (selectedPartner) {
             // If a brand is selected --> check if there is any selected category
             if (this.state.selectedCategoryId !== undefined) {
                 // There is an already selected category --> filter according to the selected
                 // brand & category
-                const partnersArr = [ ];
-                selectedPartners
-                    .forEach(partnerObj => {
-                        partnersArr.push(partnerObj._id);
-                    });
+
                 this.filterItemsByCategory(this.state.selectedCategoryId);
-                this.filterByPartners(partnersArr);
+                this.filterItemsByPartnerId(selectedPartner._id);
                 this.props.history.push('/');
 
             } else {
                 // There is no selected category --> filter according to the selected brand
-                const partnersArr = [ ];
-                selectedPartners
-                    .forEach(partnerObj => {
-                        partnersArr.push(partnerObj._id);
-                    });
-                this.filterByPartners(partnersArr);
+                console.log(`Hey, here I come again`)
+                this.filterItemsByPartnerId(selectedPartner._id);
                 this.props.history.push('/');
             }
-            
-
-        } else if (selectedPartners.length === 0) {
+        } else {
             // If no brand is selected --> check if there is any selected category
             
             if (this.state.selectedCategoryId !== undefined) {
@@ -158,15 +141,14 @@ export class ItemListFilterView extends React.Component {
         if (this.state.loading) {
             return (<Loading/>);
         } 
-
         return <ItemListFilter 
             items = {this.state.items} 
             categories = {this.state.categories}
             partners = {this.state.partners}
             props = {this.props}
-            onSelectCategory = {(selectedCategory) => this.onSelectCategory(selectedCategory)}
-            onSelectPartner = {(selectedPartner) => this.onSelectPartner(selectedPartner)}
-            onFilter = {(filterCriteria) => this.onFilter(filterCriteria)}
+            onSelectCategory = {(selectedCategory) => this.handleSelectCategory(selectedCategory)}
+            onSelectPartner = {(selectedPartner) => this.handleSelectPartner(selectedPartner)}
+            onEnterKeyword = {(filterCriteria) => this.handleEnterKeyword(filterCriteria)}
         />;
     }
 }

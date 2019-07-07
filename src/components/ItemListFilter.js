@@ -31,7 +31,7 @@ export const ItemListFilter = ({
     props, 
     onSelectCategory,
     onSelectPartner, 
-    onFilter}) => {
+    onEnterKeyword}) => {
     const onSelectedCategory = (selectedCategory) => {
         console.log(`Inside the onSelectedCategory() of ItemListFilter`)
         console.log(selectedCategory);
@@ -40,7 +40,7 @@ export const ItemListFilter = ({
 
 
     const onFiltered = (filterCriteria) => {
-        onFilter(filterCriteria);
+        onEnterKeyword(filterCriteria);
     }
 
     return(

@@ -25,16 +25,18 @@ export const CheckboxList = ({ partners, onSelectPartner}) => {
     const handleToggle = (partner) => () => {
         
         const setNewCheckedPartner = (partner) => {
+            console.log(`Inside setNewCheckedPartner`);
+            console.log(partner)
             const newCheckedPartner = [ ];
             newCheckedPartner.push(partner);
             setCheckedPartner(newCheckedPartner);
-            onSelectPartner(newCheckedPartner);
+            onSelectPartner(newCheckedPartner[0]);
         }
 
         if (checkedPartner.length !== 0) {            
             if (checkedPartner[0]._id === partner._id) {
                 setCheckedPartner([ ]);
-                onSelectPartner([ ]);
+                onSelectPartner(null);
             } else {
                 setNewCheckedPartner(partner);
             }
@@ -42,23 +44,6 @@ export const CheckboxList = ({ partners, onSelectPartner}) => {
             setNewCheckedPartner(partner);
         }
     };
-
-    const handleSelectAll = () => {
-        const newCheckedPartners = [ ];
-        partners.forEach(partner => {
-            newCheckedPartners.push(partner);
-        });
-        
-        setCheckedPartners(newCheckedPartners);
-        onSelectPartner(newCheckedPartners);
-    }
-
-    const handleClear = () => {
-        console.log(`Inside handleClear()`)
-        setCheckedPartners([ ]);
-        console.log(newCheckedPartners);
-        onSelectPartner(newCheckedPartners);
-    }
 
     return (
         <List className={classes.root}>
