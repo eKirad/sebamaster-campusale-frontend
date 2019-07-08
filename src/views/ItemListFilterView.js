@@ -51,10 +51,10 @@ export class ItemListFilterView extends React.Component {
             .catch(e => { console.error(e); });
 
         // Get all the partners
-        PartnerService.getAllPartners()
-            .then((partners) => {
+        PartnerService.getApprovedPartners()
+            .then((approvedPartners) => {
                 this.setState({
-                    partners: partners
+                    partners: approvedPartners
                 })
             })
             .catch(e => { console.error(e); });

@@ -50,6 +50,8 @@ export default class Page extends React.Component {
     }
 
     render() {
+        console.log(`This is the user`);
+        console.log(this.state.user)
         if (this.state.user) {
             return(
                 <section>

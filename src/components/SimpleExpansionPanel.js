@@ -8,6 +8,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
+
 
 // Component imports
 import {CheckboxList} from './CheckboxList';
@@ -20,28 +23,51 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export const SimpleExpansionPanel = ({ partners, onSelectPartner }) => {
+export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, singlePartner }) => {
     const classes = useStyles();
     
 
-    return(
-        <ExpansionPanel>
-            <ExpansionPanelSummary
-                expandIcon = {<ExpandMoreIcon/>}
-                aria-controls="panel1a-content"
-            >
-                <Typography className={classes.heading}>
-                    Brand
-                </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <Typography>
-                   <CheckboxList 
-                    partners = {partners}
-                    onSelectPartner = {((selectedPartner) => onSelectPartner(selectedPartner))}
-                    />
-                </Typography>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-    );
+    if (usage === `filter`) {
+        return(
+            <ExpansionPanel>
+                <ExpansionPanelSummary
+                    expandIcon = {<ExpandMoreIcon/>}
+                    aria-controls="panel1a-content"
+                >
+                    <Typography className={classes.heading}>
+                        {title}
+                    </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Typography>
+                       <CheckboxList 
+                        partners = {partners}
+                        onSelectPartner = {((selectedPartner) => onSelectPartner(selectedPartner))}
+                        />
+                    </Typography>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+        );
+    } else {
+        return(
+            <ExpansionPanel>
+                <ExpansionPanelSummary
+                    expandIcon = {<ExpandMoreIcon/>}
+                    aria-controls="panel1a-content"
+                >
+                    <Typography className={classes.heading}>
+                        {title}
+                    </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <List>
+                        <p>id: {singlePartner._id}</p>
+                        <p>location: {singlePartner.location}</p>
+                    </List>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+        );
+    }
+
+
 }

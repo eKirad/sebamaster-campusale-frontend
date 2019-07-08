@@ -160,7 +160,7 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
                                 </MenuItem>
                                 <MenuItem 
                                     component = {Link} 
-                                    to = {`/partner-dashboard`}>
+                                    to = {`/partner-dashboard/${user.role}`}>
                                 <ListItemIcon>
                                     <PartnerIcon/>
                                 </ListItemIcon>
