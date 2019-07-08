@@ -20,7 +20,6 @@ export class PartnerDashboardView extends React.Component {
         }
     }
 
-
     componentDidMount() {
         // Get all partners
         PartnerService.getAllPartners(this.state.user.role)

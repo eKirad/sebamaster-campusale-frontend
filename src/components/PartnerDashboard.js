@@ -51,6 +51,9 @@ export const PartnerDashboard = ({ partners }) => {
     const waitingForApprovalPartners = partners
         .filter((waitingForApprovalPartner) => waitingForApprovalPartner.isApproved === false);
 
+    const handleDeletePartner = (e) => {
+        console.log(e.target.key);
+    }
 
     return(
         <Card className = {classes.card}>
@@ -68,7 +71,10 @@ export const PartnerDashboard = ({ partners }) => {
                                 singlePartner = {approvedPartner}
                             />
                         </ListItemText>
-                        <IconButton>
+                        <IconButton
+                            key = {approvedPartner.id}
+                            onClick = {(approvedPartner) => handleDeletePartner(approvedPartner)}
+                            >
                             <DeleteIcon/>
                         </IconButton>
                     </ListItem>

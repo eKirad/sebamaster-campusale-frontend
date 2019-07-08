@@ -8,7 +8,7 @@ export default class PartnerService {
         console.log(`this is the USERROLE`)
         console.log(userRole)
         return new Promise((resolve, reject) => {
-            HttpService.get(`${HttpService.baseURI()}/partners/${userRole}`, (data) => {
+            HttpService.get(`${HttpService.baseURI()}/partners`, (data) => {
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);
