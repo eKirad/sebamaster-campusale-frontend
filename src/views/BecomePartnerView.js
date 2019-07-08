@@ -10,8 +10,6 @@ export class BecomePartnerView extends React.Component {
         super(props);
     }
 
-
-
     render() {
         return(
             <BecomePartner/>

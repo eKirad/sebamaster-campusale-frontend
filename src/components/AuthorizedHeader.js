@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // make this class and check
-export const AuthorizedHeader = ({ user, onLogout, onFiltered}) => {
+export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
 
@@ -88,15 +88,16 @@ export const AuthorizedHeader = ({ user, onLogout, onFiltered}) => {
     }
     
     const handleLogout = () => {
-        // onLogout();
+        console.log(`Inside handleLogout()`)
+        console.log(props)
         UserService.logout();
-        if(this.props.location.pathname != '/') {
-            this.props.history.push('/');
-        }
-        else {
-            console.log('yes')
-            window.location.reload();
-        }
+        // if(props.location.pathname != '/') {
+            props.history.push('/');
+        //}
+        // else {
+        //     console.log('yes')
+        //     window.location.reload();
+        // }
     }
 
     console.log(`THE ROLE IS`)
@@ -157,7 +158,9 @@ export const AuthorizedHeader = ({ user, onLogout, onFiltered}) => {
                                     My wishlist
                                 </ListItemText>
                                 </MenuItem>
-                                <MenuItem onClick = {handleHideAccountMenu}>
+                                <MenuItem 
+                                    component = {Link} 
+                                    to = {`/partner-dashboard`}>
                                 <ListItemIcon>
                                     <PartnerIcon/>
                                 </ListItemIcon>

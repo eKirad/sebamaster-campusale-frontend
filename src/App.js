@@ -10,6 +10,7 @@ import { UserSignupView } from './views/UserSignupView';
 import { UserProfileView } from './views/UserProfileView';
 import { WishlistView } from './views/WishlistView';
 import { BecomePartnerView } from './views/BecomePartnerView';
+import { PartnerDashboardView } from './views/PartnerDashboardView';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ export default class App extends React.Component {
                 { component: UserProfileView, path: '/profile/:id' },
                 { component: WishlistView, path: '/wishlist/:id' },
                 { component: BecomePartnerView, path: '/become-partner' },
+                { component: PartnerDashboardView, path: '/partner-dashboard' },
             ]
         }
     }

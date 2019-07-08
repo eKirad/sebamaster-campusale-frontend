@@ -14,7 +14,8 @@ import UserService from '../services/UserService';
 export default class Page extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(`INSIDE PAGE`)
+        console.log(this.props.history)
         this.state = {
             title: ``,
             user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
@@ -52,7 +53,8 @@ export default class Page extends React.Component {
         if (this.state.user) {
             return(
                 <section>
-                    <AuthorizedHeader 
+                    <AuthorizedHeader
+                        props = {this.props} 
                         user = {this.state.user}
                         onLogout = {this.logout}
                         onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}

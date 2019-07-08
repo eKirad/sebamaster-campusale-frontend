@@ -22,7 +22,6 @@ export default class HttpService {
         })
     }
 
-
     static post(uri, data, onSuccess, onError) {
         const token = window.localStorage['jwtToken'];
         console.log(data)

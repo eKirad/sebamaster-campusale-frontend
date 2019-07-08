@@ -39,13 +39,15 @@ export const ItemListFilter = ({
         onSelectCategory(selectedCategory);
     }
 
-
+    console.log(`INSIDE ItemListFilter`);
+    console.log(props.history)
     const onFiltered = (filterCriteria) => {
         onEnterKeyword(filterCriteria);
     }
 
     return(
-        <Page onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
+        <Page
+            onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={3}>
