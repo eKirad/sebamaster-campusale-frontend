@@ -24,13 +24,13 @@ export class PartnerDashboardView extends React.Component {
     componentDidMount() {
         // Get all partners
         PartnerService.getAllPartners(this.state.user.role)
-        .then((partners) => {
-            this.setState({
-                partners: partners,
-                loading: false
+            .then((partners) => {
+                this.setState({
+                    partners: partners,
+                    loading: false
+                })
             })
-        })
-        .catch(e => { console.error(e); });
+            .catch(e => { console.error(e); });
     }
 
 
