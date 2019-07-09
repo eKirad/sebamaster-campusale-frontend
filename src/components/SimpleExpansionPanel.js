@@ -63,6 +63,9 @@ export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, 
                     <List>
                         <p>id: {singlePartner._id}</p>
                         <p>location: {singlePartner.location}</p>
+                        <p>contact person first name: {singlePartner.contactPersonFirstName}</p>
+                        <p>contact person surname: {singlePartner.contactPersonSurname}</p>
+                        <p>contact person email: {singlePartner.contactPersonEmail}</p>   
                     </List>
                 </ExpansionPanelDetails>
             </ExpansionPanel>

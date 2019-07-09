@@ -10,7 +10,6 @@ import UserService from '../services/UserService';
 export class UserSignupView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { };
     }
 
     signup(user) {
