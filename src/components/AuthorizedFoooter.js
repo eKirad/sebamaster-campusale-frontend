@@ -30,13 +30,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const Footer = ({ props }) => {
-    console.log(`These are the props`)
-    console.log(props)
-    
+export const AuthorizedFooter = ({ user, props }) => {
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    console.log(open)
 
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
@@ -93,10 +90,6 @@ export const Footer = ({ props }) => {
                 </StyledLink>
                 <StyledLink>
                   Sitemap
-                </StyledLink>
-                <StyledLink
-                   to = {'/become-partner'}>
-                  Become a partner
                 </StyledLink>
               </div>
               <span>

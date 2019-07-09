@@ -47,7 +47,6 @@ export class UserSignup extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
     handleChangeUsername(event) {
         this.setState({
             username: event.target.value
@@ -61,7 +60,6 @@ export class UserSignup extends React.Component {
             email: event.target.value
         })
     }
-
 
     handleChangePassword(event) {
         this.setState({

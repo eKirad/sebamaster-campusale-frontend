@@ -5,8 +5,9 @@ import Redirect from 'react-router-dom';
 
 // Component imports
 import Header from './Header';
-import {Footer} from './Footer';
-import {AuthorizedHeader} from './AuthorizedHeader';
+import { Footer } from './Footer';
+import { AuthorizedHeader } from './AuthorizedHeader';
+import { AuthorizedFooter } from './AuthorizedFoooter';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -62,7 +63,9 @@ export default class Page extends React.Component {
                         onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
                     />
                         {this.props.children}
-                    <Footer/>
+                    <Footer
+                        user = {this.state.user}
+                    />
                 </section>
             )
         } else {

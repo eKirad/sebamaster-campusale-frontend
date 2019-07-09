@@ -32,6 +32,46 @@ export class PartnerDashboardView extends React.Component {
             .catch(e => { console.error(e); });
     }
 
+    onApproveAndRegisterPartner(partnerToApproveAndRegister) {
+        console.log(`onRegisterPartner in PartnerDashboarView`);
+        console.log(partnerToApproveAndRegister);
+
+        // Change partner flag to isApproved = true
+        // PartnerService.updatePartner(partnerToApproveAndRegister)
+
+
+        // Register partner
+        const partnerUser = {
+            username: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
+            password: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
+            email: `${partnerToApproveAndRegister.contactPersonEmail}`,
+            role: `partner`
+        };
+
+        UserService.register(partnerUser.username, partnerUser.password, 
+            partnerUser.email, partnerUser.role)
+            .then((data) => {
+                console.log('data');
+                // Update isApproved partner flag to true
+                PartnerService.updatePartner(partnerToApproveAndRegister)
+                    .then((data) => {
+                        this.props.history.push('/');
+                    })
+                    .catch((e) => {
+                        console.error(e);
+                        this.setState = {
+                            error: e
+                        }
+                    });
+            })
+            .catch((e) => {
+                console.error(e);
+                this.setState = {
+                    error: e
+                }
+            });
+    }
+
 
     render() {
 
@@ -44,6 +84,7 @@ export class PartnerDashboardView extends React.Component {
                 <Page>
                     <PartnerDashboard
                         partners = {this.state.partners}
+                        onApproveAndRegisterPartner = {(partnerToApproveAndRegister) => this.onApproveAndRegisterPartner(partnerToApproveAndRegister)}
                     />
                 </Page>
             );

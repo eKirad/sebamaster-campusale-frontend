@@ -79,6 +79,42 @@ export default class HttpService {
             onError(e.message);
         });
     }
+    static put(url, data, onSuccess, onError) {
+        const token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+        
+        header.append('Content-Type', 'application/json');
+
+        fetch(url, {
+            method: 'PUT',
+            headers: header,
+            body: JSON.stringify(data)
+        }).then((res) => {
+            if(this.checkIfAuthorized(res) === false) {
+                window.location = "/#login";
+                return;
+            }
+            else {
+                return res.json();
+            }
+        }).then((res) => {
+            if(res.error) {
+                onError(res.error);
+            }
+            else {
+                if(res.hasOwnProperty('token')) {
+                    window.localStorage['jwtToken'] = res.token;
+                }
+                onSuccess(res);
+            }
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
 
     static checkIfAuthorized(res) {
         return res.status === 401 ? false : true;

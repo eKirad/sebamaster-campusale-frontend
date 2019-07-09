@@ -145,14 +145,6 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
                                         Profile
                                     </ListItemText>
                                 </MenuItem>
-                                <MenuItem onClick = {handleHideAccountMenu}>
-                                <ListItemIcon>
-                                    <FavIcon/>
-                                </ListItemIcon>
-                                <ListItemText>
-                                    My wishlist
-                                </ListItemText>
-                                </MenuItem>
                                 <MenuItem 
                                     component = {Link} 
                                     to = {`/partner-dashboard`}>

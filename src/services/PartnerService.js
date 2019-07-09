@@ -25,4 +25,37 @@ export default class PartnerService {
             })
         });
     }
+
+    static createPartner(name, isApproved, contactPersonFirstName, contactPersonSurname,
+        contactPersonEmail, location) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${HttpService.baseURI()}/become-partner`, {
+                name,
+                isApproved,
+                contactPersonFirstName,
+                contactPersonSurname,
+                contactPersonEmail,
+                location
+            }, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
+    static updatePartner(partner) {
+        console.log(`Inside updatePartner method of PartnerService`);
+        console.log(partner)
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${HttpService.baseURI()}/partner`, {
+                id: partner._id,
+                name: partner.name
+            }, (data) => {
+                resolve(data);
+            }, function(textStatus) {
+               reject(textStatus);
+            });
+        });
+    }
 }
