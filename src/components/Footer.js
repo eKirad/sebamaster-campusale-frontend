@@ -1,5 +1,5 @@
 // React impports
-import React from 'react';
+import React, { useState }from 'react';
 import { Link } from 'react-router-dom'
 
 // Material UI imports
@@ -29,8 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-export const Footer = ({ props }) => {
+export const Footer = ({ props, user }) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -44,7 +43,12 @@ export const Footer = ({ props }) => {
     
     const handleClose = () => {
         setOpen(false);
-        // props.history to re-render the ItemListFilterView component
+        if(props.props.location.pathname != '/') {
+            props.props.history.push('/');
+        }
+        else {
+            window.location.reload();
+        }
     }
 
     return(
@@ -71,8 +75,14 @@ export const Footer = ({ props }) => {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b>CampuSale</b> is a platform that helps students find and filter different 
+                            <p>
+                                <b>CampuSale</b> is a platform that helps students find and filter different 
                                 items and local base services in Munich with student discounts. 
+                            </p>
+                            <p>
+                                It is part of the SEBIS chair's course Web Application Engineering at
+                                Technical University of Munich
+                            </p>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -88,10 +98,11 @@ export const Footer = ({ props }) => {
                 <StyledLink>
                   Sitemap
                 </StyledLink>
-                <StyledLink
-                   to = {'/become-partner'}>
-                  Become a partner
-                </StyledLink>
+                    { !user ? 
+                        <StyledLink to = {'/become-partner'}> 
+                            Become a partner 
+                        </StyledLink> 
+                    : null}
               </div>
               <span>
                 Copyright ©2019 CampuSale. All rights reserved.

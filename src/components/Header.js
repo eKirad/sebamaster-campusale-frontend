@@ -9,10 +9,23 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import UserIcon from '@material-ui/icons/AccountCircle';
+import AdminUserIcon from '@material-ui/icons/SupervisedUserCircle'
+import PartnerIcon from '@material-ui/icons/Work'
+import FavIcon from '@material-ui/icons/Favorite';
+import SignoutIcon from '@material-ui/icons/ExitToApp';
+import AddIcon from '@material-ui/icons/AddCircle';
+import Menu from '@material-ui/core/Menu';
+import MenuList from '@material-ui/core/MenuList'
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
+import Grid from '@material-ui/core/Grid';
 
 // Component imports
-import {StyledLink} from './StyledLink';
+import { StyledLink } from './StyledLink';
+import { Search } from './Search';
 
 // Service imports
 import UserService from '../services/UserService';
@@ -37,6 +50,8 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     },
+    menuList: {
+        textAlign: 'center'},
     toolbar: {
         // backgroundColor: "#636468"
         // backgroundColor: "#7288FF"
@@ -44,60 +59,230 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ props, user, onFiltered }) {
   const classes = useStyles();
   const [ menuButtonHover, setMenuButtonHover ] = useState(false);
   const [ loginButtonHover, setLoginButtonHover ] = useState(false);
   const [ signupButtonHover, setSignupButtonHover ] = useState(false);
-  const authenticatedUser = () => UserService.isAutehnticated() ? 
-    UserService.getCurrentUser() : undefined;
+
   const toggleMenuButtonHover = () => setMenuButtonHover(!menuButtonHover);
   const toggleLoginButtonHover = () => setLoginButtonHover(!loginButtonHover);
   const toggleSignupButtonHover = () => setSignupButtonHover(!signupButtonHover);
 
-  const handleMouseOver = () => {
-    console.log('hover')
+  const [ accountButton, setAccountButton ] = useState(null);
+
+  const handleShowAccountMenu = (event) => {
+      setAccountButton(event.target);
   }
+  
+  const handleHideAccountMenu = () => {
+      setAccountButton(null);
+  }
+
+  const onFilter = (filterCriteria) => {
+      onFiltered(filterCriteria);
+  }
+  
+  const handleLogout = () => {
+      UserService.logout();
+      if(props.props.location.pathname != '/') {
+          props.props.history.push('/');
+      }
+      else {
+          window.location.reload();
+      }
+  }
+
+    const handleMouseOver = () => {
+    console.log('hover')
+    }
+
+    let userTypeJSX;
+    if (user) {
+        if (user.role === `admin`) {
+            userTypeJSX = 
+                <span>
+                    <IconButton 
+                        color = "inherit"
+                        onClick = {handleShowAccountMenu}> 
+                        <AdminUserIcon/>
+                    </IconButton>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl = {accountButton}
+                        keepMounted
+                        open = {Boolean(accountButton)}
+                        onClose = {handleHideAccountMenu}
+                    >
+                        <MenuList className = {classes.menuList}>
+                            <b>{user.username}</b>
+                        </MenuList>
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/profile/${user.id}`}>
+                            <ListItemIcon>
+                                <UserIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Profile
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/partner-dashboard`}>
+                            <ListItemIcon>
+                                <PartnerIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Partner dashboard
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                            <ListItemIcon>
+                                <SignoutIcon/>
+                            </ListItemIcon>
+                            <ListItemText onClick = {handleLogout}>
+                                Sign out
+                            </ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </span> 
+        } else if (user.role === `partner`) {
+            userTypeJSX = 
+                <span>
+                    <IconButton 
+                        color = "inherit"
+                        onClick = {handleShowAccountMenu}> 
+                        <UserIcon/>
+                    </IconButton>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl = {accountButton}
+                        keepMounted
+                        open = {Boolean(accountButton)}
+                        onClose = {handleHideAccountMenu}
+                    >
+                        <MenuList className = {classes.menuList}>
+                            <b>{user.username}</b>
+                        </MenuList>
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/profile/${user.id}`}>
+                            <ListItemIcon>
+                                <UserIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Profile
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/add-item`}>
+                            <ListItemIcon>
+                                <AddIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Add item
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                            <ListItemIcon>
+                                <SignoutIcon/>
+                            </ListItemIcon>
+                            <ListItemText onClick = {handleLogout}>
+                                Sign out
+                            </ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </span> 
+        } else {
+            userTypeJSX = 
+                <span>
+                    <IconButton 
+                        color = "inherit"
+                        onClick = {handleShowAccountMenu}> 
+                        <UserIcon/>
+                    </IconButton>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl = {accountButton}
+                        keepMounted
+                        open = {Boolean(accountButton)}
+                        onClose = {handleHideAccountMenu}
+                    >
+                        <MenuList className = {classes.menuList}>
+                            <b>{user.username}</b>
+                        </MenuList>
+                        <MenuItem 
+                            component = {Link} 
+                            to = {`/profile/${user.id}`}>
+                            <ListItemIcon>
+                                <UserIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Profile
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <ListItemIcon>
+                            <FavIcon/>
+                        </ListItemIcon>
+                        <ListItemText>
+                            My wishlist
+                        </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick = {handleHideAccountMenu}>
+                            <ListItemIcon>
+                                <SignoutIcon/>
+                            </ListItemIcon>
+                            <ListItemText onClick = {handleLogout}>
+                                Sign out
+                            </ListItemText>
+                        </MenuItem>
+                    </Menu>
+                </span> 
+        }
+    } else {
+        userTypeJSX = 
+            <span>
+                <Button 
+                    className = {signupButtonHover ? classes.headerButtonHovered : classes.headerButton}
+                    onMouseOver = {toggleSignupButtonHover}
+                    onMouseLeave = {toggleSignupButtonHover}
+                    component = {Link} 
+                    to= {`/signup`}>
+                    Signup
+                </Button>   
+                <Button 
+                    className = {loginButtonHover ? classes.headerButtonHovered : classes.headerButton}
+                    onMouseOver = {toggleLoginButtonHover}
+                    onMouseLeave = {toggleLoginButtonHover}
+                    component = {Link} 
+                    to= {`/login`}>
+                    Login
+                </Button>
+            </span>
+    }
 
   return(
     <div className={classes.root} >
       <AppBar position="static" className = {classes.toolbar}>
         <Toolbar className = {classes.toolbar}>
-          <IconButton 
-            edge="start" 
-            className={menuButtonHover ? classes.menuButtonHovered : classes.menuButton} 
-            color="inherit" 
-            aria-label="Menu"
-            onMouseOver = {toggleMenuButtonHover}
-            onMouseLeave = {toggleMenuButtonHover}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className = {classes.title}>
-            <StyledLink
-              to = {'/'}
-            >
-              CampuSale
-            </StyledLink>
-          </Typography>
-          <Button 
-            className = {signupButtonHover ? classes.headerButtonHovered : classes.headerButton}
-            onMouseOver = {toggleSignupButtonHover}
-            onMouseLeave = {toggleSignupButtonHover}
-            component = {Link} 
-            to= {`/signup`}>
-                Signup
-          </Button>
-          <span>
-          <Button 
-            className = {loginButtonHover ? classes.headerButtonHovered : classes.headerButton}
-            onMouseOver = {toggleLoginButtonHover}
-            onMouseLeave = {toggleLoginButtonHover}
-            component = {Link} 
-            to= {`/login`}>
-              Login
-          </Button>
-          </span>
+            <Grid container spacing={1}>
+                <Grid item xs={2}>
+                    <Typography variant="h6" className = {classes.title}>
+                        <StyledLink to = {'/'}>
+                            CampuSale
+                        </StyledLink>
+                    </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <Search onFilter = {(filterCriteria) => onFilter(filterCriteria)}/>
+                </Grid>
+                <Grid  item xs={2}>
+                    {userTypeJSX}
+                </Grid>
+            </Grid>
         </Toolbar>
       </AppBar>
     </div>
