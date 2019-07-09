@@ -23,10 +23,7 @@ export const CheckboxList = ({ partners, onSelectPartner}) => {
     const [checkedPartner, setCheckedPartner] = useState([ ]);
 
     const handleToggle = (partner) => () => {
-        
         const setNewCheckedPartner = (partner) => {
-            console.log(`Inside setNewCheckedPartner`);
-            console.log(partner)
             const newCheckedPartner = [ ];
             newCheckedPartner.push(partner);
             setCheckedPartner(newCheckedPartner);

@@ -6,7 +6,6 @@ export class WishlistView extends React.Component {
         super(props);
     }
 
-
     render() {
         return(
             <p>Hi, from WishlistView</p>

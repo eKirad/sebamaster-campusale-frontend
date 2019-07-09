@@ -40,8 +40,6 @@ export class PartnerDashboardView extends React.Component {
             <Loading/>
            );
         } else {
-            console.log(`Inside PartnerDashboarView`);
-            console.log(this.state.partners);
             return(
                 <Page>
                     <PartnerDashboard

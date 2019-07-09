@@ -25,7 +25,6 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
 
-
 // Component imports
 import { StyledLink } from './StyledLink';
 import { Search } from './Search';
@@ -88,8 +87,6 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
     }
     
     const handleLogout = () => {
-        console.log(`Inside handleLogout()`)
-        console.log(props)
         UserService.logout();
         // if(props.location.pathname != '/') {
             props.history.push('/');
@@ -99,9 +96,7 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
         //     window.location.reload();
         // }
     }
-
-    console.log(`THE ROLE IS`)
-    console.log(user)
+    
     // Check if the user is admin
     if (user.role === `admin`) {
         return (

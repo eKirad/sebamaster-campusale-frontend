@@ -10,7 +10,6 @@ import ItemService from '../services/ItemService';
 import CategoryService from '../services/CategoryService';
 import PartnerService from '../services/PartnerService';
 
-
 export class ItemListFilterView extends React.Component {
     constructor(props) {
         super(props);
@@ -23,7 +22,6 @@ export class ItemListFilterView extends React.Component {
             partners: [ ]
         }
     };
-
 
     componentDidMount() {
         this.setState({
@@ -59,7 +57,6 @@ export class ItemListFilterView extends React.Component {
             })
             .catch(e => { console.error(e); });
     }
-
 
     filterItemsByCategory(id) {
         if (id === `allCategories`) {
