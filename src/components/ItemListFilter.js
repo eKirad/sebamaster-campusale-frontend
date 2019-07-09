@@ -34,19 +34,16 @@ export const ItemListFilter = ({
     onSelectPriceRange,
     onEnterKeyword}) => {
     const onSelectedCategory = (selectedCategory) => {
-        console.log(`Inside the onSelectedCategory() of ItemListFilter`)
-        console.log(selectedCategory);
         onSelectCategory(selectedCategory);
     }
 
-    console.log(`INSIDE ItemListFilter`);
-    console.log(props.history)
     const onFiltered = (filterCriteria) => {
         onEnterKeyword(filterCriteria);
     }
 
     return(
         <Page
+            props = {props}
             onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
         <div className={classes.root}>
             <Grid container spacing={3}>

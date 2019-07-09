@@ -33,8 +33,6 @@ export const SimpleSelect = ({data, onSelect}) => {
             ...oldValues,
             [event.target.name]: event.target.value,
           }));
-
-          console.log(event.target);
           onSelect(event.target);
     }
     

@@ -27,7 +27,6 @@ export class ItemListFilterView extends React.Component {
         this.setState({
             loading: true
         });
-
         // Get all the items
         ItemService.getAllItems()
             .then((items) => {
@@ -129,7 +128,6 @@ export class ItemListFilterView extends React.Component {
                 this.props.history.push('/');
             } else {
                 // There is no selected category --> filter according to the selected brand
-                console.log(`Hey, here I come again`)
                 this.filterItemsByPartnerId(selectedPartner._id);
                 this.props.history.push('/');
             }

@@ -31,12 +31,8 @@ const useStyles = makeStyles(theme => ({
 
 
 export const Footer = ({ props }) => {
-    console.log(`These are the props`)
-    console.log(props)
-    
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    console.log(open)
 
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
@@ -48,8 +44,6 @@ export const Footer = ({ props }) => {
     
     const handleClose = () => {
         setOpen(false);
-        console.log(`The props:`)
-        console.log(props)
         // props.history to re-render the ItemListFilterView component
     }
 

@@ -34,14 +34,11 @@ export class AddItemView extends React.Component {
     }
 
     addItem(item) {
-        console.log(`Inside addItem of AddItemView`);
-        console.log(this.state.currentUser);
+        // Get the partner id out of the registered partner (user) name
         const arr = this.state.currentUser.username
             .split('_');
         const partnerId = arr[arr.length - 1];
-        console.log(partnerId);
         item.partnerId = partnerId;
-        console.log(item)
         ItemService
             .addItem(item)
             .then((data) => {
@@ -54,17 +51,14 @@ export class AddItemView extends React.Component {
                     error: e
                 }
             });
-
-
     }
-
-
 
     render() {
         if (this.state.loading) {
             return(<Loading/>);
         }
 
+        // Filter out the option all categories
         const filteredCategories = this.state.categories
             .filter(category => category.name !== `All categories`)
         return(

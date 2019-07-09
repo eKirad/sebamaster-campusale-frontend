@@ -25,8 +25,6 @@ export const Filter = ({
     const usage = `filter`;
     const title = `Brand`
 
-    console.log(`Parnters in Filter`);
-    console.log(partners)
     return(
         <Grid>
             <p>Filter</p>

@@ -5,8 +5,6 @@ export default class PartnerService {
     constructor() { }
 
     static getAllPartners(userRole) {
-        console.log(`this is the USERROLE`)
-        console.log(userRole)
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/partners`, (data) => {
                 resolve(data);
@@ -45,8 +43,6 @@ export default class PartnerService {
     }
 
     static updatePartner(partner) {
-        console.log(`Inside updatePartner method of PartnerService`);
-        console.log(partner)
         return new Promise((resolve, reject) => {
             HttpService.put(`${HttpService.baseURI()}/partner`, {
                 id: partner._id,

@@ -41,11 +41,8 @@ export const Search = ({ onFilter }) => {
     }
 
     const handleKeyDown = (event) => {
-        console.log(event.key);
         if (event.key === 'Enter') {
             // Fire the filter
-            console.log(`You entered: ${event.key}`);
-            console.log(`Fire the filter with: ${event.target.value}`)
             onFilter(event.target.value);
         }
     }

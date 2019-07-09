@@ -21,8 +21,6 @@ export const AddItem = ({ categories, onAddItem }) => {
     }
 
     const handleSubmit = () => {
-        console.log(`Inside handleSubmit of AddItem component`)
-        console.log(item);
         onAddItem(item);
     }
 

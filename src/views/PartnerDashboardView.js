@@ -33,9 +33,6 @@ export class PartnerDashboardView extends React.Component {
     }
 
     onApproveAndRegisterPartner(partnerToApproveAndRegister) {
-        console.log(`onRegisterPartner in PartnerDashboarView`);
-        console.log(partnerToApproveAndRegister);
-
         // Change partner flag to isApproved = true
         // PartnerService.updatePartner(partnerToApproveAndRegister)
 

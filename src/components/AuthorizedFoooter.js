@@ -45,8 +45,6 @@ export const AuthorizedFooter = ({ user, props }) => {
     
     const handleClose = () => {
         setOpen(false);
-        console.log(`The props:`)
-        console.log(props)
         // props.history to re-render the ItemListFilterView component
     }
 

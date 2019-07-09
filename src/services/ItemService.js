@@ -25,9 +25,6 @@ export default class ItemService {
     }
 
     static addItem(item) {
-        console.log('inside ItemService addItem()')
-        console.log(item);
-
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/item`, item, (data) => {
                 resolve(data);
@@ -36,6 +33,4 @@ export default class ItemService {
             })
         });
     }
-
-
 }

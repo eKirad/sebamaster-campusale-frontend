@@ -58,8 +58,6 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
         textAlign: 'center'
     }
     const handleApproveAndRegisterPartner = (waitingForApprovalPartner) => {
-        console.log(`WAITING FOR APPROVAL PARTNER`)
-        console.log(waitingForApprovalPartner);
         onApproveAndRegisterPartner(waitingForApprovalPartner);
     }
 
@@ -73,8 +71,7 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
         .filter((waitingForApprovalPartner) => waitingForApprovalPartner.isApproved === false);
 
     const handleDeletePartner = (waitingForApprovalPartner) => {
-        console.log(`WAITING FOR APPROVAL`)
-        console.log(waitingForApprovalPartner);
+
     }
 
     return(

@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // make this class and check
-export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
+export const AuthorizedHeader = ({ props, user, onFiltered}) => {
     const classes = useStyles();
     const [ accountButton, setAccountButton ] = useState(null);
 
@@ -89,13 +89,12 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
     
     const handleLogout = () => {
         UserService.logout();
-        // if(props.location.pathname != '/') {
-            props.history.push('/');
-        //}
-        // else {
-        //     console.log('yes')
-        //     window.location.reload();
-        // }
+        if(props.props.location.pathname != '/') {
+            props.props.history.push('/');
+        }
+        else {
+            window.location.reload();
+        }
     }
     
     // Check if the user is admin

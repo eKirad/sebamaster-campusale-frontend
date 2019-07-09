@@ -21,7 +21,6 @@ export const BecomePartner = ({ onSubmit }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(partner);
         onSubmit(partner);
     }
 

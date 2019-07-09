@@ -25,10 +25,6 @@ export default class UserService {
             role: JSON.parse(window.atob(base64)).role
         }
 
-        console.log(JSON.parse(window.atob(base64)))
-
-        // console.log(`the return obj is`);
-        // console.log(returnObj);
         return returnObj;
     }
 
@@ -60,7 +56,6 @@ export default class UserService {
     }
 
     static login(username, password) {
-        console.log(`entered UserService.js login()`)
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/login`, {
                 username,
@@ -74,9 +69,6 @@ export default class UserService {
     }
 
     static register(username, password, email, role) {
-        console.log('inside UserService register')
-        console.log(username);
-        console.log(password);
         const myObj = {
             username: username,
             password: password,
@@ -84,9 +76,6 @@ export default class UserService {
             role: role
         }
         
-        console.log('inside UserService.register()')
-        console.log(myObj);
-
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/signup`, {
                 username,
