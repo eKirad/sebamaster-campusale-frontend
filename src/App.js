@@ -11,6 +11,7 @@ import { UserProfileView } from './views/UserProfileView';
 import { WishlistView } from './views/WishlistView';
 import { BecomePartnerView } from './views/BecomePartnerView';
 import { PartnerDashboardView } from './views/PartnerDashboardView';
+import { AddItemView } from './views/AddItemView';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ export default class App extends React.Component {
                 { component: WishlistView, path: '/wishlist/:id' },
                 { component: BecomePartnerView, path: '/become-partner' },
                 { component: PartnerDashboardView, path: '/partner-dashboard' },
+                { component: AddItemView, path: '/add-item' },
             ]
         }
     }

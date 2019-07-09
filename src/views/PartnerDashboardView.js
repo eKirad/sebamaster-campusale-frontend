@@ -42,7 +42,7 @@ export class PartnerDashboardView extends React.Component {
 
         // Register partner
         const partnerUser = {
-            username: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
+            username: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}_${partnerToApproveAndRegister.name}_${partnerToApproveAndRegister._id}`,
             password: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
             email: `${partnerToApproveAndRegister.contactPersonEmail}`,
             role: `partner`

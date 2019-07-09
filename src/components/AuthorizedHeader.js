@@ -16,6 +16,7 @@ import AdminUserIcon from '@material-ui/icons/SupervisedUserCircle'
 import PartnerIcon from '@material-ui/icons/Work'
 import FavIcon from '@material-ui/icons/Favorite';
 import SignoutIcon from '@material-ui/icons/ExitToApp';
+import AddIcon from '@material-ui/icons/AddCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuList from '@material-ui/core/MenuList'
 import MenuItem from '@material-ui/core/MenuItem';
@@ -169,6 +170,77 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
                 </AppBar>
             </div>
           );
+    } else if (user.role === `partner`) {
+        return (
+            <div className={classes.root} >
+                <AppBar position="static" className = {classes.toolbar}>
+                    <Toolbar className = {classes.toolbar}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={3}>
+                                <Typography variant="h6" className={classes.title}>
+                                    <StyledLink
+                                        to = {'/'}
+                                    >
+                                        CampuSale
+                                    </StyledLink>
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <Search
+                                        onFilter = {(filterCriteria) => onFilter(filterCriteria)}
+                                    />
+                                </Grid>
+                            </Grid>
+                        <span>
+                            <IconButton 
+                                color = "inherit"
+                                onClick = {handleShowAccountMenu}> 
+                                <UserIcon/>
+                            </IconButton>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl = {accountButton}
+                                keepMounted
+                                open = {Boolean(accountButton)}
+                                onClose = {handleHideAccountMenu}
+                            >
+                                <MenuList className = {classes.menuList}>
+                                    <b>{user.username}</b>
+                                </MenuList>
+                                <MenuItem 
+                                    component = {Link} 
+                                    to = {`/profile/${user.id}`}>
+                                    <ListItemIcon>
+                                        <UserIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Profile
+                                    </ListItemText>
+                                </MenuItem>
+                                <MenuItem 
+                                    component = {Link} 
+                                    to = {`/add-item`}>
+                                    <ListItemIcon>
+                                        <AddIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Add item
+                                    </ListItemText>
+                                </MenuItem>
+                                <MenuItem onClick = {handleHideAccountMenu}>
+                                    <ListItemIcon>
+                                        <SignoutIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText onClick = {handleLogout}>
+                                        Sign out
+                                    </ListItemText>
+                                </MenuItem>
+                            </Menu>
+                        </span> 
+                    </Toolbar>
+                </AppBar>
+            </div>
+          );
     } else {
         return (
             <div className={classes.root} >
@@ -238,7 +310,7 @@ export const AuthorizedHeader = ({ props, user, onLogout, onFiltered}) => {
                 </AppBar>
             </div>
           );
-    } 
+    }
 }
 
 // default withRouter(AuthorizedHeader);

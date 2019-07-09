@@ -77,34 +77,6 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
         console.log(waitingForApprovalPartner);
     }
 
-
-    const handleChangePartnerUsername = (event) => {
-        setPartnerUser({
-            ...partnerUser,
-            username: event.target.value
-        });
-    }
-    
-    const handleChangePartnerPassword = (event) => {
-        setPartnerUser({
-            ...partnerUser,
-            password: event.target.value
-        });
-    }
-
-    const handleChangePartnerEmail = (event) => {
-        setPartnerUser({
-            ...partnerUser,
-            email: event.target.value,
-            role: `partner`
-        });
-    }
-
-    const handleSubmitPartner = (event, waitingForApprovalPartnerId) => {
-        event.preventDefault();
-        onRegisterPartner(partnerUser);
-    }
-
     return(
         <Card className = {classes.card}>
             <CardContent>
@@ -152,56 +124,6 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
                         >
                             <CheckIcon/>
                         </IconButton>
-                        {/* <Dialog
-                            open={registerDiaglog}
-                            // TransitionComponent={Transition}
-                            keepMounted
-                            // onClose={handleClose}
-                            // aria-labelledby="alert-dialog-slide-title"
-                            // aria-describedby="alert-dialog-slide-description"
-                        >
-                            <DialogTitle id="alert-dialog-slide-title">
-                                {`CampuSale`}
-                            </DialogTitle>
-                            <DialogContent>
-                                <form className="md-grid" onSubmit = {(event) => handleSubmitPartner(event, waitingForApprovalPartner._id)}>
-                                    <Card style = {cardStyle}>
-                                        <CardContent>
-                                            <TextField
-                                                label = "Username"
-                                                id = "partnerUsernameTextField"
-                                                required = {true}
-                                                type = "text"
-                                                // value = {this.state.username}
-                                                onChange = {handleChangePartnerUsername}
-                                            /> <br/>
-                                            <TextField
-                                                label = "Password"
-                                                id = "partnerPasswordTextfield"
-                                                required = {true}
-                                                type = "password"
-                                                // value = {this.state.username}
-                                                onChange = {handleChangePartnerPassword}
-                                            /> <br/>
-                                            <TextField
-                                                label = "Email"
-                                                id = "partnerEmailTextfield"
-                                                required = {true}
-                                                type = "text"
-                                                // value = {waitingForApprovalPartner.contactPersonEmail}
-                                                onChange = {handleChangePartnerEmail}
-                                            /> <br/>
-                                            <Button
-                                                id = "submittBtn"
-                                                type = "submit"
-                                            >
-                                                Submit
-                                            </Button>
-                                        </CardContent>
-                                    </Card>
-                                </form>
-                            </DialogContent>
-                        </Dialog> */}
                     </ListItem>
                 ))}
             </CardContent>
