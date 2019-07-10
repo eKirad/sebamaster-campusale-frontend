@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 // Component imports
 import Page from './Page';
-import {Category} from './Category';
+import { Category } from './Category';
 
 export const AddItem = ({ categories, onAddItem }) => {
     const [item, setItem] = useState({ });

@@ -9,9 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import Grid from '@material-ui/core/Grid';
+import ErrorIcon from '@material-ui/icons/Error';
 
 // Component imports
 import Page from './Page';
@@ -35,8 +33,6 @@ export const ItemList = ({items}) => {
 		textDecoration: 'none'
 	}	
 	
-
-
 	if (items.length !== 0) {
 		return (
 			<Table>
@@ -89,6 +85,7 @@ export const ItemList = ({items}) => {
 				</TableHead>
 				<TableBody>
 						<h1>There are no discounts that match the search criteria.</h1>
+						<ErrorIcon/>
 				</TableBody>
 			</Table>
 		);

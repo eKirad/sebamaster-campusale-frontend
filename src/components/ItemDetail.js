@@ -28,7 +28,6 @@ export class ItemDetail extends React.Component {
         super(params);
     }
 
-    
     onFiltered(filterCriteria) {
         this.props.onFilter(filterCriteria);
     }
@@ -76,18 +75,6 @@ export class ItemDetail extends React.Component {
                                     {this.props.item.description}
                                 </Grid>
                             </Grid>
-                            
-                            
-                            {/* <h1>{this.props.item.itemName} 
-                                <button>Add to wishlist</button> 
-                                <button>To the offer</button>
-                            </h1>
-                            <p>{this.props.item.price} EUR</p>
-                            <h3>Offer description:</h3>
-                            <div>
-                                <h3>Item description:</h3>      
-                                <p>{this.props.item.description}</p>
-                            </div> */}
                         </Paper>
                     </Grid>
                 </Grid>

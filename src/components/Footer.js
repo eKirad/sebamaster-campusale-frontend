@@ -1,6 +1,5 @@
 // React impports
 import React, { useState }from 'react';
-import { Link } from 'react-router-dom'
 
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
+import Typography from '@material-ui/core/Typography';
 
 // Component imports
 import {StyledLink} from './StyledLink';
@@ -63,26 +63,30 @@ export const Footer = ({ props, user }) => {
                     About CampuSale
                 </StyledLink>
                 <Dialog
-                    open={open}
-                    TransitionComponent={Transition}
+                    open = {open}
+                    TransitionComponent = {Transition}
                     keepMounted
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
+                    onClose = {handleClose}
+                    aria-labelledby = "alert-dialog-slide-title"
+                    aria-describedby = "alert-dialog-slide-description"
                 >
                     <DialogTitle id="alert-dialog-slide-title">
                         {`CampuSale`}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <p>
-                                <b>CampuSale</b> is a platform that helps students find and filter different 
-                                items and local base services in Munich with student discounts. 
-                            </p>
-                            <p>
-                                It is part of the SEBIS chair's course Web Application Engineering at
-                                Technical University of Munich
-                            </p>
+                            <Typography>
+                                <Typography>
+                                    <b>CampuSale</b> is a platform that helps students find and filter different 
+                                    items and local base services in Munich with student discounts. 
+                                </Typography>
+                                <p>
+                                    <Typography>
+                                        It is part of the SEBIS chair's course Web Application Engineering at
+                                        Technical University of Munich.
+                                    </Typography>
+                                </p>
+                            </Typography>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
