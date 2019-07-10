@@ -37,12 +37,12 @@ export class UserLoginView extends React.Component {
             return(
                 <UserLogin
                     isError = {this.state.isLoginError}
-                    onSubmit = { (user) => this.signup(user) }/> 
+                    onSubmit = { (user) => this.login(user) }/> 
             );
         }
         
         return(
-            <UserLogin onSubmit = { (user) => this.signup(user) }/>
+            <UserLogin onSubmit = { (user) => this.login(user) }/>
         );
     }
 }

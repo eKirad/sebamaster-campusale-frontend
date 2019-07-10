@@ -20,7 +20,9 @@ const simpleSelectStyle = {
 
 
 
-export const UserProfile = ({user}) => {
+export const UserProfile = ({ user }) => {
+    const [updatedUser, setUpdatedUser] = useState({ ...user });
+
     const [ emailTextFieldData, setEmailTextFieldData ] = useState({
         name: user.email,
         isDisabled: true
@@ -56,6 +58,20 @@ export const UserProfile = ({user}) => {
         ]
     });
 
+
+    const handleChangeEmail = (e) => {
+        setUpdatedUser({
+            ...updatedUser,
+            email: e.target.value
+        });
+    }
+
+    const handleChangeBirthdate = (e) => {
+        console.log(e.target.value);
+    }
+
+
+
     const handleEditProfile = () => {
         setEmailTextFieldData({...emailTextFieldData,
             isDisabled: false
@@ -80,7 +96,6 @@ export const UserProfile = ({user}) => {
         setEmailTextFieldData({...emailTextFieldData,
             isDisabled: false
         });
-
     }
 
     return(
@@ -102,7 +117,7 @@ export const UserProfile = ({user}) => {
                         type = "text"
                         value = {emailTextFieldData.name}
                         disabled = {emailTextFieldData.isDisabled}
-                        // onChange = { this.handleChangeUsername }
+                        onChange = {handleChangeEmail}
                         // error = "Username is a required field"
                     /> <br/>
                     <TextField 
@@ -121,7 +136,7 @@ export const UserProfile = ({user}) => {
                         type = "date"
                         value = {user.password}
                         disabled = {birthDateTextFieldData.isDisabled}
-                        // onChange = { this.handleChangePassword }
+                        onChange = {handleChangeBirthdate}
                         // error = "Password is a required field"
                     /> <br/> 
                     <SimpleSelect 
