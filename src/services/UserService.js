@@ -94,8 +94,11 @@ export default class UserService {
         return window.localStorage['jwtToken'] ? true : false;
     }
 
-    static logout(){
+    static logout() {
         window.localStorage.removeItem('jwtToken');
+        console.log(`TOKEN!!!`);
+        
+        console.log(window.localStorage[`jwtToken`]);
     }
 
     static getProfile(userId) {

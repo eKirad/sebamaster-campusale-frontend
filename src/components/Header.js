@@ -85,10 +85,10 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
   
   const handleLogout = () => {
       UserService.logout();
-      if(props.props.location.pathname != '/') {
-          props.props.history.push('/');
-      }
-      else {
+    if(props.props.location.pathname != '/') {
+        props.props.history.push('/');
+        window.location.reload();
+    } else {
           window.location.reload();
       }
   }
@@ -137,11 +137,11 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Partner dashboard
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <MenuItem onClick = {handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
-                            <ListItemText onClick = {handleLogout}>
+                            <ListItemText>
                                 Sign out
                             </ListItemText>
                         </MenuItem>
@@ -185,11 +185,11 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Add item
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <MenuItem onClick = {handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
-                            <ListItemText onClick = {handleLogout}>
+                            <ListItemText>
                                 Sign out
                             </ListItemText>
                         </MenuItem>
@@ -231,11 +231,11 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                             My wishlist
                         </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <MenuItem onClick = {handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
-                            <ListItemText onClick = {handleLogout}>
+                            <ListItemText >
                                 Sign out
                             </ListItemText>
                         </MenuItem>
