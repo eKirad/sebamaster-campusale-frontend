@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 // Component imports
 import {SimpleExpansionPanel} from './SimpleExpansionPanel';
+import Page from '../components/Page';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner, onDeleteApprovedPartner }) => {
+export const PartnerDashboard = ({ props, partners, onApproveAndRegisterPartner, onDeleteApprovedPartner }) => {
     const classes = useStyles();
     const [registerDiaglog, setRegisterDialog] = useState(false);
     const [partnerUser, setPartnerUser] = useState({ });
@@ -76,55 +77,59 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner, onDele
     }
 
     return(
-        <Card className = {classes.card}>
-            <CardContent>
-                <Typography 
-                    color = "textPrimary"
-                    >
-                        Live Partners
-                </Typography>
-                {approvedPartners.map((approvedPartner) => (
-                    <ListItem 
-                        key = {approvedPartner._id}
-                    >
-                        <ListItemText>
-                            <SimpleExpansionPanel
-                                title = {approvedPartner.name}
-                                singlePartner = {approvedPartner}
-                            />
-                        </ListItemText>
-                        <IconButton
-                            key = {approvedPartner._id}
-                            onClick = {() => handleDeletePartner(approvedPartner)}
-                            >
-                            <DeleteIcon/>
-                        </IconButton>
-                    </ListItem>
-                ))}
-                <Typography 
-                    color = "textPrimary"
-                    >
-                        Partner requests
-                </Typography>
-                {waitingForApprovalPartners.map((waitingForApprovalPartner) => (
-                    <ListItem key = {waitingForApprovalPartner._id}>
-                        <ListItemText>
-                            <SimpleExpansionPanel
-                                title = {waitingForApprovalPartner.name}
-                                singlePartner = {waitingForApprovalPartner}
-                            />
-                        </ListItemText>
-                        <IconButton>
-                            <CancelIcon/>
-                        </IconButton>
-                        <IconButton
-                            onClick = {() => handleApproveAndRegisterPartner(waitingForApprovalPartner)}
+        <Page
+            props = {props}
+        >
+            <Card className = {classes.card}>
+                <CardContent>
+                    <Typography 
+                        color = "textPrimary"
                         >
-                            <CheckIcon/>
-                        </IconButton>
-                    </ListItem>
-                ))}
-            </CardContent>
-        </Card>
+                            Live Partners
+                    </Typography>
+                    {approvedPartners.map((approvedPartner) => (
+                        <ListItem 
+                            key = {approvedPartner._id}
+                        >
+                            <ListItemText>
+                                <SimpleExpansionPanel
+                                    title = {approvedPartner.name}
+                                    singlePartner = {approvedPartner}
+                                />
+                            </ListItemText>
+                            <IconButton
+                                key = {approvedPartner._id}
+                                onClick = {() => handleDeletePartner(approvedPartner)}
+                                >
+                                <DeleteIcon/>
+                            </IconButton>
+                        </ListItem>
+                    ))}
+                    <Typography 
+                        color = "textPrimary"
+                        >
+                            Partner requests
+                    </Typography>
+                    {waitingForApprovalPartners.map((waitingForApprovalPartner) => (
+                        <ListItem key = {waitingForApprovalPartner._id}>
+                            <ListItemText>
+                                <SimpleExpansionPanel
+                                    title = {waitingForApprovalPartner.name}
+                                    singlePartner = {waitingForApprovalPartner}
+                                />
+                            </ListItemText>
+                            <IconButton>
+                                <CancelIcon/>
+                            </IconButton>
+                            <IconButton
+                                onClick = {() => handleApproveAndRegisterPartner(waitingForApprovalPartner)}
+                            >
+                                <CheckIcon/>
+                            </IconButton>
+                        </ListItem>
+                    ))}
+                </CardContent>
+            </Card>
+        </Page>
     );
 }

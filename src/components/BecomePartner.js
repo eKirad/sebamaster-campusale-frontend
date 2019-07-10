@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 // Component imports
 import Page from './Page';
 
-export const BecomePartner = ({ onSubmit }) => {
+export const BecomePartner = ({ onSubmitPartner }) => {
     const [partner, setPartner] = useState({ });
     
     const cardStyle = {
@@ -21,7 +21,7 @@ export const BecomePartner = ({ onSubmit }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(partner);
+        onSubmitPartner(partner);
     }
 
     const handleChangeCompanyName = (event) => {
@@ -74,7 +74,6 @@ export const BecomePartner = ({ onSubmit }) => {
                             id = "partnerCompanyName"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeCompanyName}
                         /> <br/>
                         <TextField
@@ -82,7 +81,6 @@ export const BecomePartner = ({ onSubmit }) => {
                             id = "partnerContactPersonFirstName"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeContactPersonFirstName}
                         /> <br/>
                         <TextField
@@ -90,7 +88,6 @@ export const BecomePartner = ({ onSubmit }) => {
                             id = "partnerContactPersonSurname"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeContactPersonSurname}
                         /> <br/>
                         <TextField
@@ -98,7 +95,6 @@ export const BecomePartner = ({ onSubmit }) => {
                             id = "partnerContactPersonEmail"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeContactPersonEmail}
                         /> <br/>
                         <TextField
@@ -106,7 +102,6 @@ export const BecomePartner = ({ onSubmit }) => {
                             id = "partnerLocation"
                             required = {false}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeLocation}
                         /> <br/>
                         <Button

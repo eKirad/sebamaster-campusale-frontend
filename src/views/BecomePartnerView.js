@@ -17,7 +17,6 @@ export class BecomePartnerView extends React.Component {
             .createPartner(partner.name, partner.isApproved, partner.contactPersonFirstName,
                 partner.contactPersonSurname, partner.contactPersonEmail, partner.location)
             .then((data) => {
-                console.log('data');
                 this.props.history.push('/');
             })
             .catch((e) => {
@@ -31,7 +30,7 @@ export class BecomePartnerView extends React.Component {
     render() {
         return(
             <BecomePartner
-                onSubmit = {(partner) => this.createPartner(partner)}
+                onSubmitPartner = {(partner) => this.createPartner(partner)}
             />
         );
     }

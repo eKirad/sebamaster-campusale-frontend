@@ -2,7 +2,6 @@
 import React from 'react';
 
 // Component imports
-import Page from '../components/Page';
 import { PartnerDashboard } from '../components/PartnerDashboard'
 import { Loading } from '../components/Loading';
 
@@ -39,25 +38,29 @@ export class PartnerDashboardView extends React.Component {
 
     onApproveAndRegisterPartner(partnerToApproveAndRegister) {
         // Change partner flag to isApproved = true
-        // PartnerService.updatePartner(partnerToApproveAndRegister)
+        PartnerService.updatePartner(partnerToApproveAndRegister)
 
-
-        // Register partner
+        // Register partner as user of the platform
         const partnerUser = {
-            username: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}_${partnerToApproveAndRegister.name}_${partnerToApproveAndRegister._id}`,
+            username: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
             password: `${partnerToApproveAndRegister.contactPersonFirstName}_${partnerToApproveAndRegister.contactPersonSurname}@${partnerToApproveAndRegister.name}`,
             email: `${partnerToApproveAndRegister.contactPersonEmail}`,
-            role: `partner`
+            role: `partner`,
+            partnerId: partnerToApproveAndRegister._id
         };
 
-        UserService.register(partnerUser.username, partnerUser.password, 
-            partnerUser.email, partnerUser.role)
+        UserService.registerPartnerAsUser(partnerUser.username, partnerUser.password, 
+            partnerUser.email, partnerUser.role, partnerUser.partnerId)
             .then((data) => {
-                console.log('data');
                 // Update isApproved partner flag to true
                 PartnerService.updatePartner(partnerToApproveAndRegister)
                     .then((data) => {
-                        this.props.history.push('/');
+                        if(this.props.location.pathname != '/partner-dashboard') {
+                            this.props.history.push('/partner-dashboard');
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+                        }
                     })
                     .catch((e) => {
                         console.error(e);
@@ -83,13 +86,12 @@ export class PartnerDashboardView extends React.Component {
            );
         } else {
             return(
-                <Page>
                     <PartnerDashboard
+                        props = {this.props}
                         partners = {this.state.partners}
                         onApproveAndRegisterPartner = {(partnerToApproveAndRegister) => this.onApproveAndRegisterPartner(partnerToApproveAndRegister)}
                         onDeleteApprovedPartner = {(partnerToDelete) => this.deleteApprovedPartner(partnerToDelete)}
                     />
-                </Page>
             );
         }
     }

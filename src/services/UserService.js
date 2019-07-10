@@ -68,8 +68,31 @@ export default class UserService {
         });
     }
 
+    // Register partner as a user of the platform (after he got approved), so that the partner
+    // is able to post all the available items. Done only by admin.
+    static registerPartnerAsUser(username, password, email, role, partnerId) {
+        const partnerUserObj = {
+            username, 
+            password, 
+            email, 
+            role, 
+            partnerId
+        }
+        
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${HttpService.baseURI()}/signup-partner`, partnerUserObj, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
+
+
+
     static register(username, password, email, role) {
-        const myObj = {
+        const userObj = {
             username: username,
             password: password,
             email: email,
@@ -77,12 +100,7 @@ export default class UserService {
         }
         
         return new Promise((resolve, reject) => {
-            HttpService.post(`${HttpService.baseURI()}/signup`, {
-                username,
-                password,
-                email,
-                role
-            }, (data) => {
+            HttpService.post(`${HttpService.baseURI()}/signup`, userObj, (data) => {
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);
@@ -96,9 +114,6 @@ export default class UserService {
 
     static logout() {
         window.localStorage.removeItem('jwtToken');
-        console.log(`TOKEN!!!`);
-        
-        console.log(window.localStorage[`jwtToken`]);
     }
 
     static getProfile(userId) {

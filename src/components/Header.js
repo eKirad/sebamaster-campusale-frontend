@@ -20,7 +20,6 @@ import MenuList from '@material-ui/core/MenuList'
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 
 // Component imports
@@ -60,42 +59,33 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function ButtonAppBar({ props, user, onFiltered }) {
-  const classes = useStyles();
-  const [ menuButtonHover, setMenuButtonHover ] = useState(false);
-  const [ loginButtonHover, setLoginButtonHover ] = useState(false);
-  const [ signupButtonHover, setSignupButtonHover ] = useState(false);
+    const classes = useStyles();
+    const [ accountButton, setAccountButton ] = useState(null);
 
-  const toggleMenuButtonHover = () => setMenuButtonHover(!menuButtonHover);
-  const toggleLoginButtonHover = () => setLoginButtonHover(!loginButtonHover);
-  const toggleSignupButtonHover = () => setSignupButtonHover(!signupButtonHover);
-
-  const [ accountButton, setAccountButton ] = useState(null);
-
-  const handleShowAccountMenu = (event) => {
-      setAccountButton(event.target);
-  }
-  
-  const handleHideAccountMenu = () => {
-      setAccountButton(null);
-  }
-
-  const onFilter = (filterCriteria) => {
-      onFiltered(filterCriteria);
-  }
-  
-  const handleLogout = () => {
-      UserService.logout();
-    if(props.props.location.pathname != '/') {
-        props.props.history.push('/');
-        window.location.reload();
-    } else {
-          window.location.reload();
-      }
-  }
-
-    const handleMouseOver = () => {
-    console.log('hover')
+    const handleShowAccountMenu = (event) => {
+        setAccountButton(event.target);
     }
+  
+    const handleHideAccountMenu = () => {
+        setAccountButton(null);
+    }
+
+    const onFilter = (filterCriteria) => {
+        onFiltered(filterCriteria);
+    }
+  
+
+    const handleLogout = () => {
+        UserService.logout();
+        console.log(props)
+        if(props.props.location.pathname != '/') {
+            props.props.history.push('/');
+            window.location.reload();
+        } else {
+            window.location.reload();
+        }
+    }
+
 
     let userTypeJSX;
     if (user) {
@@ -246,17 +236,13 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
         userTypeJSX = 
             <span>
                 <Button 
-                    className = {signupButtonHover ? classes.headerButtonHovered : classes.headerButton}
-                    onMouseOver = {toggleSignupButtonHover}
-                    onMouseLeave = {toggleSignupButtonHover}
+                    className = {classes.headerButton}
                     component = {Link} 
                     to= {`/signup`}>
                     Signup
                 </Button>   
                 <Button 
-                    className = {loginButtonHover ? classes.headerButtonHovered : classes.headerButton}
-                    onMouseOver = {toggleLoginButtonHover}
-                    onMouseLeave = {toggleLoginButtonHover}
+                    className = {classes.headerButton}
                     component = {Link} 
                     to= {`/login`}>
                     Login

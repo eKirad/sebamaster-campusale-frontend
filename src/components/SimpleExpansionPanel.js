@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, singlePartner }) => {
     const classes = useStyles();
     
-
     if (usage === `filter`) {
         return(
             <ExpansionPanel>
