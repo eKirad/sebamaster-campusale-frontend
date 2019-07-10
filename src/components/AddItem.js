@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -86,7 +85,6 @@ export const AddItem = ({ categories, onAddItem }) => {
                             id = "itemNameTextField"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemName}
                         /> <br/>
                         <Category 
@@ -98,7 +96,6 @@ export const AddItem = ({ categories, onAddItem }) => {
                             id = "itemOldPriceTextField"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemOldPrice}
                         /> <br/>
                         <TextField
@@ -106,7 +103,6 @@ export const AddItem = ({ categories, onAddItem }) => {
                             id = "itemNewPriceTextField"
                             required = {true}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemNewPrice}
                         /> <br/>
                         <TextField
@@ -114,25 +110,21 @@ export const AddItem = ({ categories, onAddItem }) => {
                             id = "itemTypeTextField"
                             required = {false}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemType}
                         /> <br/>
-                        {/* <TextField
+                        <TextField
                             label = "Item description"
                             id = "itemDescriptionTextField"
                             required = {false}
-                            type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemDescription}
-                        /> <br/> */}
-                        {/* <TextField
+                        /> <br/>
+                        <TextField
                             label = "Item discount in percentage"
                             id = "itemDiscountInPercentageTextField"
                             required = {false}
                             type = "text"
-                            // value = {this.state.username}
                             onChange = {handleChangeItemDiscountPercentage}
-                        /> <br/> */}
+                        /> <br/>
                         <Button
                             id = "submittBtn"
                             type = "submit"

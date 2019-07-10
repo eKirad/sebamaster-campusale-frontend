@@ -67,7 +67,6 @@ export const UserProfile = ({ user }) => {
     }
 
     const handleChangeBirthdate = (e) => {
-        console.log(e.target.value);
     }
 
 

@@ -77,7 +77,6 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
 
     const handleLogout = () => {
         UserService.logout();
-        console.log(props)
         if(props.props.location.pathname != '/') {
             props.props.history.push('/');
             window.location.reload();

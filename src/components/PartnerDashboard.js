@@ -72,7 +72,6 @@ export const PartnerDashboard = ({ props, partners, onApproveAndRegisterPartner,
         .filter((waitingForApprovalPartner) => waitingForApprovalPartner.isApproved === false);
 
     const handleDeletePartner = (approvedPartner) => {
-        console.log(approvedPartner)
         // onDeleteApprovedPartner(approvedPartner);
     }
 

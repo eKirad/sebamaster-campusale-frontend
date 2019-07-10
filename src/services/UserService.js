@@ -22,7 +22,8 @@ export default class UserService {
         const returnObj = {
             id : JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username,
-            role: JSON.parse(window.atob(base64)).role
+            role: JSON.parse(window.atob(base64)).role,
+            partnerId: JSON.parse(window.atob(base64)).partnerId,
         }
 
         return returnObj;
@@ -46,8 +47,6 @@ export default class UserService {
         
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/user/${id}`, (data) => {
-                console.log(`the use inside the UserService`)
-                console.log(data)
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

@@ -34,15 +34,13 @@ export class AddItemView extends React.Component {
     }
 
     addItem(item) {
-        // Get the partner id out of the registered partner (user) name
-        const arr = this.state.currentUser.username
-            .split('_');
-        const partnerId = arr[arr.length - 1];
-        item.partnerId = partnerId;
+        // Get the partnerId property from the current user and set it to the item, so that 
+        // the item gets linked to the corresponding partner 
+        item.partnerId = this.state.currentUser.partnerId;
+
         ItemService
             .addItem(item)
             .then((data) => {
-                console.log('data');
                 this.props.history.push('/');
             })
             .catch((e) => {
