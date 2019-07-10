@@ -61,11 +61,21 @@ export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, 
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <List>
-                        <p>id: {singlePartner._id}</p>
-                        <p>location: {singlePartner.location}</p>
-                        <p>contact person first name: {singlePartner.contactPersonFirstName}</p>
-                        <p>contact person surname: {singlePartner.contactPersonSurname}</p>
-                        <p>contact person email: {singlePartner.contactPersonEmail}</p>   
+                        <Typography>
+                            id: {singlePartner._id}
+                        </Typography>
+                        <Typography>
+                            contact person first name: {singlePartner.contactPersonFirstName}
+                        </Typography>
+                        <Typography>
+                            contact person surname: {singlePartner.contactPersonSurname}
+                        </Typography>
+                        <Typography>
+                            contact person email: {singlePartner.contactPersonEmail}
+                        </Typography>
+                        <Typography>
+                            location: {singlePartner.location}
+                        </Typography> 
                     </List>
                 </ExpansionPanelDetails>
             </ExpansionPanel>

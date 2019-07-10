@@ -32,6 +32,11 @@ export class PartnerDashboardView extends React.Component {
             .catch(e => { console.error(e); });
     }
 
+    deleteApprovedPartner(approvedPartner) {
+        PartnerService
+    }
+
+
     onApproveAndRegisterPartner(partnerToApproveAndRegister) {
         // Change partner flag to isApproved = true
         // PartnerService.updatePartner(partnerToApproveAndRegister)
@@ -82,6 +87,7 @@ export class PartnerDashboardView extends React.Component {
                     <PartnerDashboard
                         partners = {this.state.partners}
                         onApproveAndRegisterPartner = {(partnerToApproveAndRegister) => this.onApproveAndRegisterPartner(partnerToApproveAndRegister)}
+                        onDeleteApprovedPartner = {(partnerToDelete) => this.deleteApprovedPartner(partnerToDelete)}
                     />
                 </Page>
             );

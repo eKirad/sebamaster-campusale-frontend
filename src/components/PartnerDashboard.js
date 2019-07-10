@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
+export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner, onDeleteApprovedPartner }) => {
     const classes = useStyles();
     const [registerDiaglog, setRegisterDialog] = useState(false);
     const [partnerUser, setPartnerUser] = useState({ });
@@ -70,8 +70,9 @@ export const PartnerDashboard = ({ partners, onApproveAndRegisterPartner }) => {
     const waitingForApprovalPartners = partners
         .filter((waitingForApprovalPartner) => waitingForApprovalPartner.isApproved === false);
 
-    const handleDeletePartner = (waitingForApprovalPartner) => {
-
+    const handleDeletePartner = (approvedPartner) => {
+        console.log(approvedPartner)
+        // onDeleteApprovedPartner(approvedPartner);
     }
 
     return(
