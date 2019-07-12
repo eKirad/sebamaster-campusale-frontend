@@ -17,10 +17,13 @@ export const Filter = ({
     onSelectPartner,
     onSelectPriceRange
     }) => {
-	const linkStyle = {
+    
+    const linkStyle = {
 		paddingLeft: '30px',
     }
     
+    const usage = `filter`;
+    const title = `Brand`
 
     return(
         <Grid>
@@ -31,10 +34,12 @@ export const Filter = ({
                 onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
             />
             </Grid>
-                <SimpleExpansionPanel 
+                <SimpleExpansionPanel
+                    title = {title}
+                    usage = {usage} 
                     partners = {partners}
                     onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}
-                    />
+                />
             <Grid 
                 item xs = {10}
                 style = {linkStyle}>

@@ -1,6 +1,5 @@
 // React impports
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState }from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
+import Typography from '@material-ui/core/Typography';
 
 // Component imports
 import {StyledLink} from './StyledLink';
@@ -29,16 +29,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-
-
-export const Footer = ({ props }) => {
-    console.log(`These are the props`)
-    console.log(props)
-    
+export const Footer = ({ props, user }) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    console.log(open)
 
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
@@ -50,9 +43,12 @@ export const Footer = ({ props }) => {
     
     const handleClose = () => {
         setOpen(false);
-        console.log(`The props:`)
-        console.log(props)
-        // props.history to re-render the ItemListFilterView component
+        if(props.props.location.pathname != '/') {
+            props.props.history.push('/');
+        }
+        else {
+            window.location.reload();
+        }
     }
 
     return(
@@ -67,20 +63,30 @@ export const Footer = ({ props }) => {
                     About CampuSale
                 </StyledLink>
                 <Dialog
-                    open={open}
-                    TransitionComponent={Transition}
+                    open = {open}
+                    TransitionComponent = {Transition}
                     keepMounted
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
+                    onClose = {handleClose}
+                    aria-labelledby = "alert-dialog-slide-title"
+                    aria-describedby = "alert-dialog-slide-description"
                 >
                     <DialogTitle id="alert-dialog-slide-title">
                         {`CampuSale`}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b>CampuSale</b> is a platform that helps students find and filter different 
-                                items and local base services in Munich with student discounts. 
+                            <Typography>
+                                <Typography>
+                                    <b>CampuSale</b> is a platform that helps students find and filter different 
+                                    items and local base services in Munich with student discounts. 
+                                </Typography>
+                                <p>
+                                    <Typography>
+                                        It is part of the SEBIS chair's course Web Application Engineering at
+                                        Technical University of Munich.
+                                    </Typography>
+                                </p>
+                            </Typography>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -96,10 +102,11 @@ export const Footer = ({ props }) => {
                 <StyledLink>
                   Sitemap
                 </StyledLink>
-                <StyledLink
-                   to = {'/become-partner'}>
-                  Become a partner
-                </StyledLink>
+                    { !user ? 
+                        <StyledLink to = {'/become-partner'}> 
+                            Become a partner 
+                        </StyledLink> 
+                    : null}
               </div>
               <span>
                 Copyright ©2019 CampuSale. All rights reserved.

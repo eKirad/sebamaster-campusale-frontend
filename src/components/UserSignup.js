@@ -47,13 +47,10 @@ export class UserSignup extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
     handleChangeUsername(event) {
         this.setState({
             username: event.target.value
         });
-
-        console.log(this.state.username)
     }
 
     handleChangeEmail(event) {
@@ -61,7 +58,6 @@ export class UserSignup extends React.Component {
             email: event.target.value
         })
     }
-
 
     handleChangePassword(event) {
         this.setState({
@@ -71,16 +67,12 @@ export class UserSignup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(`The username is = ${this.state.username}`);
         const user = {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email,
             role: `student`
         }
-
-        console.log(`Inside HANDLE SUBMIT`)
-        console.log(user)
 
         this.props.onSubmit(user);
     }

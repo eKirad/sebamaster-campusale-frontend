@@ -10,15 +10,11 @@ import UserService from '../services/UserService';
 export class UserSignupView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { };
     }
 
     signup(user) {
-        console.log('inside signup')
-        console.log(user);
         UserService.register(user.username, user.password, user.email, user.role)
             .then((data) => {
-                console.log('data');
                 this.props.history.push('/');
             })
             .catch((e) => {
@@ -30,7 +26,6 @@ export class UserSignupView extends React.Component {
     }
 
     render() {
-
         return(
             <UserSignup onSubmit = { (user) => this.signup(user) }/>
         );

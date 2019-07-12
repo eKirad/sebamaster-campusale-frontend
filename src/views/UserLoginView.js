@@ -10,24 +10,39 @@ import UserService from '../services/UserService';
 export class UserLoginView extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { 
+            isLoginError: false
+        };
     }
 
     login(user) {
         UserService.login(user.username, user.password)
             .then((data) => {
-                console.log(`Data inside the UserLoginView`)
-                console.log(data);
                 this.props.history.push('/');
             })
+            .catch((e) => {
+                this.setState({
+                    isLoginError: true
+                });
+                this.props.history.push('/login');
+                console.error(e);
+                this.setState = {
+                    error: e
+                }
+            });
     }
 
-
-
     render() {
-        return(    
-                <UserLogin 
-                    onSubmit = { (user) => this.login(user) }
-                />
+        if (this.state.isLoginError) {
+            return(
+                <UserLogin
+                    isError = {this.state.isLoginError}
+                    onSubmit = { (user) => this.login(user) }/> 
+            );
+        }
+        
+        return(
+            <UserLogin onSubmit = { (user) => this.login(user) }/>
         );
     }
 }

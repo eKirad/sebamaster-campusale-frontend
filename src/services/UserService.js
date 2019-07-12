@@ -22,13 +22,10 @@ export default class UserService {
         const returnObj = {
             id : JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username,
-            role: JSON.parse(window.atob(base64)).role
+            role: JSON.parse(window.atob(base64)).role,
+            partnerId: JSON.parse(window.atob(base64)).partnerId,
         }
 
-        console.log(JSON.parse(window.atob(base64)))
-
-        // console.log(`the return obj is`);
-        // console.log(returnObj);
         return returnObj;
     }
 
@@ -50,8 +47,6 @@ export default class UserService {
         
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/user/${id}`, (data) => {
-                console.log(`the use inside the UserService`)
-                console.log(data)
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);
@@ -60,7 +55,6 @@ export default class UserService {
     }
 
     static login(username, password) {
-        console.log(`entered UserService.js login()`)
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/login`, {
                 username,
@@ -73,27 +67,39 @@ export default class UserService {
         });
     }
 
+    // Register partner as a user of the platform (after he got approved), so that the partner
+    // is able to post all the available items. Done only by admin.
+    static registerPartnerAsUser(username, password, email, role, partnerId) {
+        const partnerUserObj = {
+            username, 
+            password, 
+            email, 
+            role, 
+            partnerId
+        }
+        
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${HttpService.baseURI()}/signup-partner`, partnerUserObj, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
+
+
+
     static register(username, password, email, role) {
-        console.log('inside UserService register')
-        console.log(username);
-        console.log(password);
-        const myObj = {
+        const userObj = {
             username: username,
             password: password,
             email: email,
             role: role
         }
         
-        console.log('inside UserService.register()')
-        console.log(myObj);
-
         return new Promise((resolve, reject) => {
-            HttpService.post(`${HttpService.baseURI()}/signup`, {
-                username,
-                password,
-                email,
-                role
-            }, (data) => {
+            HttpService.post(`${HttpService.baseURI()}/signup`, userObj, (data) => {
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);
@@ -105,7 +111,7 @@ export default class UserService {
         return window.localStorage['jwtToken'] ? true : false;
     }
 
-    static logout(){
+    static logout() {
         window.localStorage.removeItem('jwtToken');
     }
 

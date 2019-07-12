@@ -11,40 +11,40 @@ import { UserProfileView } from './views/UserProfileView';
 import { WishlistView } from './views/WishlistView';
 import { BecomePartnerView } from './views/BecomePartnerView';
 import { PartnerDashboardView } from './views/PartnerDashboardView';
+import { AddItemView } from './views/AddItemView';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'CampuSale',
-      routes: [
-        { component: ItemListFilterView, path: '/', exact: true },
-        { component: ItemDetailView, path: '/item/:id' },
-        { component: UserLoginView, path: '/login' },
-        { component: UserSignupView, path: '/signup' },
-        { component: UserProfileView, path: '/profile/:id' },
-        { component: WishlistView, path: '/wishlist/:id' },
-        { component: BecomePartnerView, path: '/become-partner' },
-        { component: PartnerDashboardView, path: '/partner-dashboard' },
-      ]
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: 'CampuSale',
+            routes: [
+                { component: ItemListFilterView, path: '/', exact: true },
+                { component: ItemDetailView, path: '/item/:id' },
+                { component: UserLoginView, path: '/login' },
+                { component: UserSignupView, path: '/signup' },
+                { component: UserProfileView, path: '/profile/:id' },
+                { component: WishlistView, path: '/wishlist/:id' },
+                { component: BecomePartnerView, path: '/become-partner' },
+                { component: PartnerDashboardView, path: '/partner-dashboard' },
+                { component: AddItemView, path: '/add-item' },
+            ]
+        }
     }
-  }
 
+    componentDidMount(){
+        document.title = this.state.title;
+    }
 
-  componentDidMount(){
-    document.title = this.state.title;
-  }
-
-
-  render() {
-    return(
-        <div>
-          <Router>
-            <Switch>
-              {this.state.routes.map((route, i) => <Route key={i} {...route}/>)}
-            </Switch>
-          </Router>
-        </div>
-    );
-  }
+    render() {
+        return(
+            <div>
+                <Router>
+                    <Switch>
+                        {this.state.routes.map((route, i) => <Route key={i} {...route}/>)}
+                    </Switch>
+                </Router>
+            </div>
+        );
+    }
 }

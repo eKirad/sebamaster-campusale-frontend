@@ -10,7 +10,6 @@ import ItemService from '../services/ItemService';
 import CategoryService from '../services/CategoryService';
 import PartnerService from '../services/PartnerService';
 
-
 export class ItemListFilterView extends React.Component {
     constructor(props) {
         super(props);
@@ -24,12 +23,10 @@ export class ItemListFilterView extends React.Component {
         }
     };
 
-
     componentDidMount() {
         this.setState({
             loading: true
         });
-
         // Get all the items
         ItemService.getAllItems()
             .then((items) => {
@@ -51,15 +48,14 @@ export class ItemListFilterView extends React.Component {
             .catch(e => { console.error(e); });
 
         // Get all the partners
-        PartnerService.getAllPartners()
-            .then((partners) => {
+        PartnerService.getApprovedPartners()
+            .then((approvedPartners) => {
                 this.setState({
-                    partners: partners
+                    partners: approvedPartners
                 })
             })
             .catch(e => { console.error(e); });
     }
-
 
     filterItemsByCategory(id) {
         if (id === `allCategories`) {
@@ -132,7 +128,6 @@ export class ItemListFilterView extends React.Component {
                 this.props.history.push('/');
             } else {
                 // There is no selected category --> filter according to the selected brand
-                console.log(`Hey, here I come again`)
                 this.filterItemsByPartnerId(selectedPartner._id);
                 this.props.history.push('/');
             }

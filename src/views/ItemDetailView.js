@@ -20,8 +20,6 @@ export class ItemDetailView extends React.Component {
 
     componentDidMount() {
         const itemId = this.props.match.params.id;
-        console.log(itemId)
-        console.log('inside ItemDetailView componentDidMount')
         
         ItemService.getItem(itemId)
             .then((item) => {
@@ -34,8 +32,6 @@ export class ItemDetailView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        console.log(`Inside the filterItemsBySearchKeyword method inside the ItemListCategory`);
-        console.log(`this is the keyword = ${keyword}`);
         this.state.items = this.state.items
             .filter(item => item.name.toLowerCase().includes(keyword));
 
@@ -43,11 +39,8 @@ export class ItemDetailView extends React.Component {
     }
 
     onFilter(filterCriteria) {
-        console.log(`Inside the ItemListCategory view to check the filter criteria`);
-        console.log(`The filter criteria is = ${filterCriteria}`);
         this.filterItemsBySearchKeyword(filterCriteria);
     }
-
 
     render() {
         

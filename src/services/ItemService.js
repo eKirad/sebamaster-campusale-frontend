@@ -23,4 +23,14 @@ export default class ItemService {
             })
         });
     }
+
+    static addItem(item) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(`${HttpService.baseURI()}/item`, item, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
 }
