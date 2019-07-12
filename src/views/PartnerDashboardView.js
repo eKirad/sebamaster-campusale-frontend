@@ -31,9 +31,9 @@ export class PartnerDashboardView extends React.Component {
             .catch(e => { console.error(e); });
     }
 
-    deleteApprovedPartner(approvedPartner) {
+    /*deleteApprovedPartner(approvedPartner) {
         PartnerService
-    }
+    }*/
 
 
     onApproveAndRegisterPartner(partnerToApproveAndRegister) {

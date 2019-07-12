@@ -44,7 +44,7 @@ export const AddItem = ({ categories, onAddItem }) => {
         });
     }
 
-    const handleChangeItemNewPrice = () => {
+    const handleChangeItemNewPrice = (event) => {
         setItem({
             ...item,
             newPrice: event.target.value
