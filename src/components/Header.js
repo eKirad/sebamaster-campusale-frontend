@@ -1,9 +1,9 @@
 // React imports
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 // Material UI imports
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -23,49 +23,50 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
 // Component imports
-import { StyledLink } from './StyledLink';
-import { Search } from './Search';
+import {StyledLink} from './StyledLink';
+import {Search} from './Search';
 
 // Service imports
 import UserService from '../services/UserService';
 
 const useStyles = makeStyles(theme => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2)
     },
     menuButtonHovered: {
         marginRight: theme.spacing(2),
         color: "#50ECE2"
     },
-    headerButtonHovered : {
+    headerButtonHovered: {
         color: "#50ECE2"
     },
     headerButton: {
         color: "inherit"
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     menuList: {
-        textAlign: 'center'},
+        textAlign: 'center'
+    },
     toolbar: {
         // backgroundColor: "#636468"
         // backgroundColor: "#7288FF"
         backgroundColor: "#5308D6"
     }
-  }));
+}));
 
-export default function ButtonAppBar({ props, user, onFiltered }) {
+export default function ButtonAppBar({props, user, onFiltered}) {
     const classes = useStyles();
-    const [ accountButton, setAccountButton ] = useState(null);
+    const [accountButton, setAccountButton] = useState(null);
 
     const handleShowAccountMenu = (event) => {
         setAccountButton(event.target);
     }
-  
+
     const handleHideAccountMenu = () => {
         setAccountButton(null);
     }
@@ -73,11 +74,11 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
     const onFilter = (filterCriteria) => {
         onFiltered(filterCriteria);
     }
-  
+
 
     const handleLogout = () => {
         UserService.logout();
-        if(props.props.location.pathname != '/') {
+        if (props.props.location.pathname !== '/') {
             props.props.history.push('/');
             window.location.reload();
         } else {
@@ -89,26 +90,27 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
     let userTypeJSX;
     if (user) {
         if (user.role === `admin`) {
-            userTypeJSX = 
+            // Header for admin authorized user
+            userTypeJSX =
                 <span>
-                    <IconButton 
-                        color = "inherit"
-                        onClick = {handleShowAccountMenu}> 
+                    <IconButton
+                        color="inherit"
+                        onClick={handleShowAccountMenu}>
                         <AdminUserIcon/>
                     </IconButton>
                     <Menu
                         id="simple-menu"
-                        anchorEl = {accountButton}
+                        anchorEl={accountButton}
                         keepMounted
-                        open = {Boolean(accountButton)}
-                        onClose = {handleHideAccountMenu}
+                        open={Boolean(accountButton)}
+                        onClose={handleHideAccountMenu}
                     >
-                        <MenuList className = {classes.menuList}>
+                        <MenuList className={classes.menuList}>
                             <b>{user.username}</b>
                         </MenuList>
-                        <MenuItem 
-                            component = {Link} 
-                            to = {`/profile/${user.id}`}>
+                        <MenuItem
+                            component={Link}
+                            to={`/profile/${user.id}`}>
                             <ListItemIcon>
                                 <UserIcon/>
                             </ListItemIcon>
@@ -116,9 +118,9 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Profile
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem 
-                            component = {Link} 
-                            to = {`/partner-dashboard`}>
+                        <MenuItem
+                            component={Link}
+                            to={`/partner-dashboard`}>
                             <ListItemIcon>
                                 <PartnerIcon/>
                             </ListItemIcon>
@@ -126,7 +128,7 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Partner dashboard
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleLogout}>
+                        <MenuItem onClick={handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
@@ -135,28 +137,29 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                             </ListItemText>
                         </MenuItem>
                     </Menu>
-                </span> 
+                </span>
         } else if (user.role === `partner`) {
-            userTypeJSX = 
+            // Header for partner authorized user
+            userTypeJSX =
                 <span>
-                    <IconButton 
-                        color = "inherit"
-                        onClick = {handleShowAccountMenu}> 
+                    <IconButton
+                        color="inherit"
+                        onClick={handleShowAccountMenu}>
                         <UserIcon/>
                     </IconButton>
                     <Menu
                         id="simple-menu"
-                        anchorEl = {accountButton}
+                        anchorEl={accountButton}
                         keepMounted
-                        open = {Boolean(accountButton)}
-                        onClose = {handleHideAccountMenu}
+                        open={Boolean(accountButton)}
+                        onClose={handleHideAccountMenu}
                     >
-                        <MenuList className = {classes.menuList}>
+                        <MenuList className={classes.menuList}>
                             <b>{user.username}</b>
                         </MenuList>
-                        <MenuItem 
-                            component = {Link} 
-                            to = {`/profile/${user.id}`}>
+                        <MenuItem
+                            component={Link}
+                            to={`/profile/${user.id}`}>
                             <ListItemIcon>
                                 <UserIcon/>
                             </ListItemIcon>
@@ -164,9 +167,9 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Profile
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem 
-                            component = {Link} 
-                            to = {`/add-item`}>
+                        <MenuItem
+                            component={Link}
+                            to={`/add-item`}>
                             <ListItemIcon>
                                 <AddIcon/>
                             </ListItemIcon>
@@ -174,7 +177,7 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Add item
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleLogout}>
+                        <MenuItem onClick={handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
@@ -183,28 +186,29 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                             </ListItemText>
                         </MenuItem>
                     </Menu>
-                </span> 
+                </span>
         } else {
-            userTypeJSX = 
+            // Header for normal authorized user (students)
+            userTypeJSX =
                 <span>
-                    <IconButton 
-                        color = "inherit"
-                        onClick = {handleShowAccountMenu}> 
+                    <IconButton
+                        color="inherit"
+                        onClick={handleShowAccountMenu}>
                         <UserIcon/>
                     </IconButton>
                     <Menu
                         id="simple-menu"
-                        anchorEl = {accountButton}
+                        anchorEl={accountButton}
                         keepMounted
-                        open = {Boolean(accountButton)}
-                        onClose = {handleHideAccountMenu}
+                        open={Boolean(accountButton)}
+                        onClose={handleHideAccountMenu}
                     >
-                        <MenuList className = {classes.menuList}>
+                        <MenuList className={classes.menuList}>
                             <b>{user.username}</b>
                         </MenuList>
-                        <MenuItem 
-                            component = {Link} 
-                            to = {`/profile/${user.id}`}>
+                        <MenuItem
+                            component={Link}
+                            to={`/profile/${user.id}`}>
                             <ListItemIcon>
                                 <UserIcon/>
                             </ListItemIcon>
@@ -212,7 +216,9 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                                 Profile
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleHideAccountMenu}>
+                        <MenuItem onClick={handleHideAccountMenu}
+                                  component={Link}
+                                  to={`/wishlist`}>
                         <ListItemIcon>
                             <FavIcon/>
                         </ListItemIcon>
@@ -220,56 +226,57 @@ export default function ButtonAppBar({ props, user, onFiltered }) {
                             My wishlist
                         </ListItemText>
                         </MenuItem>
-                        <MenuItem onClick = {handleLogout}>
+                        <MenuItem onClick={handleLogout}>
                             <ListItemIcon>
                                 <SignoutIcon/>
                             </ListItemIcon>
-                            <ListItemText >
+                            <ListItemText>
                                 Sign out
                             </ListItemText>
                         </MenuItem>
                     </Menu>
-                </span> 
+                </span>
         }
     } else {
-        userTypeJSX = 
+        // Header for no authorized user
+        userTypeJSX =
             <span>
-                <Button 
-                    className = {classes.headerButton}
-                    component = {Link} 
-                    to= {`/signup`}>
+                <Button
+                    className={classes.headerButton}
+                    component={Link}
+                    to={`/signup`}>
                     Signup
                 </Button>   
-                <Button 
-                    className = {classes.headerButton}
-                    component = {Link} 
-                    to= {`/login`}>
+                <Button
+                    className={classes.headerButton}
+                    component={Link}
+                    to={`/login`}>
                     Login
                 </Button>
             </span>
     }
 
-  return(
-    <div className={classes.root} >
-      <AppBar position="static" className = {classes.toolbar}>
-        <Toolbar className = {classes.toolbar}>
-            <Grid container spacing={1}>
-                <Grid item xs={2}>
-                    <Typography variant="h6" className = {classes.title}>
-                        <StyledLink to = {'/'}>
-                            CampuSale
-                        </StyledLink>
-                    </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                    <Search onFilter = {(filterCriteria) => onFilter(filterCriteria)}/>
-                </Grid>
-                <Grid  item xs={2}>
-                    {userTypeJSX}
-                </Grid>
-            </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" className={classes.toolbar}>
+                <Toolbar className={classes.toolbar}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={2}>
+                            <Typography variant="h6" className={classes.title}>
+                                <StyledLink to={'/'}>
+                                    CampuSale
+                                </StyledLink>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Search onFilter={(filterCriteria) => onFilter(filterCriteria)}/>
+                        </Grid>
+                        <Grid item xs={2}>
+                            {userTypeJSX}
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }

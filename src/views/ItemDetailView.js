@@ -7,6 +7,7 @@ import { Loading } from '../components/Loading';
 
 // Service imports
 import ItemService from '../services/ItemService';
+import WishlistService from '../services/WishlistService';
 
 export class ItemDetailView extends React.Component {
     constructor(props) {
@@ -14,8 +15,11 @@ export class ItemDetailView extends React.Component {
         this.state = {
             item: undefined,
             loading: true,
-            items: [ ]
+            items: [ ],
+            itemInWishlist: false
         }
+
+        this.onWishlistClick = this.onWishlistClick.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +30,14 @@ export class ItemDetailView extends React.Component {
                 this.setState({ 
                     item: item,
                     loading: false
+                });
+            })
+            .catch(e => { console.error(e); });
+
+        WishlistService.checkIfItemInWishlist(itemId)
+            .then((item) => {
+                this.setState({
+                    itemInWishlist: true
                 });
             })
             .catch(e => { console.error(e); });
@@ -41,17 +53,33 @@ export class ItemDetailView extends React.Component {
     onFilter(filterCriteria) {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
-
+    onWishlistClick() {
+        let itemInWishlist = this.state.itemInWishlist;
+        if (itemInWishlist){
+            WishlistService.deleteItemFromWishlist(this.props.match.params.id)
+                .then((item) => {
+                    this.setState({itemInWishlist: false})
+                })
+                .catch(e => { console.error(e); });
+        }
+        else {
+            WishlistService.addItemToWishlist(this.props.match.params.id)
+                .then((item) => {
+                    this.setState({itemInWishlist: true})
+                })
+                .catch(e => { console.error(e); });
+        }
+    }
     render() {
-        
         if (this.state.loading) {
             return (<Loading/>);
         }
-
         return (
             <ItemDetail 
                 item = {this.state.item}
                 onFilter = {(filterCriteria) => this.onFilter(filterCriteria)}
+                onWishlistClick = {this.onWishlistClick.bind(this)}
+                itemInWishlist = {this.state.itemInWishlist}
             />
         );
     }

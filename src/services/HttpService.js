@@ -101,6 +101,30 @@ export default class HttpService {
         });
     }
 
+    static delete(uri, onSuccess, onError) {
+        const token = window.localStorage['jwtToken'];
+        const header = new Headers();
+        if (token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+
+        fetch(uri, {
+            method: 'DELETE',
+            headers: header
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if(res.error) {
+                    onError(res.error);
+                } else {
+                    onSuccess(res);
+                }
+            })
+            .catch((e) => {
+                onError(e.message);
+            })
+    }
+
     static checkIfAuthorized(res) {
         return res.status === 401 ? false : true;
     }

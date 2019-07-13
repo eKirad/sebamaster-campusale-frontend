@@ -24,7 +24,7 @@ export default class App extends React.Component {
                 { component: UserLoginView, path: '/login' },
                 { component: UserSignupView, path: '/signup' },
                 { component: UserProfileView, path: '/profile/:id' },
-                { component: WishlistView, path: '/wishlist/:id' },
+                { component: WishlistView, path: '/wishlist' },
                 { component: BecomePartnerView, path: '/become-partner' },
                 { component: PartnerDashboardView, path: '/partner-dashboard' },
                 { component: AddItemView, path: '/add-item' },
