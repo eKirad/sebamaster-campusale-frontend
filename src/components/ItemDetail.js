@@ -51,7 +51,7 @@ export class ItemDetail extends React.Component {
                                             {this.props.item.name}
                                             <IconButton onClick={this.props.onWishlistClick}>
                                                 {
-                                                    this.props.itemInWishlist
+                                                     this.props.itemInWishlist
                                                     &&
                                                     <FavIconFull/>
                                                 }

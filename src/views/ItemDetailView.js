@@ -53,16 +53,16 @@ export class ItemDetailView extends React.Component {
     onFilter(filterCriteria) {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
+
     onWishlistClick() {
         let itemInWishlist = this.state.itemInWishlist;
-        if (itemInWishlist){
+        if (itemInWishlist) {
             WishlistService.deleteItemFromWishlist(this.props.match.params.id)
                 .then((item) => {
                     this.setState({itemInWishlist: false})
                 })
                 .catch(e => { console.error(e); });
-        }
-        else {
+        } else {
             WishlistService.addItemToWishlist(this.props.match.params.id)
                 .then((item) => {
                     this.setState({itemInWishlist: true})
@@ -70,10 +70,12 @@ export class ItemDetailView extends React.Component {
                 .catch(e => { console.error(e); });
         }
     }
+    
     render() {
         if (this.state.loading) {
             return (<Loading/>);
         }
+
         return (
             <ItemDetail 
                 item = {this.state.item}
