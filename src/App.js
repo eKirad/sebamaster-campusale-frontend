@@ -12,6 +12,7 @@ import { WishlistView } from './views/WishlistView';
 import { BecomePartnerView } from './views/BecomePartnerView';
 import { PartnerDashboardView } from './views/PartnerDashboardView';
 import { AddItemView } from './views/AddItemView';
+import { SetDiscountView } from './views/SetDiscountView';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -28,6 +29,7 @@ export default class App extends React.Component {
                 { component: BecomePartnerView, path: '/become-partner' },
                 { component: PartnerDashboardView, path: '/partner-dashboard' },
                 { component: AddItemView, path: '/add-item' },
+                { component: SetDiscountView, path: '/set-discount' },
             ]
         }
     }

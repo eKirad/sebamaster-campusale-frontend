@@ -64,7 +64,7 @@ export const ItemList = ({items}) => {
 							<TableCell align="center">EUR {item.newPrice}</TableCell>
 							<TableCell align="center">
 								<strike>
-									EUR {item.oldPrice}
+									EUR {item.price}
 								</strike>
 							</TableCell>
 						</TableRow>

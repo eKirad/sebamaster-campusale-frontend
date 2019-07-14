@@ -40,8 +40,8 @@ export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, 
                 <ExpansionPanelDetails>
                     <Typography>
                        <CheckboxList 
-                        partners = {partners}
-                        onSelectPartner = {((selectedPartner) => onSelectPartner(selectedPartner))}
+                            data={partners}
+                            onSelectData={((selectedPartner) => onSelectPartner(selectedPartner))}
                         />
                     </Typography>
                 </ExpansionPanelDetails>

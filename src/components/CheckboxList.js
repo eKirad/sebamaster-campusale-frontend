@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const CheckboxList = ({ partners, onSelectPartner}) => {
+export const CheckboxList = ({ data, onSelectData}) => {
     const classes = useStyles();
     const [checkedPartner, setCheckedPartner] = useState([ ]);
 
@@ -26,13 +26,13 @@ export const CheckboxList = ({ partners, onSelectPartner}) => {
             const newCheckedPartner = [ ];
             newCheckedPartner.push(partner);
             setCheckedPartner(newCheckedPartner);
-            onSelectPartner(newCheckedPartner[0]);
+            onSelectData(newCheckedPartner[0]);
         }
 
         if (checkedPartner.length !== 0) {            
             if (checkedPartner[0]._id === partner._id) {
                 setCheckedPartner([ ]);
-                onSelectPartner(null);
+                onSelectData(null);
             } else {
                 setNewCheckedPartner(partner);
             }
@@ -43,7 +43,7 @@ export const CheckboxList = ({ partners, onSelectPartner}) => {
 
     return (
         <List className={classes.root}>
-          {partners.map(partner => {
+          {data.map(partner => {
             const labelId = `checkbox-list-label-${partner._id}`;
             return (
               <ListItem 

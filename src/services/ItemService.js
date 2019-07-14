@@ -24,6 +24,29 @@ export default class ItemService {
         });
     }
 
+    static getPartnerItems() {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${HttpService.baseURI()}/partner-items`, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
+    static setItemDiscount(discountId, itemId) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${HttpService.baseURI()}/items`, {
+                discountId,
+                itemId
+            }, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
     static addItem(item) {
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/item`, item, (data) => {

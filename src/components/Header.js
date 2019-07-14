@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import UserIcon from '@material-ui/icons/AccountCircle';
+import DiscountIcon from '@material-ui/icons/MoneyOff';
+import CheckIcon from '@material-ui/icons/Check';
 import AdminUserIcon from '@material-ui/icons/SupervisedUserCircle'
 import PartnerIcon from '@material-ui/icons/Work'
 import FavIcon from '@material-ui/icons/Favorite';
@@ -175,6 +177,26 @@ export default function ButtonAppBar({props, user, onFiltered}) {
                             </ListItemIcon>
                             <ListItemText>
                                 Add item
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem
+                            component={Link}
+                            to={`/add-item`}>
+                            <ListItemIcon>
+                                <DiscountIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Add discount
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem
+                            component={Link}
+                            to={`/set-discount`}>
+                            <ListItemIcon>
+                                <CheckIcon/>
+                            </ListItemIcon>
+                            <ListItemText>
+                                Set discount
                             </ListItemText>
                         </MenuItem>
                         <MenuItem onClick={handleLogout}>

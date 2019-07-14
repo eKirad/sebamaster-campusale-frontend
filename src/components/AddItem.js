@@ -37,17 +37,10 @@ export const AddItem = ({ categories, onAddItem }) => {
         });
     }
 
-    const handleChangeItemOldPrice = (event) => {
+    const handleChangeItemPrice = (event) => {
         setItem({
             ...item,
-            oldPrice: event.target.value
-        });
-    }
-
-    const handleChangeItemNewPrice = (event) => {
-        setItem({
-            ...item,
-            newPrice: event.target.value
+            price: event.target.value
         });
     }
 
@@ -92,38 +85,17 @@ export const AddItem = ({ categories, onAddItem }) => {
                             onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
                         /><br/>
                         <TextField
-                            label = "Old price"
-                            id = "itemOldPriceTextField"
+                            label = "Price"
+                            id = "itemPriceTextField"
                             required = {true}
                             type = "text"
-                            onChange = {handleChangeItemOldPrice}
-                        /> <br/>
-                        <TextField
-                            label = "New price"
-                            id = "itemNewPriceTextField"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeItemNewPrice}
-                        /> <br/>
-                        <TextField
-                            label = "Item type"
-                            id = "itemTypeTextField"
-                            required = {false}
-                            type = "text"
-                            onChange = {handleChangeItemType}
+                            onChange = {handleChangeItemPrice}
                         /> <br/>
                         <TextField
                             label = "Item description"
                             id = "itemDescriptionTextField"
                             required = {false}
                             onChange = {handleChangeItemDescription}
-                        /> <br/>
-                        <TextField
-                            label = "Item discount in percentage"
-                            id = "itemDiscountInPercentageTextField"
-                            required = {false}
-                            type = "text"
-                            onChange = {handleChangeItemDiscountPercentage}
                         /> <br/>
                         <Button
                             id = "submittBtn"

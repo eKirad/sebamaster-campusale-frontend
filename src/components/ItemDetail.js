@@ -74,9 +74,10 @@ export class ItemDetail extends React.Component {
                                     </Grid>
                                     <Grid item xs={10}>
                                         <b>Offer description:</b>
+                                       
                                     </Grid>
                                     <Grid item xs={10}>
-                                        {this.props.item.description}
+                                        {this.props.item.discount.name}
                                     </Grid>
                                     <Grid item xs={10}>
                                         <b>Item description:</b>
