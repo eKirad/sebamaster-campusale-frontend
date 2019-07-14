@@ -1,6 +1,5 @@
 // React imports
 import React from 'react';
-import withRouter from 'react-router-dom';
 
 // Material UI imports
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // Component imports
 import Page from './Page';
 import {ItemList} from './ItemList';
-import {Category} from './Category';
 import {Filter} from './Filter';
 
 const classes = makeStyles(theme => ({
@@ -33,6 +31,7 @@ export const ItemListFilter = ({
     onSelectPartner,
     onSelectPriceRange,
     onEnterKeyword}) => {
+    
     const onSelectedCategory = (selectedCategory) => {
         onSelectCategory(selectedCategory);
     }

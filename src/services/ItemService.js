@@ -16,7 +16,7 @@ export default class ItemService {
 
     static getItem(id) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${HttpService.baseURI()}/item/${id}`, (data) => {
+            HttpService.get(`${HttpService.baseURI()}/items/${id}`, (data) => {
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

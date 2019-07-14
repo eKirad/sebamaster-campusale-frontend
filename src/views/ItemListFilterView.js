@@ -82,8 +82,13 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsByCategoryIdAndPartnerId(categoryId, partnerId) {
+        console.log(`This is the cateogryID = ${categoryId}`);
+        console.log(`This is the partnerId = ${partnerId}`);
+        
         this.state.items = this.state.initialItems
             .filter(item => (item.categoryId === categoryId && item.partnerId === partnerId));
+        console.log(this.state.items)
+    
     }
 
     filterItemsBySearchKeyword(keyword) {
@@ -149,7 +154,9 @@ export class ItemListFilterView extends React.Component {
     render() {
         if (this.state.loading) {
             return (<Loading/>);
-        } 
+        }
+        
+        console.log(this.state.items)
         return <ItemListFilter 
             items = {this.state.items} 
             categories = {this.state.categories}
