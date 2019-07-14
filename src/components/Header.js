@@ -181,7 +181,7 @@ export default function ButtonAppBar({props, user, onFiltered}) {
                         </MenuItem>
                         <MenuItem
                             component={Link}
-                            to={`/add-item`}>
+                            to={`/add-discount`}>
                             <ListItemIcon>
                                 <DiscountIcon/>
                             </ListItemIcon>

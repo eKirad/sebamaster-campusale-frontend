@@ -36,7 +36,7 @@ export const SetDiscount = ({discounts, items, onSelectedDiscount}) => {
         setSelectedItems([
             ...selectedItems,
             selectedItem
-        ])
+        ]);
     }
 
     const discountsObj = {
