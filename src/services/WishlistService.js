@@ -18,7 +18,17 @@ export default class WishlistService {
     static getWishlistItems() {
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/wishlist/get`, (data) => {
-                resolve(data);
+                let retData = {};
+                retData.items = [];
+                if (data[0])
+                {
+                    retData.user = data[0].user;
+                }
+
+                for(let i=0;i<data.length;i++){
+                    retData.items.push(data[i].item);
+                }
+                resolve(retData);
             }, (textStatus) => {
                 reject(textStatus);
             })
