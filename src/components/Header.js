@@ -197,22 +197,12 @@ export default function ButtonAppBar({props, user, onFiltered, onAddNewCategory}
                         </MenuItem>
                         <MenuItem
                             component={Link}
-                            to={`/add-discount`}>
+                            to={`/discount-dashboard`}>
                             <ListItemIcon>
                                 <DiscountIcon/>
                             </ListItemIcon>
                             <ListItemText>
-                                Add discount
-                            </ListItemText>
-                        </MenuItem>
-                        <MenuItem
-                            component={Link}
-                            to={`/set-discount`}>
-                            <ListItemIcon>
-                                <CheckIcon/>
-                            </ListItemIcon>
-                            <ListItemText>
-                                Set discount
+                                Discount dashboard
                             </ListItemText>
                         </MenuItem>
                         <MenuItem onClick={handleLogout}>

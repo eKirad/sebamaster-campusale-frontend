@@ -85,10 +85,9 @@ export const CategoryDashboard = ({props, categories, onAddNewCategory, onDelete
     }
 
     return(
-        <Page>
-            <Button 
-                onClick={handleOpenAddNewCategoryDialog}>
-                    Add new category
+        <Page props={props}>
+            <Button onClick={handleOpenAddNewCategoryDialog}>
+                Add new category
             </Button>
             <Card className = {classes.card}>
                 <CardContent>
