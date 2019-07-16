@@ -94,6 +94,7 @@ export const DiscountDashboard = ({
         }
 
         const handleSubmitNewDiscount = () => {
+            console.log(newDiscount)
             onAddDiscount(newDiscount);
         }
 
