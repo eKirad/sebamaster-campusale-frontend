@@ -14,6 +14,8 @@ import { PartnerDashboardView } from './views/PartnerDashboardView';
 import { AddItemView } from './views/AddItemView';
 import { SetDiscountView } from './views/SetDiscountView';
 import { AddDiscountView } from './views/AddDiscountView';
+import { CategoryDashboardView } from './views/CategoryDashboardView';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -32,6 +34,7 @@ export default class App extends React.Component {
                 { component: AddItemView, path: '/add-item' },
                 { component: SetDiscountView, path: '/set-discount' },
                 { component: AddDiscountView, path: '/add-discount' },
+                { component: CategoryDashboardView, path: '/category-dashboard' },
             ]
         }
     }

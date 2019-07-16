@@ -17,12 +17,19 @@ import PartnerIcon from '@material-ui/icons/Work'
 import FavIcon from '@material-ui/icons/Favorite';
 import SignoutIcon from '@material-ui/icons/ExitToApp';
 import AddIcon from '@material-ui/icons/AddCircle';
+import CategoryIcon from '@material-ui/icons/Category';
 import Menu from '@material-ui/core/Menu';
 import MenuList from '@material-ui/core/MenuList'
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 // Component imports
 import {StyledLink} from './StyledLink';
@@ -61,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function ButtonAppBar({props, user, onFiltered}) {
+export default function ButtonAppBar({props, user, onFiltered, onAddNewCategory}) {
     const classes = useStyles();
     const [accountButton, setAccountButton] = useState(null);
 
@@ -87,7 +94,6 @@ export default function ButtonAppBar({props, user, onFiltered}) {
             window.location.reload();
         }
     }
-
 
     let userTypeJSX;
     if (user) {
@@ -128,6 +134,16 @@ export default function ButtonAppBar({props, user, onFiltered}) {
                             </ListItemIcon>
                             <ListItemText>
                                 Partner dashboard
+                            </ListItemText>
+                        </MenuItem>
+                        <MenuItem 
+                            component={Link}
+                            to={`/category-dashboard`}>
+                            <ListItemIcon>
+                                <CategoryIcon/>
+                            </ListItemIcon>
+                            <ListItemText >
+                                Category dashboard
                             </ListItemText>
                         </MenuItem>
                         <MenuItem onClick={handleLogout}>

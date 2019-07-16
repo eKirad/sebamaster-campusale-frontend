@@ -31,18 +31,25 @@ const useStyles = makeStyles(theme => ({
 
 export const Footer = ({ props, user }) => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [openAboutCampuSaleDialog, setOpenAboutCampuSaleDialog] = React.useState(false);
+    const [openHelpAndContactDialog, setOpenHelpAndContactDialog] = React.useState(false);
+    
 
     const Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
     
-    const handleClickOpen = () => {
-        setOpen(true);
-      }
+    const handleOpenAboutCampuSale = () => {
+        setOpenAboutCampuSaleDialog(true);
+    }
     
+    const handleOpenHelpAndContactDialog = () => {
+        setOpenHelpAndContactDialog(true);
+    }
+
+
     const handleClose = () => {
-        setOpen(false);
+        setOpenAboutCampuSaleDialog(false);
         if(props.props.location.pathname != '/') {
             props.props.history.push('/');
         }
@@ -57,24 +64,22 @@ export const Footer = ({ props, user }) => {
           <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
               <div className={classes.grow} >
-                <StyledLink
-                    onClick = {handleClickOpen}
-                >
+                <StyledLink onClick = {handleOpenAboutCampuSale}>
                     About CampuSale
                 </StyledLink>
                 <Dialog
-                    open = {open}
-                    TransitionComponent = {Transition}
+                    open={openAboutCampuSaleDialog}
+                    TransitionComponent={Transition}
                     keepMounted
-                    onClose = {handleClose}
-                    aria-labelledby = "alert-dialog-slide-title"
-                    aria-describedby = "alert-dialog-slide-description"
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">
+                    <DialogTitle id="alert-about-campuSale-dialog-slide-title">
                         {`CampuSale`}
                     </DialogTitle>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
+                        <DialogContentText id="alert-about-campuSale-dialog-slide-description">
                             <Typography>
                                 <Typography>
                                     <b>CampuSale</b> is a platform that helps students find and filter different 
@@ -96,9 +101,36 @@ export const Footer = ({ props, user }) => {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <StyledLink>
+                <StyledLink onClick={handleOpenHelpAndContactDialog}>
                   Help & Contact
                 </StyledLink>
+                <Dialog
+                    open={openHelpAndContactDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-about-campuSale-dialog-slide-title">
+                        {`Help and contact`}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-about-campuSale-dialog-slide-description">
+                            <Typography>
+                                <Typography>
+                                    Please contact us at <b>contact@campusale.de</b>
+                                </Typography>
+                            </Typography>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick = {handleClose}>
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <StyledLink>
                   Sitemap
                 </StyledLink>

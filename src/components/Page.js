@@ -9,6 +9,7 @@ import { Footer } from './Footer';
 
 // Service imports
 import UserService from '../services/UserService';
+import CategoryService from '../services/CategoryService';
 
 export default class Page extends React.Component {
     constructor(props) {
@@ -29,12 +30,15 @@ export default class Page extends React.Component {
         this.props.onFiltered(filterCriteria);
     }
 
+
+
     render() {
         return(
             <section>
                 <Header
                     props = {this.props}
                     user = {this.state.user}
+                    onAddNewCategory = {(newCategory) => this.handleAddNewCategory(newCategory)}
                     onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
                 />
                     {this.props.children}
