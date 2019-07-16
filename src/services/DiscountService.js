@@ -33,4 +33,14 @@ export default class DiscountService {
             })
         });
     }
+
+    static updateDiscount(discount) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${HttpService.baseURI()}/discounts`, discount, (data) => {
+                resolve(data);
+            }, function(textStatus) {
+               reject(textStatus);
+            });
+        });
+    }
 }

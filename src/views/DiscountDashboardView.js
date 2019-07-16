@@ -23,6 +23,7 @@ export class DiscountDashboardView extends React.Component {
 
         this.handleDeleteDiscount = this.handleDeleteDiscount.bind(this);
         this.handleAddDiscount = this.handleAddDiscount.bind(this);
+        this.handleUpdateDiscount = this.handleUpdateDiscount.bind(this);
     }
 
     onSelectedDiscount(selectedDiscountId, selectedItems) {
@@ -85,6 +86,12 @@ export class DiscountDashboardView extends React.Component {
             .catch((e) => { console.error(e); });    
     }
 
+    handleUpdateDiscount(newDiscount) {
+        DiscountService
+            .updateDiscount(newDiscount)
+            .then((newDiscount) => { })
+            .catch(e => { console.error(e); })
+    }
 
     render() {
         if (this.state.loading) {
@@ -99,6 +106,7 @@ export class DiscountDashboardView extends React.Component {
                 onSelectedDiscount={(selectedDiscount, selectedItems) => this.onSelectedDiscount(selectedDiscount, selectedItems)}
                 onDeleteDiscount={this.handleDeleteDiscount}
                 onAddDiscount={this.handleAddDiscount} 
+                onUpdateDiscount={this.handleUpdateDiscount}
                 items={this.state.partnerItems}
             />
         );

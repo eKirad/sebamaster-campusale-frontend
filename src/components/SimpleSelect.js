@@ -35,6 +35,9 @@ export const SimpleSelect = ({data, defaultValue, onSelect}) => {
           }));
           onSelect(event.target);
     }
+
+    console.log(`THE DATA`)
+    console.log(data)
     return(
         <form>
             <FormControl className = {classes.formControl}>

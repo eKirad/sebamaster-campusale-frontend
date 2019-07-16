@@ -9,12 +9,14 @@ import { Loading } from '../components/Loading';
 import CategoryService from '../services/CategoryService';
 import UserService from '../services/UserService';
 import ItemService from '../services/ItemService';
+import DiscountService from '../services/DiscountService';
 
 export class AddItemView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             categories: [ ],
+            partnerDiscounts: [ ],
             loading: true,
             currentUser:  UserService.isAutehnticated() ? 
             UserService.getCurrentUser() : undefined
@@ -27,6 +29,17 @@ export class AddItemView extends React.Component {
             .then((categories) => {
                 this.setState({
                     categories: categories,
+                    loading: false
+                })
+            })
+            .catch(e => { console.error(e); });
+
+                    // Get all the discounts of the corresponding partner
+        DiscountService
+            .getPartnerDiscounts()
+            .then((discounts) => {
+                this.setState({
+                    partnerDiscounts: discounts,
                     loading: false
                 })
             })
@@ -63,6 +76,7 @@ export class AddItemView extends React.Component {
             <AddItem
                 props={this.props}
                 categories={filteredCategories}
+                discounts={this.state.partnerDiscounts}
                 onAddItem={(item) => this.addItem(item)}
             />
         );

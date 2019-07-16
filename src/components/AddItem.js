@@ -8,11 +8,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+
 // Component imports
 import Page from './Page';
-import { Category } from './Category';
+import {Category} from './Category';
+import {SimpleSelect} from './SimpleSelect';
 
-export const AddItem = ({props, categories, onAddItem}) => {
+export const AddItem = ({props, categories, discounts, onAddItem}) => {
     const [item, setItem] = useState({ });
 
     const cardStyle = {
@@ -21,6 +23,13 @@ export const AddItem = ({props, categories, onAddItem}) => {
 
     const handleSubmit = () => {
         onAddItem(item);
+    }
+
+    const onSelectDiscount = (selectedDiscount) => {
+        setItem({
+            ...item,
+            discount: selectedDiscount.value
+        });
     }
 
     const handleChangeItemName = (event) => {
@@ -65,6 +74,12 @@ export const AddItem = ({props, categories, onAddItem}) => {
         });
     }
 
+    const discountsObj = {
+        label: `Discounts`,
+        isDisabled: false,
+        data: discounts
+    }
+
     return(
         <Page
             props={props}
@@ -86,6 +101,10 @@ export const AddItem = ({props, categories, onAddItem}) => {
                             categories = {categories}
                             onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
                         /><br/>
+                        <SimpleSelect 
+                            data={discountsObj} 
+                            onSelect={(selectedOption) => onSelectDiscount(selectedOption)}
+                        />
                         <TextField
                             label = "Price"
                             id = "itemPriceTextField"
