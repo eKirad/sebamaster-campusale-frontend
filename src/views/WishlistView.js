@@ -17,6 +17,7 @@ export class WishlistView extends React.Component {
             items: [ ],
             user : {}
         }
+        
         this.handleDeleteWishlistItem = this.handleDeleteWishlistItem.bind(this);
     };
 
@@ -64,7 +65,7 @@ export class WishlistView extends React.Component {
             props={this.props}
             user={this.state.user}
             items={this.state.items}
-            handleDeleteWishlistItem={this.handleDeleteWishlistItem.bind(this)}
+            handleDeleteWishlistItem={this.handleDeleteWishlistItem}
         />;
     }
 }

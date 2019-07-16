@@ -174,7 +174,10 @@ export const UserProfile = ({props, user, onEditUser}) => {
             isDisabled: false
         });
     }
-
+    
+    console.log(`USERPROFILE - location`);
+    console.log(user.location);
+    
     return(
         <Page
             props={props}
@@ -225,7 +228,7 @@ export const UserProfile = ({props, user, onEditUser}) => {
                         disabled = {selectGenderData.isDisabled}
                     />
                     <SimpleSelect
-                        defaultSelectValue={user.location}
+                        //defaultValue={user.location}
                         value={selectLocationData}
                         style={simpleSelectStyle}
                         data={selectLocationData}

@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const SimpleSelect = ({data, defaultSelectValue, onSelect}) => {
+export const SimpleSelect = ({data, defaultValue, onSelect}) => {
     const classes = useStyles();
     const [ values, setValues ] = useState({
         name: ``
@@ -35,7 +35,6 @@ export const SimpleSelect = ({data, defaultSelectValue, onSelect}) => {
           }));
           onSelect(event.target);
     }
-    const a = `jeko`
     return(
         <form>
             <FormControl className = {classes.formControl}>
@@ -43,7 +42,7 @@ export const SimpleSelect = ({data, defaultSelectValue, onSelect}) => {
                     {data.label}
                 </InputLabel>
                 <Select
-                    defaultValue={defaultSelectValue}
+                    // defaultValue={defaultValue}
                     value = {values.name}
                     onChange = {handleChange}
                     disabled = {data.isDisabled}

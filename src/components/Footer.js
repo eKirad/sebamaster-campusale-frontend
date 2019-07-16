@@ -50,12 +50,6 @@ export const Footer = ({ props, user }) => {
 
     const handleClose = () => {
         setOpenAboutCampuSaleDialog(false);
-        if(props.props.location.pathname != '/') {
-            props.props.history.push('/');
-        }
-        else {
-            window.location.reload();
-        }
     }
 
     return(
