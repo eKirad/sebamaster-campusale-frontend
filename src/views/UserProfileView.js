@@ -18,6 +18,13 @@ export  class UserProfileView extends React.Component {
         }
     }
 
+    onEditUser(newUser) {
+        UserService
+            .updateUser(newUser)
+            .then((user) => { })
+            .catch(e => { console.error(e); })
+    }
+
     componentDidMount() {
         if (UserService.isAutehnticated()) {
             UserService
@@ -44,7 +51,11 @@ export  class UserProfileView extends React.Component {
         }
         
         return(
-            <UserProfile user = {this.state.user}/>
+            <UserProfile 
+                props = {this.props}
+                user = {this.state.user}
+                onEditUser = {(newUser) => this.onEditUser(newUser)}
+                />
         );
     }
 }

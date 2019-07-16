@@ -29,7 +29,7 @@ const classes = makeStyles(theme => ({
         color: theme.palette.text.secondary,
     },
 }));
-export const Wishlist = ({user, items,handleDeleteWishlistItem}) => {
+export const Wishlist = ({props, user, items,handleDeleteWishlistItem}) => {
     const linkStyle = {
         color: 'black',
         margin: '10px',
@@ -37,7 +37,9 @@ export const Wishlist = ({user, items,handleDeleteWishlistItem}) => {
     }
 
     return(
-    <Page>
+    <Page
+        props={props}
+    >
         <div className={classes.root}>
             <Card>
                 <CardHeader title={`${user.username}'s Wishlist`}/>

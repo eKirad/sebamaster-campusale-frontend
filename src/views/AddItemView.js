@@ -61,8 +61,9 @@ export class AddItemView extends React.Component {
             .filter(category => category.name !== `All categories`)
         return(
             <AddItem
-                categories = {filteredCategories}
-                onAddItem = {(item) => this.addItem(item)}
+                props={this.props}
+                categories={filteredCategories}
+                onAddItem={(item) => this.addItem(item)}
             />
         );
     }

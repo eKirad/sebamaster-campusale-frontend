@@ -14,7 +14,7 @@ import Page from './Page';
 import { SimpleSelect } from './SimpleSelect';
 import {CheckboxList} from '../components/CheckboxList';
 
-export const SetDiscount = ({discounts, items, onSelectedDiscount}) => {
+export const SetDiscount = ({props, discounts, items, onSelectedDiscount}) => {
     const [selectedDiscountId, setSelectedDiscountId] = useState();
     const [selectedItems, setSelectedItems] = useState([ ]);
 
@@ -46,7 +46,9 @@ export const SetDiscount = ({discounts, items, onSelectedDiscount}) => {
     }
 
     return(
-        <Page>
+        <Page
+            props={props}
+        >
             <form className="md-grid" onSubmit = {handleSubmit}>
                 <Card style = {cardStyle}>
                     <CardContent>

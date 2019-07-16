@@ -57,10 +57,11 @@ export class SetDiscountView extends React.Component {
         }
 
         return(
-            <SetDiscount 
-                discounts = {this.state.partnerDiscounts}
-                onSelectedDiscount = {(selectedDiscount, selectedItems) => this.onSelectedDiscount(selectedDiscount, selectedItems)}
-                items = {this.state.partnerItems}
+            <SetDiscount
+                props={this.props}
+                discounts={this.state.partnerDiscounts}
+                onSelectedDiscount={(selectedDiscount, selectedItems) => this.onSelectedDiscount(selectedDiscount, selectedItems)}
+                items={this.state.partnerItems}
             />
         );
     }

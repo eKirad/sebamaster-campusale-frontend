@@ -61,9 +61,10 @@ export class WishlistView extends React.Component {
             return (<Loading/>);
         }
         return <Wishlist
-            user = {this.state.user}
-            items = {this.state.items}
-            handleDeleteWishlistItem = {this.handleDeleteWishlistItem.bind(this)}
+            props={this.props}
+            user={this.state.user}
+            items={this.state.items}
+            handleDeleteWishlistItem={this.handleDeleteWishlistItem.bind(this)}
         />;
     }
 }

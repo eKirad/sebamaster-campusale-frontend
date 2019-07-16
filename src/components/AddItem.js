@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Page from './Page';
 import { Category } from './Category';
 
-export const AddItem = ({ categories, onAddItem }) => {
+export const AddItem = ({props, categories, onAddItem}) => {
     const [item, setItem] = useState({ });
 
     const cardStyle = {
@@ -66,7 +66,9 @@ export const AddItem = ({ categories, onAddItem }) => {
     }
 
     return(
-        <Page>
+        <Page
+            props={props}
+        >
             <form className="md-grid" onSubmit = {handleSubmit}>
                 <Card style = {cardStyle}>
                     <CardContent>

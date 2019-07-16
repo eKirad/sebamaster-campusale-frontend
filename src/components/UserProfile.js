@@ -20,20 +20,20 @@ const simpleSelectStyle = {
 
 
 
-export const UserProfile = ({ user }) => {
+export const UserProfile = ({props, user, onEditUser}) => {
     const [updatedUser, setUpdatedUser] = useState({ ...user });
 
-    const [ emailTextFieldData, setEmailTextFieldData ] = useState({
+    const [emailTextFieldData, setEmailTextFieldData] = useState({
         name: user.email,
         isDisabled: true
     });
 
-    const [ passwordTextFieldData, setPasswordTextFieldData ] = useState({
+    const [passwordTextFieldData, setPasswordTextFieldData] = useState({
         name: user.password,
         isDisabled: true
     });
 
-    const [ selectGenderData, setSelectGenderData ] = useState({
+    const [selectGenderData, setSelectGenderData] = useState({
         isDisabled: true,
         label: `Gender`,
         data: [ 
@@ -43,12 +43,12 @@ export const UserProfile = ({ user }) => {
         ]
     });
     
-    const [ birthDateTextFieldData, setBirthdateTextFieldData ] = useState({
+    const [birthDateTextFieldData, setBirthdateTextFieldData] = useState({
         name: user.birthdate,
         isDisabled: true
     });
 
-    const [ selectLocationData, setSelectLocationData ] = useState({
+    const [selectLocationData, setSelectLocationData] = useState({
         isDisabled: true,
         label: `Location`,
         data: [ 
@@ -59,16 +59,94 @@ export const UserProfile = ({ user }) => {
     });
 
 
+    const handleChangePassword = (e) => {
+        setPasswordTextFieldData({
+            ...passwordTextFieldData,
+            name: e.target.value
+        });
+        
+        setUpdatedUser({
+            ...updatedUser,
+            password: e.target.value
+        });
+    }
+
     const handleChangeEmail = (e) => {
+        setEmailTextFieldData({
+            ...emailTextFieldData,
+            name: e.target.value
+        });
+
         setUpdatedUser({
             ...updatedUser,
             email: e.target.value
         });
     }
 
-    const handleChangeBirthdate = (e) => {
+    const handleChageGender = (e) => {
+        switch(e.value) {
+            case 1: 
+                setUpdatedUser({
+                    ...updatedUser,
+                    gender: `male`
+                });
+                break;
+            case 2: 
+            setUpdatedUser({
+                 ...updatedUser,
+                 gender: `female`
+            });
+            break;
+            case 3: 
+            setUpdatedUser({
+                ...updatedUser,
+                gender: `unknown`
+            });
+            break;
+        } 
     }
 
+    const handleChageLocation = (e) => {
+        switch(e.value) {
+            case 1: 
+                setUpdatedUser({
+                    ...updatedUser,
+                    location: `Germany`
+                });
+                break;
+            case 2: 
+            setUpdatedUser({
+                 ...updatedUser,
+                 location: `US`
+            });
+            break;
+            case 3: 
+            setUpdatedUser({
+                ...updatedUser,
+                location: `UK`
+            });
+            break;
+        } 
+    }
+
+    const handleChangeBirthdate = (e) => {
+        setBirthdateTextFieldData({
+            ...birthDateTextFieldData,
+            name: e.target.value
+        });
+
+        setUpdatedUser({
+            ...updatedUser,
+            birthdate: e.target.value
+        });
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(updatedUser)
+        onEditUser(updatedUser);
+    }
 
 
     const handleEditProfile = () => {
@@ -98,7 +176,10 @@ export const UserProfile = ({ user }) => {
     }
 
     return(
-        <Page>
+        <Page
+            props={props}
+        >
+              <form  onSubmit = {handleSubmit}>
             <Card style = {cardStyle}>
                 <CardContent>
                     <TextField 
@@ -126,14 +207,13 @@ export const UserProfile = ({ user }) => {
                         required = {true}
                         value = {passwordTextFieldData.name}
                         disabled = {passwordTextFieldData.isDisabled}
-                        // onChange = { this.handleChangePassword }
+                        onChange = {handleChangePassword}
                         // error = "Password is a required field"
                     /> <br/> 
                     <TextField 
                         label = "Birthdate"
                         id = "birthdateField"
                         type = "date"
-                        value = {user.password}
                         disabled = {birthDateTextFieldData.isDisabled}
                         onChange = {handleChangeBirthdate}
                         // error = "Password is a required field"
@@ -141,21 +221,29 @@ export const UserProfile = ({ user }) => {
                     <SimpleSelect 
                         style = {simpleSelectStyle}
                         data = {selectGenderData}
+                        onSelect = {(selectedOption) => handleChageGender(selectedOption)}
                         disabled = {selectGenderData.isDisabled}
                     />
-                    <SimpleSelect 
-                        style = {simpleSelectStyle}
-                        data = {selectLocationData}
-                        disabled = {selectLocationData.isDisabled}
+                    <SimpleSelect
+                        defaultSelectValue={user.location}
+                        value={selectLocationData}
+                        style={simpleSelectStyle}
+                        data={selectLocationData}
+                        onSelect={(selectedOption) => handleChageLocation(selectedOption)}
+                        disabled={selectLocationData.isDisabled}
                     />
                     <Button onClick = {handleEditProfile}>
                         Edit profile
                     </Button>
-                    <Button>
+                    <Button
+                        id = "saveBtn"
+                        type = "submit"
+                    >
                         Save
                     </Button>
                 </CardContent>
             </Card>
+            </form>
         </Page>
     );
 }

@@ -87,9 +87,6 @@ export default class UserService {
         });
     }
 
-
-
-
     static register(username, password, email, role) {
         const userObj = {
             username: username,
@@ -113,6 +110,16 @@ export default class UserService {
 
     static logout() {
         window.localStorage.removeItem('jwtToken');
+    }
+
+    static updateUser(user) {
+         return new Promise((resolve, reject) => {
+            HttpService.put(`${HttpService.baseURI()}/users`, user, (data) => {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
     }
 
     static getProfile(userId) {
