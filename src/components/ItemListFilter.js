@@ -8,8 +8,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Component imports
 import Page from './Page';
-import {ItemList} from './ItemList';
-import {Filter} from './Filter';
+import { ItemList } from './ItemList'
+import { Filter } from './Filter';
 
 const classes = makeStyles(theme => ({
     root: {
@@ -59,7 +59,7 @@ export const ItemListFilter = ({
                 </Grid>
                 <Grid item xs={9}>
                     <Paper className={classes.paper}>
-                        <ItemList items = {items}/>                        
+                        <ItemList items={items}/>                        
                     </Paper>
                 </Grid>
             </Grid>
