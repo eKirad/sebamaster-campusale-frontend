@@ -36,20 +36,18 @@ export const SimpleSelect = ({data, defaultValue, onSelect}) => {
           onSelect(event.target);
     }
 
-    console.log(`THE DATA`)
-    console.log(data)
     return(
         <form>
-            <FormControl className = {classes.formControl}>
-                <InputLabel htmlFor = "select-simple">
+            <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="select-simple">
                     {data.label}
                 </InputLabel>
                 <Select
                     // defaultValue={defaultValue}
-                    value = {values.name}
-                    onChange = {handleChange}
-                    disabled = {data.isDisabled}
-                    inputProps = {{
+                    value={values.name}
+                    onChange={handleChange}
+                    disabled={data.isDisabled}
+                    inputProps={{
                         name: `name`,
                         id: `simple-select`
                     }}

@@ -32,38 +32,34 @@ export const ItemListFilter = ({
     onSelectPriceRange,
     onEnterKeyword}) => {
     
-    const onSelectedCategory = (selectedCategory) => {
-        onSelectCategory(selectedCategory);
-    }
-
     const onFiltered = (filterCriteria) => {
         onEnterKeyword(filterCriteria);
     }
 
     return(
-        <Page
-            props = {props}
-            onFiltered = {(filterCriteria) => onFiltered(filterCriteria)}>
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <Filter
-                            categories = {categories}
-                            partners = {partners}
-                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}
-                            onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}
-                            onSelectPriceRange = {(minSelectedPrice, maxSelectedPrice) => onSelectPriceRange(minSelectedPrice, maxSelectedPrice)}
+        <Page 
+            props={props}
+            onFiltered={(filterCriteria) => onFiltered(filterCriteria)}>
+            <div className={classes.root}>
+                <Grid container spacing={3}>
+                    <Grid item xs={3}>
+                        <Paper className={classes.paper}>
+                            <Filter
+                                categories={categories}
+                                partners={partners}
+                                onSelectCategory={onSelectCategory}
+                                onSelectPartner={onSelectPartner}
+                                onSelectPriceRange={onSelectPriceRange}
                             />
-                    </Paper>
+                        </Paper>    
+                    </Grid>
+                    <Grid item xs={9}>
+                        <Paper className={classes.paper}>
+                            <ItemList items={items}/>                        
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={9}>
-                    <Paper className={classes.paper}>
-                        <ItemList items={items}/>                        
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div>
+            </div>
         </Page>
     );
 }

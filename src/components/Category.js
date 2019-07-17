@@ -4,11 +4,11 @@ import React from 'react';
 // Component imports
 import { SimpleSelect } from './SimpleSelect';
 
-export const Category = ({categories, onSelectedCategory}) => {
+export const Category = ({categories, onSelect}) => {
     // Set the AllCategories option to be markable
     categories
         .forEach(category => {
-            if (category.name === `All categories` && category.description === `All`) {
+            if (category.name === `All categories` && category.description === `all categories`) {
                 category._id = `allCategories`;
             }
         });
@@ -19,14 +19,10 @@ export const Category = ({categories, onSelectedCategory}) => {
         data: categories
     }
 
-    const onSelect = (selectedOption) => {
-        onSelectedCategory(selectedOption);
-    }
-
     return (
         <SimpleSelect 
-            data = {data} 
-            onSelect = {(selectedOption) => onSelect(selectedOption)}
+            data={data} 
+            onSelect={onSelect}
         />
     );
 };

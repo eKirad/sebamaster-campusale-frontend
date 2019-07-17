@@ -14,21 +14,28 @@ export class ItemListFilterView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
+            loading: true,
             items: [ ],
             initialItems: [ ],
             categories: [ ],
+            isFilteredByCategory: false,
             selectedCategoryId: undefined,
-            partners: [ ]
+            filteredByCategoryItems: [ ],
+            filteredByCategoryAndPartnerItems: [ ],
+            filteredByPriceRangeItems: [ ],
+            partners: [ ],
+            isFilteredByPartner:false
         }
+
+        this.handleSelectCategory = this.handleSelectCategory.bind(this);
+        this.handleSelectPartner = this.handleSelectPartner.bind(this);
+        this.handleSelectPriceRange = this.handleSelectPriceRange.bind(this);
     };
 
     componentDidMount() {
-        this.setState({
-            loading: true
-        });
         // Get all the items
-        ItemService.getAllItems()
+        ItemService
+            .getAllItems()
             .then((items) => {
                 this.setState({
                     items: items,
@@ -39,7 +46,8 @@ export class ItemListFilterView extends React.Component {
             .catch(e => { console.error(e); });
 
         // Get all the categories
-        CategoryService.getCategories()
+        CategoryService
+            .getCategories()
             .then((categories) => {
                 this.setState({
                     categories: categories,
@@ -47,8 +55,9 @@ export class ItemListFilterView extends React.Component {
             })
             .catch(e => { console.error(e); });
 
-        // Get all the partners
-        PartnerService.getApprovedPartners()
+        // Get 5 partners (select criteria based on partner priorities)
+        PartnerService
+            .getApprovedPartners()
             .then((approvedPartners) => {
                 this.setState({
                     partners: approvedPartners
@@ -57,17 +66,20 @@ export class ItemListFilterView extends React.Component {
             .catch(e => { console.error(e); });
     }
 
-    filterItemsByCategory(id) {
-        if (id === `allCategories`) {
-            this.state.items = [ ];
-            this.state.initialItems
-                .forEach(item => {
-                    this.state.items.push(item);
-                });
-        } else {
-            this.state.items = this.state.initialItems
-                .filter(item => item.categoryId === id);
-        }
+    /**
+     * Returns an object with the information if we have filtered by category or not(having selected 
+     * all the categories counts as no filter on categories) as a first property and 
+     * an array of all the filtered items as a second property
+     * @param {The initial items} initialItems 
+     * @param {The id of the category, that has been selected} categoryId 
+     */
+    filterItemsByCategory(initialItems, categoryId) {
+        return categoryId === `allCategories` ? {
+            isFilteredByCategory: false,
+            filteredItems:this.state.initialItems} : {
+                isFilteredByCategory: true,
+                filteredItems: initialItems.filter((item) => item.categoryId === categoryId)
+            }
     }
 
     filterItemsByPartnerId(partnerId) {
@@ -86,6 +98,13 @@ export class ItemListFilterView extends React.Component {
             .filter(item => (item.categoryId === categoryId && item.partnerId === partnerId));
     }
 
+    filterItemsByPartner(initialItems, partnerId) {
+        return {
+            isFilteredByPartner: true,
+            filteredItems: initialItems.filter((item) => item.partnerId === partnerId)
+        }
+    }
+
     filterItemsBySearchKeyword(keyword) {
         this.state.items = this.state.items
             .filter(item => item.name.toLowerCase().includes(keyword));
@@ -93,18 +112,18 @@ export class ItemListFilterView extends React.Component {
         this.props.history.push('/');
     }
 
-    filterItemsByPriceRange(minPrice, maxPrice) {
-        // TODO
-        this.state.items = this.state.items
-            .filter(item => (item.newPrice >= minPrice && item.newPrice <= maxPrice));
-        this.props.history.push('/');
-    }
+
 
     handleSelectCategory(selectedCategory) {
+        const categoryId = selectedCategory.value;
+        const filteredItemsoObject = this.filterItemsByCategory(this.state.initialItems, categoryId);
         this.setState({
-            selectedCategoryId: selectedCategory.value, 
-        })
-        this.filterItemsByCategory(selectedCategory.value);
+            items : filteredItemsoObject.filteredItems,
+            filteredByCategoryItems: filteredItemsoObject.filteredItems,
+            isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
+            selectedCategoryId: categoryId
+        }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+
         this.props.history.push('/');
     }
 
@@ -112,54 +131,128 @@ export class ItemListFilterView extends React.Component {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
 
-    handleSelectPriceRance(minSelectedPrice, maxSelectedPrice) {
-        this.filterItemsByPriceRange(minSelectedPrice, maxSelectedPrice);
+    fitlerItemsByPriceRange(initialItems, minPrice, maxPrice) {
+        
+        initialItems
+            .forEach((initialItem) => {
+                initialItem.price = initialItem.price - initialItem.price * (initialItem.discount.amountInPercentage / 100)
+            });
+        // return {
+        //         isFilteredByPriceRange: true,
+        //         filteredItems: initialItems
+        //             .filter(item => (item.price >= minPrice && item.price <= maxPrice))
+        // }
+    }
+
+    handleSelectPriceRange(minSelectedPrice, maxSelectedPrice) {
+        // this.filterItemsByPriceRange(minSelectedPrice, maxSelectedPrice);
+        console.log(minSelectedPrice, maxSelectedPrice)
+
+        if (this.state.isFilteredByCategory) {
+            if (this.state.isFilteredByPartner) {
+                // Currently filtered by both category & partner
+                const filteredItemsoObject = this.fitlerItemsByPriceRange(this.state.filteredByCategoryAndPartnerItems, 
+                    minSelectedPrice, maxSelectedPrice);
+                this.setState({
+                    items : filteredItemsoObject.filteredItems,
+                    filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
+                    isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
+                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+            } else {
+                const filteredItemsoObject = this.fitlerItemsByPriceRange(this.state.filteredByCategoryItems, 
+                    minSelectedPrice, maxSelectedPrice);
+                this.setState({
+                    items : filteredItemsoObject.filteredItems,
+                    filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
+                    isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
+                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+            }
+        } else {
+            const filteredItemsoObject = this.fitlerItemsByPriceRange(this.state.initialItems, 
+                minSelectedPrice, maxSelectedPrice);
+            this.setState({
+                items : filteredItemsoObject.filteredItems,
+                filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
+                isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
+            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+        }
     }
 
     handleSelectPartner(selectedPartner) {
         if (selectedPartner) {
-            // If a brand is selected --> check if there is any selected category
-            if (this.state.selectedCategoryId !== undefined &&
-                    this.state.selectedCategoryId !== `allCategories`) {
-                // There is an already selected category --> filter according to the selected
-                // brand & category
-                this.filterItemsByCategoryIdAndPartnerId(this.state.selectedCategoryId,
-                        selectedPartner._id);
-                this.props.history.push('/');
+            const partnerId = selectedPartner._id;
+            if (this.state.isFilteredByCategory) {
+                const filteredItemsoObject = this.filterItemsByPartner(this.state.filteredByCategoryItems, 
+                        partnerId);
+                this.setState({
+                    items : filteredItemsoObject.filteredItems,
+                    filteredByCategoryAndPartnerItems: filteredItemsoObject.filteredItems,
+                    isFilteredByPartner: filteredItemsoObject.isFilteredByPartner,
+                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
             } else {
-                // There is no selected category --> filter according to the selected brand
-                this.filterItemsByPartnerId(selectedPartner._id);
-                this.props.history.push('/');
-            }
+                const filteredItemsoObject = this.filterItemsByPartner(this.state.items, partnerId);
+                this.setState({
+                    items : filteredItemsoObject.filteredItems,
+                    isFilteredByPartner: filteredItemsoObject.isFilteredByPartner
+                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+            }  
         } else {
-            // If no brand is selected --> check if there is any selected category 
-            if (this.state.selectedCategoryId !== undefined) {
-                // There is a selected category --> filter the items according to the
-                // already selected category
-                this.filterItemsByCategory(this.state.selectedCategoryId);
-                this.props.history.push('/');
+            if (this.state.isFilteredByCategory) {
+                this.setState({
+                    items : this.state.filteredByCategoryItems
+                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
             } else {
-                // There is no selected category --> display all the items
-                this.state.items = this.state.initialItems;
-                this.props.history.push('/');
+                this.setState({
+                    items : this.state.initialItems,
+                }, () => console.log("ITEMS : ", this.state.items));
             }
         }
+
+        // if (selectedPartner) {
+        //     // If a brand is selected --> check if there is any selected category
+        //     if (this.state.selectedCategoryId !== undefined &&
+        //             this.state.selectedCategoryId !== `allCategories`) {
+        //         // There is an already selected category --> filter according to the selected
+        //         // brand & category
+        //         this.filterItemsByCategoryIdAndPartnerId(this.state.selectedCategoryId,
+        //                 selectedPartner._id);
+        //         this.props.history.push('/');
+        //     } else {
+        //         // There is no selected category --> filter according to the selected brand
+        //         this.filterItemsByPartnerId(selectedPartner._id);
+        //         this.props.history.push('/');
+        //     }
+        // } else {
+        //     // If no brand is selected --> check if there is any selected category 
+        //     if (this.state.selectedCategoryId !== undefined) {
+        //         // There is a selected category --> filter the items according to the
+        //         // already selected category
+        //         this.filterItemsByCategory(this.state.selectedCategoryId);
+        //         this.props.history.push('/');
+        //     } else {
+        //         // There is no selected category --> display all the items
+        //         this.state.items = this.state.initialItems;
+        //         this.props.history.push('/');
+        //     }
+        // }
     }
 
     render() {
         if (this.state.loading) {
             return (<Loading/>);
         }
-        
-        return <ItemListFilter 
-            items = {this.state.items} 
-            categories = {this.state.categories}
-            partners = {this.state.partners}
-            props = {this.props}
-            onSelectCategory = {(selectedCategory) => this.handleSelectCategory(selectedCategory)}
-            onSelectPartner = {(selectedPartner) => this.handleSelectPartner(selectedPartner)}
-            onSelectPriceRange = {(minSelectedPrice, maxSelectedPrice) => this.handleSelectPriceRance(minSelectedPrice, maxSelectedPrice)}
-            onEnterKeyword = {(filterCriteria) => this.handleEnterKeyword(filterCriteria)}
-        />;
+        console.log(`In render`)
+        console.log(this.state.items)
+        return (
+            <ItemListFilter 
+                items={this.state.items} 
+                categories={this.state.categories}
+                partners={this.state.partners}
+                props={this.props}
+                onSelectCategory={this.handleSelectCategory}
+                onSelectPartner={this.handleSelectPartner}
+                onSelectPriceRange={this.handleSelectPriceRange}
+                onEnterKeyword={(filterCriteria) => this.handleEnterKeyword(filterCriteria)}
+        />);
     }
 }

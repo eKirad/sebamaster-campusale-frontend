@@ -13,11 +13,10 @@ import {SimpleExpansionPanel} from './SimpleExpansionPanel';
 export const Filter = ({ 
     categories, 
     partners, 
-    onSelectedCategory, 
+    onSelectCategory, 
     onSelectPartner,
     onSelectPriceRange
     }) => {
-    
     const linkStyle = {
 		paddingLeft: '30px',
     }
@@ -28,23 +27,23 @@ export const Filter = ({
     return(
         <Grid>
             <p>Filter</p>
-            <Grid item xs = {12}>
+            <Grid item xs={12}>
             <Category 
-                categories = {categories}
-                onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
+                categories={categories}
+                onSelect={onSelectCategory}    
             />
             </Grid>
                 <SimpleExpansionPanel
-                    title = {title}
-                    usage = {usage} 
-                    partners = {partners}
-                    onSelectPartner = {(selectedPartner) => onSelectPartner(selectedPartner)}
+                    title={title}
+                    usage={usage} 
+                    partners={partners}
+                    onSelectPartner={onSelectPartner}
                 />
             <Grid 
                 item xs = {10}
                 style = {linkStyle}>
                 <RangeSlider
-                    onSelectPriceRange = {(minSelectedPrice, maxSelectedPrice) => onSelectPriceRange(minSelectedPrice, maxSelectedPrice)}
+                    onSelectPriceRange = {onSelectPriceRange}
                 />
             </Grid>
         </Grid>

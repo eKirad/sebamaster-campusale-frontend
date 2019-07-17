@@ -42,30 +42,32 @@ export const CheckboxList = ({ data, onSelectData}) => {
     };
 
     return (
-        <List className={classes.root}>
-          {data.map(partner => {
-            const labelId = `checkbox-list-label-${partner._id}`;
-            return (
-              <ListItem 
-                key = {partner._id} 
-                role = {undefined} 
-                dense button onClick = {handleToggle(partner)}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge = "start"
-                    color = "primary"
-                    checked = {checkedPartner.indexOf(partner) !== -1}
-                    // tabIndex = {-1}
-                    disableRipple
-                    inputProps = {{ 'aria-labelledby': labelId }}
-                  />
-                </ListItemIcon>
-                <ListItemText 
-                    id = {labelId} 
-                    primary = {`${partner.name}`} />
-              </ListItem>
-            );
-          })}
+    	<List className={classes.root}>
+        	{data.map(partner => {
+            	const labelId = `checkbox-list-label-${partner._id}`;
+            	return (
+              		<ListItem 
+                		key={partner._id} 
+                		role={undefined} 
+                		dense button >
+                  			<Checkbox
+							 onClick = {handleToggle(partner)}
+                    			edge = "start"
+                    			color = "primary"
+								checked = {checkedPartner.indexOf(partner) !== -1}
+								// checked = {check.indexOf(partner._id) === -1 ? true : false}
+                    			// tabIndex = {-1}
+                    			disableRipple
+                    			inputProps = {{ 'aria-labelledby': labelId }}
+                  			/>
+
+                		<ListItemText 
+                    		id = {labelId} 
+                    		primary = {`${partner.name}`} 
+						/>
+              		</ListItem>
+            	);
+         	 })}
         </List>
       );
 }
