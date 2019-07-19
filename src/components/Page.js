@@ -26,12 +26,6 @@ export default class Page extends React.Component {
         });
     }
 
-    onFiltered(filterCriteria) {
-        this.props.onFiltered(filterCriteria);
-    }
-
-
-
     render() {
         return(
             <section>
@@ -39,7 +33,7 @@ export default class Page extends React.Component {
                     props = {this.props}
                     user = {this.state.user}
                     onAddNewCategory = {(newCategory) => this.handleAddNewCategory(newCategory)}
-                    onFiltered = {(filterCriteria) => this.onFiltered(filterCriteria)}
+                    onFilterByKeyword = {this.props.onFilterByKeyword}
                 />
                     {this.props.children}
                 <Footer

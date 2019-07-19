@@ -84,7 +84,6 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsByCategoryAndPartner(initialItems, categoryId) {
-        console.log(initialItems)
         let isFromSameCategory = true;
         let obj = { 
             filteredItems: [ ]
@@ -112,22 +111,6 @@ export class ItemListFilterView extends React.Component {
         return obj;
     }
 
-    filterItemsByPartnerId(partnerId) {
-        if (this.state.selectedCategoryId === undefined 
-            || this.state.selectedCategoryId === `allCategories`) {
-            this.state.items = this.state.initialItems
-            .filter(item => item.partnerId === partnerId)
-        } else {
-            this.state.items = this.state.items
-            .filter(item => item.partnerId === partnerId)
-        }
-    }
-
-    filterItemsByCategoryIdAndPartnerId(categoryId, partnerId) {
-        this.state.items = this.state.initialItems
-            .filter(item => (item.categoryId === categoryId && item.partnerId === partnerId));
-    }
-
     filterItemsByPartner(initialItems, partnerId) {
         return {
             isFilteredByPartner: true,
@@ -136,7 +119,7 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        this.state.items = this.state.items
+        this.state.items = this.state.initialItems
             .filter(item => item.name.toLowerCase().includes(keyword));
 
         this.props.history.push('/');
@@ -144,10 +127,7 @@ export class ItemListFilterView extends React.Component {
 
     handleSelectCategory(selectedCategory) {
         const categoryId = selectedCategory.value;
-        console.log(this.state.isFilteredByPartner);
-        console.log(this.state.items);
-        console.log(this.state.filteredByPartnerItems);
-        
+
         if (this.state.isFilteredByPartner) {
             const filteredItemsoObject = this.filterItemsByCategoryAndPartner(this.state.filteredByPartnerItems, categoryId);
             this.setState({
@@ -181,11 +161,6 @@ export class ItemListFilterView extends React.Component {
             .forEach((initialItem) => {
                 initialItem.price = initialItem.price - initialItem.price * (initialItem.discount.amountInPercentage / 100)
             });
-        // return {
-        //         isFilteredByPriceRange: true,
-        //         filteredItems: initialItems
-        //             .filter(item => (item.price >= minPrice && item.price <= maxPrice))
-        // }
     }
 
     handleSelectPriceRange(minSelectedPrice, maxSelectedPrice) {
@@ -226,8 +201,6 @@ export class ItemListFilterView extends React.Component {
         if (selectedPartner) {
             const partnerId = selectedPartner._id;
             if (this.state.isFilteredByCategory) {
-                console.log(`Filtered by category items`)
-                console.log(this.state.filteredByCategoryItems)
                 const filteredItemsoObject = this.filterItemsByPartner(this.state.filteredByCategoryItems, 
                         partnerId);
                 this.setState({

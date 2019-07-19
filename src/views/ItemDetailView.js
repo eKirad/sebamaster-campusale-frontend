@@ -20,6 +20,7 @@ export class ItemDetailView extends React.Component {
         }
 
         this.onWishlistClick = this.onWishlistClick.bind(this);
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     componentDidMount() {
@@ -44,13 +45,14 @@ export class ItemDetailView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        this.state.items = this.state.items
-            .filter(item => item.name.toLowerCase().includes(keyword));
+        // Communication btw sibling components required
+        // this.state.items = this.state.items
+        //     .filter(item => item.name.toLowerCase().includes(keyword));
 
         this.props.history.push('/');
     }
 
-    onFilter(filterCriteria) {
+    onFilterByKeyword(filterCriteria) {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
 
@@ -79,7 +81,7 @@ export class ItemDetailView extends React.Component {
         return (
             <ItemDetail 
                 item = {this.state.item}
-                onFilter = {(filterCriteria) => this.onFilter(filterCriteria)}
+                onFilterByKeyword = {this.onFilterByKeyword}
                 onWishlistClick = {this.onWishlistClick.bind(this)}
                 itemInWishlist = {this.state.itemInWishlist}
             />

@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function ButtonAppBar({props, user, onFiltered, onAddNewCategory}) {
+export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCategory}) {
     const classes = useStyles();
     const [accountButton, setAccountButton] = useState(null);
 
@@ -79,11 +79,6 @@ export default function ButtonAppBar({props, user, onFiltered, onAddNewCategory}
     const handleHideAccountMenu = () => {
         setAccountButton(null);
     }
-
-    const onFilter = (filterCriteria) => {
-        onFiltered(filterCriteria);
-    }
-
 
     const handleLogout = () => {
         UserService.logout();
@@ -297,7 +292,7 @@ export default function ButtonAppBar({props, user, onFiltered, onAddNewCategory}
                             </Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Search onFilter={(filterCriteria) => onFilter(filterCriteria)}/>
+                            <Search onFilter={(filterCriteria) => onFilterByKeyword(filterCriteria)}/>
                         </Grid>
                         <Grid item xs={2}>
                             {userTypeJSX}

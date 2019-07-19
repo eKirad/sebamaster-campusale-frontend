@@ -25,17 +25,13 @@ const classes = makeStyles(theme => ({
 }));
 
 export class ItemDetail extends React.Component {
-    constructor(params) {
-        super(params);
-    }
-
-    onFiltered(filterCriteria) {
-        this.props.onFilter(filterCriteria);
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
-            <Page onFiltered={(filterCriteria) => this.onFiltered(filterCriteria)}>
+            <Page onFilterByKeyword={this.props.onFilterByKeyword}>
                 <div className={classes.root}>
                     <Grid container spacing={10}>
                         <Grid item xs={2}>
