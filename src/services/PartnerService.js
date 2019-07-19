@@ -27,7 +27,7 @@ export default class PartnerService {
     static createPartner(name, isApproved, contactPersonFirstName, contactPersonSurname,
         contactPersonEmail, location) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${HttpService.baseURI()}/become-partner`, {
+            HttpService.post(`${HttpService.baseURI()}/partners`, {
                 name,
                 isApproved,
                 contactPersonFirstName,
@@ -42,9 +42,10 @@ export default class PartnerService {
         });
     }
 
+    // Only approves a specific partner
     static updatePartner(partner) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${HttpService.baseURI()}/partner`, {
+            HttpService.put(`${HttpService.baseURI()}/partners/${partner._id}`, {
                 id: partner._id,
                 name: partner.name
             }, (data) => {

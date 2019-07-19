@@ -21,6 +21,7 @@ export class ItemListFilterView extends React.Component {
             isFilteredByCategory: false,
             selectedCategoryId: undefined,
             filteredByCategoryItems: [ ],
+            filteredByPartnerItems: [ ],
             filteredByCategoryAndPartnerItems: [ ],
             filteredByPriceRangeItems: [ ],
             partners: [ ],
@@ -82,6 +83,22 @@ export class ItemListFilterView extends React.Component {
             }
     }
 
+    filterItemsByCategoryAndPartner(initialItems, categoryId) {
+        console.log(initialItems)
+        let isFromSameCategory = true;
+        
+        if (categoryId !== `allCategories`) {
+            for (const initialItem of initialItems) {
+                if (initialItem.categoryId !== categoryId) {
+                    isFromSameCategory = false;
+                    break;
+                }
+            }
+        }
+
+        return isFromSameCategory ? initialItems : [ ];
+    }
+
     filterItemsByPartnerId(partnerId) {
         if (this.state.selectedCategoryId === undefined 
             || this.state.selectedCategoryId === `allCategories`) {
@@ -112,19 +129,33 @@ export class ItemListFilterView extends React.Component {
         this.props.history.push('/');
     }
 
-
-
     handleSelectCategory(selectedCategory) {
         const categoryId = selectedCategory.value;
-        const filteredItemsoObject = this.filterItemsByCategory(this.state.initialItems, categoryId);
-        this.setState({
-            items : filteredItemsoObject.filteredItems,
-            filteredByCategoryItems: filteredItemsoObject.filteredItems,
-            isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
-            selectedCategoryId: categoryId
-        }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
-
-        this.props.history.push('/');
+        console.log(this.state.isFilteredByPartner);
+        console.log(this.state.items);
+        console.log(this.state.filteredByPartnerItems);
+        
+        if (this.state.isFilteredByPartner) {
+            const filteredItemsoObject = this.filterItemsByCategoryAndPartner(this.state.filteredByPartnerItems, categoryId);
+            this.setState({
+                items : filteredItemsoObject,
+                // filteredByCategoryItems: filteredItemsoObject.filteredItems,
+                isFilteredByCategory: true,
+                selectedCategoryId: categoryId
+            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+    
+            this.props.history.push('/');
+        } else {
+            const filteredItemsoObject = this.filterItemsByCategory(this.state.initialItems, categoryId);
+            this.setState({
+                items : filteredItemsoObject.filteredItems,
+                filteredByCategoryItems: filteredItemsoObject.filteredItems,
+                isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
+                selectedCategoryId: categoryId
+            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+    
+            this.props.history.push('/');
+        }
     }
 
     handleEnterKeyword(filterCriteria) {
@@ -187,12 +218,14 @@ export class ItemListFilterView extends React.Component {
                 this.setState({
                     items : filteredItemsoObject.filteredItems,
                     filteredByCategoryAndPartnerItems: filteredItemsoObject.filteredItems,
+                    filteredByPartnerItems: filteredItemsoObject.filteredItems,
                     isFilteredByPartner: filteredItemsoObject.isFilteredByPartner,
                 }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
             } else {
                 const filteredItemsoObject = this.filterItemsByPartner(this.state.items, partnerId);
                 this.setState({
                     items : filteredItemsoObject.filteredItems,
+                    filteredByPartnerItems: filteredItemsoObject.filteredItems,
                     isFilteredByPartner: filteredItemsoObject.isFilteredByPartner
                 }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
             }  
@@ -207,42 +240,13 @@ export class ItemListFilterView extends React.Component {
                 }, () => console.log("ITEMS : ", this.state.items));
             }
         }
-
-        // if (selectedPartner) {
-        //     // If a brand is selected --> check if there is any selected category
-        //     if (this.state.selectedCategoryId !== undefined &&
-        //             this.state.selectedCategoryId !== `allCategories`) {
-        //         // There is an already selected category --> filter according to the selected
-        //         // brand & category
-        //         this.filterItemsByCategoryIdAndPartnerId(this.state.selectedCategoryId,
-        //                 selectedPartner._id);
-        //         this.props.history.push('/');
-        //     } else {
-        //         // There is no selected category --> filter according to the selected brand
-        //         this.filterItemsByPartnerId(selectedPartner._id);
-        //         this.props.history.push('/');
-        //     }
-        // } else {
-        //     // If no brand is selected --> check if there is any selected category 
-        //     if (this.state.selectedCategoryId !== undefined) {
-        //         // There is a selected category --> filter the items according to the
-        //         // already selected category
-        //         this.filterItemsByCategory(this.state.selectedCategoryId);
-        //         this.props.history.push('/');
-        //     } else {
-        //         // There is no selected category --> display all the items
-        //         this.state.items = this.state.initialItems;
-        //         this.props.history.push('/');
-        //     }
-        // }
     }
 
     render() {
         if (this.state.loading) {
             return (<Loading/>);
         }
-        console.log(`In render`)
-        console.log(this.state.items)
+
         return (
             <ItemListFilter 
                 items={this.state.items} 

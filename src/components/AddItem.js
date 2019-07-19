@@ -99,11 +99,11 @@ export const AddItem = ({props, categories, discounts, onAddItem}) => {
                         /> <br/>
                         <Category 
                             categories = {categories}
-                            onSelectedCategory = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
+                            onSelect = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
                         /><br/>
                         <SimpleSelect 
                             data={discountsObj} 
-                            onSelect={(selectedOption) => onSelectDiscount(selectedOption)}
+                            onSelect={onSelectDiscount}
                         />
                         <TextField
                             label = "Price"

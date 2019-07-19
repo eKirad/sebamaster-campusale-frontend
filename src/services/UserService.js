@@ -114,7 +114,7 @@ export default class UserService {
 
     static updateUser(user) {
          return new Promise((resolve, reject) => {
-            HttpService.put(`${HttpService.baseURI()}/users`, user, (data) => {
+            HttpService.put(`${HttpService.baseURI()}/users/${user._id}`, user, (data) => {
                 resolve(data);
             }, function(textStatus) {
                 reject(textStatus);
@@ -122,6 +122,7 @@ export default class UserService {
         });
     }
 
+    // Currently unused
     static getProfile(userId) {
         return new Promise((resolve, reject) => {
             HttpService.get(`${HttpService.baseURI()}/profile/${userId}`, (data) => {

@@ -141,7 +141,6 @@ export const UserProfile = ({props, user, onEditUser}) => {
         });
     }
 
-
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(updatedUser)
@@ -204,11 +203,9 @@ export const UserProfile = ({props, user, onEditUser}) => {
                         // error = "Username is a required field"
                     /> <br/>
                     <TextField 
-                        label = "Password"
+                        label = "New Password"
                         id = "passwordField"
                         type = "password"
-                        required = {true}
-                        value = {passwordTextFieldData.name}
                         disabled = {passwordTextFieldData.isDisabled}
                         onChange = {handleChangePassword}
                         // error = "Password is a required field"
