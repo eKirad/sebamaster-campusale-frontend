@@ -30,16 +30,13 @@ export const ItemListFilter = ({
     onSelectCategory,
     onSelectPartner,
     onSelectPriceRange,
-    onEnterKeyword}) => {
+    onFilterByKeyword}) => {
     
-    const onFiltered = (filterCriteria) => {
-        onEnterKeyword(filterCriteria);
-    }
 
     return(
         <Page 
             props={props}
-            onFiltered={(filterCriteria) => onFiltered(filterCriteria)}>
+            onFilterByKeyword={onFilterByKeyword}>
             <div className={classes.root}>
                 <Grid container spacing={3}>
                     <Grid item xs={3}>

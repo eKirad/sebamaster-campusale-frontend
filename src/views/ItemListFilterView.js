@@ -4,6 +4,7 @@ import React from 'react';
 // Component imports
 import { ItemListFilter } from '../components/ItemListFilter';
 import { Loading } from '../components/Loading';
+import queryString from 'query-string';
 
 // Service imports
 import ItemService from '../services/ItemService';
@@ -31,6 +32,7 @@ export class ItemListFilterView extends React.Component {
         this.handleSelectCategory = this.handleSelectCategory.bind(this);
         this.handleSelectPartner = this.handleSelectPartner.bind(this);
         this.handleSelectPriceRange = this.handleSelectPriceRange.bind(this);
+        this.handleEnterKeyword = this.filterItemsBySearchKeyword.bind(this);
     };
 
     componentDidMount() {
@@ -65,6 +67,9 @@ export class ItemListFilterView extends React.Component {
                 })
             })
             .catch(e => { console.error(e); });
+
+
+        
     }
 
     /**
@@ -119,10 +124,14 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        this.state.items = this.state.initialItems
-            .filter(item => item.name.toLowerCase().includes(keyword));
+        console.log(keyword);
+        this.setState({
+            items : this.state.initialItems
+            .filter(item => item.name.toLowerCase().includes(keyword))
+        }, () => console.log("ITEMS : ", this.state.items));
 
         this.props.history.push('/');
+        // window.location.reload();
     }
 
     handleSelectCategory(selectedCategory) {
@@ -237,6 +246,10 @@ export class ItemListFilterView extends React.Component {
             return (<Loading/>);
         }
 
+        if (this.props.location.search) {
+            this.filterItemsBySearchKeyword(queryString.parse(this.props.location.search).search)
+        }
+
         return (
             <ItemListFilter 
                 items={this.state.items} 
@@ -246,7 +259,7 @@ export class ItemListFilterView extends React.Component {
                 onSelectCategory={this.handleSelectCategory}
                 onSelectPartner={this.handleSelectPartner}
                 onSelectPriceRange={this.handleSelectPriceRange}
-                onEnterKeyword={(filterCriteria) => this.handleEnterKeyword(filterCriteria)}
+                onFilterByKeyword={this.handleEnterKeyword}
         />);
     }
 }

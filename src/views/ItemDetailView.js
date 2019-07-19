@@ -45,11 +45,7 @@ export class ItemDetailView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        // Communication btw sibling components required
-        // this.state.items = this.state.items
-        //     .filter(item => item.name.toLowerCase().includes(keyword));
-
-        this.props.history.push('/');
+        this.props.history.push(`/?search=${keyword}`);   
     }
 
     onFilterByKeyword(filterCriteria) {
