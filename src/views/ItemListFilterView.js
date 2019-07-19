@@ -86,17 +86,30 @@ export class ItemListFilterView extends React.Component {
     filterItemsByCategoryAndPartner(initialItems, categoryId) {
         console.log(initialItems)
         let isFromSameCategory = true;
-        
+        let obj = { 
+            filteredItems: [ ]
+        };
+
         if (categoryId !== `allCategories`) {
+            obj.isFilteredByCategory = true;
             for (const initialItem of initialItems) {
                 if (initialItem.categoryId !== categoryId) {
                     isFromSameCategory = false;
                     break;
                 }
             }
+        } else {
+            obj.isFilteredByCategory = false;
         }
 
-        return isFromSameCategory ? initialItems : [ ];
+        if (isFromSameCategory) {
+            initialItems
+                .forEach(initialItem => {
+                    obj.filteredItems.push(initialItem);
+                });
+        } 
+
+        return obj;
     }
 
     filterItemsByPartnerId(partnerId) {
@@ -138,9 +151,9 @@ export class ItemListFilterView extends React.Component {
         if (this.state.isFilteredByPartner) {
             const filteredItemsoObject = this.filterItemsByCategoryAndPartner(this.state.filteredByPartnerItems, categoryId);
             this.setState({
-                items : filteredItemsoObject,
-                // filteredByCategoryItems: filteredItemsoObject.filteredItems,
-                isFilteredByCategory: true,
+                items : filteredItemsoObject.filteredItems,
+                filteredByCategoryItems: filteredItemsoObject.filteredItems,
+                isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
                 selectedCategoryId: categoryId
             }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
     
@@ -213,30 +226,34 @@ export class ItemListFilterView extends React.Component {
         if (selectedPartner) {
             const partnerId = selectedPartner._id;
             if (this.state.isFilteredByCategory) {
+                console.log(`Filtered by category items`)
+                console.log(this.state.filteredByCategoryItems)
                 const filteredItemsoObject = this.filterItemsByPartner(this.state.filteredByCategoryItems, 
                         partnerId);
                 this.setState({
                     items : filteredItemsoObject.filteredItems,
                     filteredByCategoryAndPartnerItems: filteredItemsoObject.filteredItems,
                     filteredByPartnerItems: filteredItemsoObject.filteredItems,
-                    isFilteredByPartner: filteredItemsoObject.isFilteredByPartner,
+                    isFilteredByPartner: true,
                 }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
             } else {
                 const filteredItemsoObject = this.filterItemsByPartner(this.state.items, partnerId);
                 this.setState({
                     items : filteredItemsoObject.filteredItems,
                     filteredByPartnerItems: filteredItemsoObject.filteredItems,
-                    isFilteredByPartner: filteredItemsoObject.isFilteredByPartner
+                    isFilteredByPartner: true
                 }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
             }  
         } else {
             if (this.state.isFilteredByCategory) {
                 this.setState({
-                    items : this.state.filteredByCategoryItems
+                    items : this.state.filteredByCategoryItems,
+                    isFilteredByPartner: false
                 }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
             } else {
                 this.setState({
                     items : this.state.initialItems,
+                    isFilteredByPartner: false
                 }, () => console.log("ITEMS : ", this.state.items));
             }
         }
