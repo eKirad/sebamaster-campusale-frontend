@@ -50,7 +50,12 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export const PartnerDashboard = ({ props, partners, onApproveAndRegisterPartner, onDeleteApprovedPartner }) => {
+export const PartnerDashboard = ({ 
+    props, 
+    partners, 
+    onApproveAndRegisterPartner, 
+    onDeleteApprovedPartner,
+    onFilterByKeyword }) => {
     const classes = useStyles();
     const [registerDiaglog, setRegisterDialog] = useState(false);
     const [partnerUser, setPartnerUser] = useState({ });
@@ -77,6 +82,7 @@ export const PartnerDashboard = ({ props, partners, onApproveAndRegisterPartner,
 
     return(
         <Page
+            onFilterByKeyword={onFilterByKeyword}
             props = {props}
         >
             <Card className = {classes.card}>

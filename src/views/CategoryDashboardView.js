@@ -18,6 +18,7 @@ export class CategoryDashboardView extends React.Component {
 
         this.handleDeleteCategory = this.handleDeleteCategory.bind(this);
         this.handleAddNewCategory = this.handleAddNewCategory.bind(this);
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +61,14 @@ export class CategoryDashboardView extends React.Component {
             .catch((e) => { console.error(e); });
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
+    }
+
     render() {
         if (this.state.loading) {
             return(
@@ -73,7 +82,9 @@ export class CategoryDashboardView extends React.Component {
                 props={this.props}
                 categories={this.state.categories}
                 onAddNewCategory={this.handleAddNewCategory}
-                onDeleteCategory={this.handleDeleteCategory}/>
+                onDeleteCategory={this.handleDeleteCategory}
+                onFilterByKeyword = {this.onFilterByKeyword}
+            />
         );
     }
 }

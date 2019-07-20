@@ -124,14 +124,15 @@ export class ItemListFilterView extends React.Component {
     }
 
     filterItemsBySearchKeyword(keyword) {
-        console.log(keyword);
         this.setState({
             items : this.state.initialItems
-            .filter(item => item.name.toLowerCase().includes(keyword))
+            .filter((item) => {
+                const itemNameItemDescription = `${item.name}-${item.description}`;
+                return (itemNameItemDescription.toLowerCase().includes(keyword.toLowerCase()))
+            })
         }, () => console.log("ITEMS : ", this.state.items));
 
         this.props.history.push('/');
-        // window.location.reload();
     }
 
     handleSelectCategory(selectedCategory) {

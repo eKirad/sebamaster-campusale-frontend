@@ -17,6 +17,8 @@ export class PartnerDashboardView extends React.Component {
             user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined,
             loading: true
         }
+
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     componentDidMount() {
@@ -77,6 +79,13 @@ export class PartnerDashboardView extends React.Component {
             });
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
+    }
 
     render() {
 
@@ -89,6 +98,7 @@ export class PartnerDashboardView extends React.Component {
                     <PartnerDashboard
                         props = {this.props}
                         partners = {this.state.partners}
+                        onFilterByKeyword = {this.onFilterByKeyword}
                         onApproveAndRegisterPartner = {(partnerToApproveAndRegister) => this.onApproveAndRegisterPartner(partnerToApproveAndRegister)}
                         onDeleteApprovedPartner = {(partnerToDelete) => this.deleteApprovedPartner(partnerToDelete)}
                     />

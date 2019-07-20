@@ -19,6 +19,7 @@ export class WishlistView extends React.Component {
         }
         
         this.handleDeleteWishlistItem = this.handleDeleteWishlistItem.bind(this);
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     };
 
     componentDidMount() {
@@ -57,15 +58,25 @@ export class WishlistView extends React.Component {
             .catch(e => { console.error(e); });
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
+    }
+
     render() {
         if (this.state.loading) {
             return (<Loading/>);
         }
+
         return <Wishlist
             props={this.props}
             user={this.state.user}
             items={this.state.items}
             handleDeleteWishlistItem={this.handleDeleteWishlistItem}
+            onFilterByKeyword = {this.onFilterByKeyword}
         />;
     }
 }

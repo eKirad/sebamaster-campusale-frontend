@@ -14,7 +14,7 @@ import Page from './Page';
 import {Category} from './Category';
 import {SimpleSelect} from './SimpleSelect';
 
-export const AddItem = ({props, categories, discounts, onAddItem}) => {
+export const AddItem = ({props, categories, discounts, onFilterByKeyword, onAddItem}) => {
     const [item, setItem] = useState({ });
 
     const cardStyle = {
@@ -82,6 +82,7 @@ export const AddItem = ({props, categories, discounts, onAddItem}) => {
 
     return(
         <Page
+            onFilterByKeyword={onFilterByKeyword}
             props={props}
         >
             <form className="md-grid" onSubmit = {handleSubmit}>

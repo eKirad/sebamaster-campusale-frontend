@@ -16,6 +16,8 @@ export  class UserProfileView extends React.Component {
             user: undefined,
             loading: true
         }
+
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     onEditUser(newUser) {
@@ -41,7 +43,14 @@ export  class UserProfileView extends React.Component {
                 user: { }
             })
         }
+    }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
     }
 
     render() {
@@ -55,6 +64,7 @@ export  class UserProfileView extends React.Component {
                 props = {this.props}
                 user = {this.state.user}
                 onEditUser = {(newUser) => this.onEditUser(newUser)}
+                onFilterByKeyword = {this.onFilterByKeyword}
                 />
         );
     }

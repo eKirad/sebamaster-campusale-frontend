@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
 
-export const CategoryDashboard = ({props, categories, onAddNewCategory, onDeleteCategory}) => {
+export const CategoryDashboard = ({props, categories, onAddNewCategory, onDeleteCategory, onFilterByKeyword}) => {
     const classes = useStyles();
     const [openAddNewCategoryDialog, setOpenAddNewCategoryDialog] = useState(false);
     const [newCategory, setNewCategory] = useState({ });
@@ -85,7 +85,10 @@ export const CategoryDashboard = ({props, categories, onAddNewCategory, onDelete
     }
 
     return(
-        <Page props={props}>
+        <Page 
+            props={props}
+            onFilterByKeyword={onFilterByKeyword}
+        >
             <Button onClick={handleOpenAddNewCategoryDialog}>
                 Add new category
             </Button>

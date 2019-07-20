@@ -55,6 +55,7 @@ export const DiscountDashboard = ({
     onDeleteDiscount,
     onUpdateDiscount,
     onAddDiscount, 
+    onFilterByKeyword
     }) => {
         const classes = useStyles();
         const [openAddNewDiscountDiaglog, setOpenAddNewDiscountDiaglog] = useState(false);
@@ -126,7 +127,7 @@ export const DiscountDashboard = ({
         }
 
         return(
-            <Page>
+            <Page onFilterByKeyword={onFilterByKeyword}>
                 <Button data-key="add" onClick={handleOpenAddDiscountDialog}>
                     Add new discount
                 </Button>

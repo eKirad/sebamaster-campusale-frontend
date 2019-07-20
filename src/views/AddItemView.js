@@ -21,6 +21,8 @@ export class AddItemView extends React.Component {
             currentUser:  UserService.isAutehnticated() ? 
             UserService.getCurrentUser() : undefined
         }
+
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +66,14 @@ export class AddItemView extends React.Component {
             });
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
+    }
+
     render() {
         if (this.state.loading) {
             return(<Loading/>);
@@ -77,6 +87,7 @@ export class AddItemView extends React.Component {
                 props={this.props}
                 categories={filteredCategories}
                 discounts={this.state.partnerDiscounts}
+                onFilterByKeyword = {this.onFilterByKeyword}
                 onAddItem={(item) => this.addItem(item)}
             />
         );

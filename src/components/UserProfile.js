@@ -20,7 +20,7 @@ const simpleSelectStyle = {
 
 
 
-export const UserProfile = ({props, user, onEditUser}) => {
+export const UserProfile = ({props, user, onEditUser, onFilterByKeyword}) => {
     const [updatedUser, setUpdatedUser] = useState({ ...user });
 
     const [emailTextFieldData, setEmailTextFieldData] = useState({
@@ -174,11 +174,9 @@ export const UserProfile = ({props, user, onEditUser}) => {
         });
     }
     
-    console.log(`USERPROFILE - location`);
-    console.log(user.location);
-    
     return(
         <Page
+            onFilterByKeyword={onFilterByKeyword}
             props={props}
         >
               <form  onSubmit = {handleSubmit}>

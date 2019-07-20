@@ -24,6 +24,7 @@ export class DiscountDashboardView extends React.Component {
         this.handleDeleteDiscount = this.handleDeleteDiscount.bind(this);
         this.handleAddDiscount = this.handleAddDiscount.bind(this);
         this.handleUpdateDiscount = this.handleUpdateDiscount.bind(this);
+        this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
     }
 
     onSelectedDiscount(selectedDiscountId, selectedItems) {
@@ -93,6 +94,14 @@ export class DiscountDashboardView extends React.Component {
             .catch(e => { console.error(e); })
     }
 
+    filterItemsBySearchKeyword(keyword) {
+        this.props.history.push(`/?search=${keyword}`);   
+    }
+
+    onFilterByKeyword(filterCriteria) {
+        this.filterItemsBySearchKeyword(filterCriteria);
+    }
+
     render() {
         if (this.state.loading) {
             return (<Loading/>);
@@ -103,6 +112,7 @@ export class DiscountDashboardView extends React.Component {
                 props={this.props}
                 currentUser={this.state.currentUser}
                 discounts={this.state.partnerDiscounts}
+                onFilterByKeyword = {this.onFilterByKeyword}
                 onSelectedDiscount={(selectedDiscount, selectedItems) => this.onSelectedDiscount(selectedDiscount, selectedItems)}
                 onDeleteDiscount={this.handleDeleteDiscount}
                 onAddDiscount={this.handleAddDiscount} 

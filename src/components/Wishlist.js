@@ -29,7 +29,7 @@ const classes = makeStyles(theme => ({
         color: theme.palette.text.secondary,
     },
 }));
-export const Wishlist = ({props, user, items,handleDeleteWishlistItem}) => {
+export const Wishlist = ({props, user, items, onFilterByKeyword, handleDeleteWishlistItem}) => {
     const linkStyle = {
         color: 'black',
         margin: '10px',
@@ -38,6 +38,7 @@ export const Wishlist = ({props, user, items,handleDeleteWishlistItem}) => {
 
     return(
     <Page
+        onFilterByKeyword={onFilterByKeyword}
         props={props}
     >
         <div className={classes.root}>
