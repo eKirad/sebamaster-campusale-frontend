@@ -92,9 +92,9 @@ export const ItemList = ({ items, onSelectCategory, onEnterKeyword }) => {
                         {item.name} - {item.description}
                     </Link>
                 </TableCell>
-                <TableCell align="center">EUR {item.price - item.price * (item.discount.amountInPercentage / 100)}</TableCell>
+                <TableCell align="center">EUR {(item.price - item.price * (item.discount.amountInPercentage / 100)).toFixed(2)}</TableCell>
                 <TableCell align="center">
-                    <strike>EUR {item.price}</strike>
+                    <strike>EUR {item.price.toFixed(2)}</strike>
                 </TableCell>
             </TableRow>
             ))}

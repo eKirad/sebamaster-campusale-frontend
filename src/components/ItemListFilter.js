@@ -31,7 +31,6 @@ export const ItemListFilter = ({
     onSelectPartner,
     onSelectPriceRange,
     onFilterByKeyword}) => {
-    
 
     return(
         <Page 
