@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 import Page from './Page';
@@ -57,39 +58,41 @@ class UserLogin extends React.Component {
     render() {
         return (
             <Page >
-            <form  onSubmit = { this.handleSubmit }>
+            <ValidatorForm   className="md-grid"  onSubmit={this.handleSubmit}>
                 <Card className="submit-card">
                     <CardHeader title="Log in"></CardHeader>
                     <CardContent>
-                        <TextField 
-                            label = "Username"
-                            id = "usernameField"
-                            required = { true }
-                            type = "text"
+                    <TextValidator
+                            label="Username"
+                            id="usernameField"
+                            name="name"
                             value = { this.state.username }
-                            onChange = { this.handleChangeUsername }
-                            // error = "Username is a required field"
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange = {this.handleChangeUsername}
                             /> <br/>
-                        <TextField 
-                            label = "Password"
-                            id = "passwordField"
-                            type = "password"
-                            required = { true }
-                            value = { this.state.password }
-                            onChange = { this.handleChangePassword }
-                            // error = "Password is a required field"
-                            /> <br/> <br/>
+                    <TextValidator
+                            label="Password"
+                            id="passwordField"
+                            name="name"
+                            value = {this.state.password}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="password"
+                            onChange = {this.handleChangePassword}
+                            /> <br/><br/>
                         <Button 
                             variant="contained"
                             id = "submitBtn"
                             type = "submit"
-                            disabled = { this.validateTextFields() }
+                            disabled = {this.validateTextFields()}
                             >
                                 Login
                         </Button>
                     </CardContent>
                 </Card>
-            </form>
+            </ValidatorForm>
             </Page>
         )
     }

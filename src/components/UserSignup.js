@@ -7,8 +7,9 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
-
+// Component imports
 import Page from './Page';
 
 export class UserSignup extends React.Component {
@@ -64,36 +65,42 @@ export class UserSignup extends React.Component {
     render() {
         return (
             <Page>
-            <form className="md-grid" onSubmit = {this.handleSubmit}>
+            <ValidatorForm 
+                className="md-grid" 
+                onSubmit = {this.handleSubmit}
+            >
                 <Card className="submit-card">
                     <CardHeader title="Register"/>
                     <CardContent>
-                        <TextField 
-                            label = "Username"
-                            id = "usernameField"
-                            required = {true}
-                            type = "text"
-                            value = {this.state.username}
+                    <TextValidator
+                            label="Username"
+                            id="usernameField"
+                            name="name"
+                            value={this.state.username}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
                             onChange = {this.handleChangeUsername}
-                            // error = "Username is a required field"
-                        /> <br/>
-                        <TextField 
-                            label = "Email"
-                            id = "emailField"
-                            required = {true}
-                            type = "text"
-                            value = {this.state.email}
-                            onChange = {this.handleChangeEmail}
-                            // error = "Username is a required field"
-                        /> <br/>
-                        <TextField 
-                            label = "Password"
-                            id = "passwordField"
-                            type = "password"
-                            required = {true}
-                            value = {this.state.password}
-                            onChange = {this.handleChangePassword}
-                            // error = "Password is a required field"
+                            /> <br/>
+                        <TextValidator
+                                label="Email"
+                                id="emailField"
+                                name="name"
+                                value={this.state.email}
+                                validators={['required', 'isEmail']}
+                                errorMessages={['This field is required', 'Email is not valid']}
+                                type="text"
+                                onChange={this.handleChangeEmail}
+                            /> <br/>
+                        <TextValidator
+                                label="Password"
+                                id="passwordField"
+                                name="name"
+                                value = {this.state.password}
+                                validators={['required']}
+                                errorMessages={['This field is required']}
+                                type="password"
+                                onChange = {this.handleChangePassword}
                             /> <br/> <br/>
                         <Button 
                             variant="contained"
@@ -105,7 +112,7 @@ export class UserSignup extends React.Component {
                         </Button>
                     </CardContent>
                 </Card>
-            </form>
+            </ValidatorForm>
             </Page>
 
         )

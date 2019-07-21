@@ -26,17 +26,21 @@ const useStyles = makeStyles(theme => ({
 
 export const UserProfile = ({props, user, message, handleInputChange, onEditUser, onFilterByKeyword}) => {
     const classes = useStyles();
-
+    const [isSaveDisabled, setIsSaveDisabled] = useState(true);
     const [isDisabled, setIsDisabled] = useState(true);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         onEditUser(user);
+        setIsDisabled(!isDisabled);
+        setIsSaveDisabled(!isSaveDisabled);
     }
 
     const handleEditProfile = () => {
         setIsDisabled(!isDisabled);
+        setIsSaveDisabled(!isSaveDisabled);
     }
+    
     return (
         <Page
             onFilterByKeyword={onFilterByKeyword}
@@ -104,7 +108,7 @@ export const UserProfile = ({props, user, message, handleInputChange, onEditUser
                                 <MenuItem value=""/>
                                 <MenuItem value="male">Male</MenuItem>
                                 <MenuItem value="female">Female</MenuItem>
-                                <MenuItem value="divers">Divers</MenuItem>
+                                <MenuItem value="divers">Diverse</MenuItem>
                             </Select>
                         </FormControl>
                         <br/>
@@ -135,6 +139,7 @@ export const UserProfile = ({props, user, message, handleInputChange, onEditUser
                         <Button
                             id="saveBtn"
                             type="submit"
+                            disabled={isSaveDisabled}
                         >
                             Save
                         </Button>

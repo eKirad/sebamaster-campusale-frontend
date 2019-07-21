@@ -10,9 +10,11 @@ import PartnerService from '../services/PartnerService';
 export class BecomePartnerView extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleCreatePartner = this.handleCreatePartner.bind(this);
     }
 
-    createPartner(partner) {
+    handleCreatePartner(partner) {
         PartnerService
             .createPartner(partner.name, partner.isApproved, partner.contactPersonFirstName,
                 partner.contactPersonSurname, partner.contactPersonEmail, partner.location)
@@ -30,7 +32,7 @@ export class BecomePartnerView extends React.Component {
     render() {
         return(
             <BecomePartner
-                onSubmitPartner = {(partner) => this.createPartner(partner)}
+                onSubmitPartner={this.handleCreatePartner}
             />
         );
     }

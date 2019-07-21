@@ -3,21 +3,20 @@ import React, { useState } from 'react';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+
 
 // Component imports
 import Page from './Page';
 
 export const BecomePartner = ({ onSubmitPartner }) => {
     const [partner, setPartner] = useState({ });
-    
-    const cardStyle = {
-        textAlign: 'center'
-    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -59,60 +58,82 @@ export const BecomePartner = ({ onSubmitPartner }) => {
             ...partner,
             location: event.target.value
         });
+        console.log(partner)
+    }
+
+    const validateTextFields = () => {
+            return (partner.contactPersonFirstName === undefined || partner.contactPersonFirstName === ``
+                || partner.contactPersonSurname === undefined ||  partner.contactPersonSurname === ``
+                || partner.contactPersonEmail === undefined ||  partner.contactPersonEmail === ``
+                ) ? true : false;
     }
 
     return(
         <Page>
-            <form className="md-grid" onSubmit = {handleSubmit}>
-                <Card style = {cardStyle}>
+            <ValidatorForm className="md-grid" onSubmit={handleSubmit}>
+                <Card className="submit-card">
+                <CardHeader title="Become a partner"></CardHeader>
                     <CardContent>
-                        <Typography>
-                            Thank you for becoming a partner ....
-                        </Typography>
-                        <TextField
-                            label = "Company name"
-                            id = "partnerCompanyName"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeCompanyName}
-                        /> <br/>
-                        <TextField
-                            label = "Contact person - first name"
-                            id = "partnerContactPersonFirstName"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeContactPersonFirstName}
-                        /> <br/>
-                        <TextField
-                            label = "Contact person - surname"
-                            id = "partnerContactPersonSurname"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeContactPersonSurname}
-                        /> <br/>
-                        <TextField
-                            label = "Contact person - email"
-                            id = "partnerContactPersonEmail"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeContactPersonEmail}
-                        /> <br/>
-                        <TextField
-                            label = "Location"
-                            id = "partnerLocation"
-                            required = {false}
-                            type = "text"
-                            onChange = {handleChangeLocation}
-                        /> <br/>
-                        <Button
+                    <TextValidator
+                            label="Company name"
+                            id="partnerCompanyName"
+                            name="companyName"
+                            value={partner.name}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange={handleChangeCompanyName}
+                            /> <br/>
+                    <TextValidator
+                            label="First name"
+                            id="partnerContactPersonFirstName"
+                            name="firstName"
+                            value={partner.contactPersonFirstName}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange={handleChangeContactPersonFirstName}
+                            /> <br/>
+                    <TextValidator
+                            label="Surname"
+                            id="partnerContactPersonSurname"
+                            name="surname"
+                            value={partner.contactPersonSurname}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange={handleChangeContactPersonSurname}
+                            /> <br/>
+                    <TextValidator
+                            label="Contact email"
+                            id="partnerContactPersonEmail"
+                            name="email"
+                            value={partner.contactPersonEmail}
+                            validators={['required', 'isEmail']}
+                            errorMessages={['This field is required', 'Email is not valid']}
+                            type="text"
+                            onChange={handleChangeContactPersonEmail}
+                            /> <br/>
+                    <TextValidator
+                            label="Location"
+                            id="partnerLocation"
+                            name="location"
+                            value={partner.location}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange={handleChangeLocation}
+                            /> <br/>
+                    <Button
                             id = "submittBtn"
                             type = "submit"
+                            disabled = {validateTextFields()}
                         >
                             Submit
                         </Button>
                     </CardContent>
                 </Card>
-            </form>
+            </ValidatorForm>
         </Page>
     );
 }
