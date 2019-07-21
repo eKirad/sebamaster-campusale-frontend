@@ -18,6 +18,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
+import HttpService from "../services/HttpService";
+
 
 const useStyles1 = makeStyles(theme => ({
     root: {
@@ -38,6 +40,10 @@ const useStyles1 = makeStyles(theme => ({
     tableWrapper: {
       overflowX: 'auto',
     },
+      itemImg: {
+        width:"100px",
+        height:"100px"
+      }
   }));
 
 export const ItemList = ({ items, onSelectCategory, onEnterKeyword }) => {
@@ -82,7 +88,7 @@ export const ItemList = ({ items, onSelectCategory, onEnterKeyword }) => {
                     <Link
                         style={linkStyle} 
                         to={`/item/${item._id}`}>
-                        Img comes here
+                        <img className={classes.itemImg} src={`${HttpService.baseURI()}/items/image/${item.imagePath}`}/>
                     </Link>
                 </TableCell>
                 <TableCell component="th" scope="row"  align="center">

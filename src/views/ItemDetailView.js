@@ -75,7 +75,8 @@ export class ItemDetailView extends React.Component {
         }
 
         return (
-            <ItemDetail 
+            <ItemDetail
+                props={this.props}
                 item = {this.state.item}
                 onFilterByKeyword = {this.onFilterByKeyword}
                 onWishlistClick = {this.onWishlistClick.bind(this)}

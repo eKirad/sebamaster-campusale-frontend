@@ -9,88 +9,103 @@ import IconButton from '@material-ui/core/IconButton';
 import FavIcon from '@material-ui/icons/FavoriteBorder';
 import FavIconFull from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
-
+import Card from '@material-ui/core/Card';
 // Component imports
 import Page from './Page';
 import UserService from '../services/UserService'
+import HttpService from "../services/HttpService";
+import {Link} from "react-router-dom";
 
-const classes = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
     paper: {
         padding: theme.spacing(2),
-        textAlign: 'center',
         color: theme.palette.text.secondary,
     },
+    itemImg: {
+        width: "150px",
+        height: "150px",
+        margin: "20px"
+    }
 }));
 
-export class ItemDetail extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+export const ItemDetail = ({
+                               props,
+                               item,
+                               onFilterByKeyword,
+                               onWishlistClick,
+                               itemInWishlist,
+                           }) => {
+    const classes = useStyles();
+    const userRole = UserService.getCurrentUser().role
 
-    render() {
-        const userRole = UserService.getCurrentUser().role
-        return (
-            <Page onFilterByKeyword={this.props.onFilterByKeyword}>
-                <div className={classes.root}>
-                    <Grid container spacing={10}>
-                        <Grid item xs={2}>
-                            <Paper className={classes.paper}>
-                                Images come here
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={10}>
-                            <Paper className={classes.paper}>
-                                <Grid>
-                                    <Grid item xs={10}>
-                                        <h1>
-                                            {this.props.item.name}
-                                            {userRole === 'student' &&
-                                            <IconButton onClick={this.props.onWishlistClick}>
-                                                {
-                                                     this.props.itemInWishlist
-                                                    &&
-                                                    <FavIconFull/>
-                                                }
-                                                {
-                                                    !this.props.itemInWishlist
-                                                    &&
-                                                    <FavIcon/>
-                                                }
-                                            </IconButton>
-                                            }
-                                            <Button>
-                                                To the offer
-                                            </Button>
-                                        </h1>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <b>
-                                            Price: {this.props.item.newPrice} EUR
-                                            (<strike>{this.props.item.oldPrice} EUR</strike>)
-                                        </b>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <b>Offer description:</b>
-                                       
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        {this.props.item.discount.name}
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <b>Item description:</b>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        {this.props.item.description}
-                                    </Grid>
-                                </Grid>
-                            </Paper>
-                        </Grid>
+    return (
+        <Page onFilterByKeyword={onFilterByKeyword}>
+
+                <Grid container>
+                    <Grid item xs={2}>
+                        <Card>
+                            <img className={classes.itemImg}
+                                 src={`${HttpService.baseURI()}/items/image/${item.imagePath}`}/>
+                        </Card>
                     </Grid>
-                </div>
-            </Page>
-        );
-    }
+                    <Grid item xs={10}>
+                        <Paper className={classes.paper} >
+                            <Grid style={{minHeight:"200px"}}>
+                                <Grid item xs={10}>
+                                    <h1>
+                                        {item.name}
+                                        {userRole === 'student' &&
+                                        <IconButton onClick={onWishlistClick}>
+                                            {
+                                                itemInWishlist
+                                                &&
+                                                <FavIconFull/>
+                                            }
+                                            {
+                                                !itemInWishlist
+                                                &&
+                                                <FavIcon/>
+                                            }
+                                        </IconButton>
+                                        }
+                                        <Button
+                                            style={{float:"right"}}
+                                            component={Link}
+                                            to={item.uri}>
+                                            To the offer
+                                        </Button>
+                                    </h1>
+                                </Grid>
+                                <Grid item>
+                                    <b>
+                                        Price: {(item.price - item.price * (item.discount.amountInPercentage / 100)).toFixed(2)} EUR
+                                        (<strike>{item.price} EUR</strike>)
+                                    </b>
+                                </Grid>
+                                <br/>
+                                <Grid item>
+                                    <b>Offer description:</b>
+
+                                </Grid>
+                                <Grid item>
+                                    {item.discount.name}
+                                </Grid>
+                                <br/>
+                                <Grid item>
+                                    <b>Item description:</b>
+                                </Grid>
+                                <Grid item>
+                                    {item.description}
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
+
+        </Page>
+    );
 }
+

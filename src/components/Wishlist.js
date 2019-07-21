@@ -18,8 +18,9 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import RemoveIcon from '@material-ui/icons/Delete';
+import HttpService from "../services/HttpService";
 
-const classes = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
@@ -28,6 +29,10 @@ const classes = makeStyles(theme => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
+    itemImg: {
+        width:"100px",
+        height:"100px"
+    }
 }));
 export const Wishlist = ({props, user, items, onFilterByKeyword, handleDeleteWishlistItem}) => {
     const linkStyle = {
@@ -35,7 +40,7 @@ export const Wishlist = ({props, user, items, onFilterByKeyword, handleDeleteWis
         margin: '10px',
         textDecoration: 'none'
     }
-
+    const classes = useStyles();
     return(
     <Page
         onFilterByKeyword={onFilterByKeyword}
@@ -64,7 +69,8 @@ export const Wishlist = ({props, user, items, onFilterByKeyword, handleDeleteWis
                                             <Link
                                                 style = {linkStyle}
                                                 to = {`/item/${item._id}`}>
-                                                Img comes here
+                                                <img className={classes.itemImg}
+                                                     src={`${HttpService.baseURI()}/items/image/${item.imagePath}`}/>
                                             </Link>
                                         </TableCell>
                                         <TableCell component="th" scope="row"  align="center">
