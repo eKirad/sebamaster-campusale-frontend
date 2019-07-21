@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     itemImg: {
         width: "150px",
         height: "150px",
-        margin: "20px"
+        margin: "20px 20px 20px 50px"
     }
 }));
 
@@ -73,9 +73,8 @@ export const ItemDetail = ({
                                         }
                                         <Button
                                             style={{float:"right"}}
-                                            component={Link}
-                                            to={item.uri}>
-                                            To the offer
+                                            >
+                                            <a href={item.uri}>To the offer</a>
                                         </Button>
                                     </h1>
                                 </Grid>

@@ -31,6 +31,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import List from "@material-ui/core/List";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 const useStyles = makeStyles((theme) => ({
     card: {
         minWidth: 275,
@@ -99,10 +104,26 @@ export const BulkDiscount = ({
                             key={post._id}
                         >
                             <ListItemText>
-                                <SimpleExpansionPanel
-                                    title={post.discount.name}
-                                    singlePartner={post}
-                                />
+                                <ExpansionPanel>
+                                    <ExpansionPanelSummary
+                                        expandIcon = {<ExpandMoreIcon/>}
+                                        aria-controls="panel1a-content"
+                                    >
+                                        <Typography className={classes.heading}>
+                                            {post.discount.name}
+                                        </Typography>
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        <List>
+                                            <Typography>
+                                                Joined: {post.users.length}/{post.discount.bulkAmount}
+                                            </Typography>
+                                            <Typography>
+                                                Discount description: {post.discount.bulkAmount}
+                                            </Typography>
+                                        </List>
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
                             </ListItemText>
                             {
                                 post.joined &&
@@ -116,10 +137,10 @@ export const BulkDiscount = ({
                             }
                             {
                                 !post.joined &&
-
                                 <Button
                                     key={post._id}
                                     onClick={() => joinPost(post._id)}
+                                    disabled={post.isFull}
                                 >
                                     Join Post
                                 </Button>

@@ -76,11 +76,9 @@ export class BulkDiscountView extends React.Component {
     }
     handleSelectChange(event)
     {
-        console.log(event.target.value)
         this.setState({selectedDiscount:event.target.value})
     }
     componentDidMount() {
-        // Get all partners
         DiscountService.getBulkDiscounts()
             .then((discounts) => {
                 this.setState({
@@ -91,6 +89,15 @@ export class BulkDiscountView extends React.Component {
             .catch(e => { console.error(e); });
         PostService.getPosts()
             .then((posts) => {
+                for (let i=0;i<posts.length;i++){
+                    if (posts[i].users.includes(this.state.user.id))
+                    {
+                        posts[i].joined = true;
+                    }
+                    if (posts[i].users.length >= posts[i].discount.bulkAmount){
+                        posts[i].isFull = true;
+                    }
+                }
                 this.setState({
                     posts: posts,
                     loading: false

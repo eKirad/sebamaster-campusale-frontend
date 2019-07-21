@@ -17,6 +17,10 @@ export class AddItemView extends React.Component {
         this.state = {
             categories: [ ],
             item : {},
+            message: {
+                text: "",
+                color: "green"
+            },
             partnerDiscounts: [ ],
             loading: true,
             currentUser:  UserService.isAutehnticated() ? 
@@ -74,6 +78,17 @@ export class AddItemView extends React.Component {
         let item = this.state.item;
         item.partnerId = this.state.currentUser.partnerId;
         console.log(item)
+        let filename = item.image.name.split('.');
+        if(filename[1]!=='png')
+        {
+            let message = {
+                text: "Only png images are accepted!",
+                color: "red"
+            }
+            this.setState({message});
+            return;
+        }
+
         ItemService
             .addItem(item)
             .then((data) => {
@@ -113,6 +128,7 @@ export class AddItemView extends React.Component {
                 handleFileChange = {this.handleFileChange}
                 onFilterByKeyword = {this.onFilterByKeyword}
                 onAddItem={this.addItem}
+                message = {this.state.message}
             />
         );
     }

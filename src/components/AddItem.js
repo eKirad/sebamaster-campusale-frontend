@@ -38,7 +38,8 @@ export const AddItem = ({
                             handleInputChange,
                             handleFileChange,
                             onFilterByKeyword,
-                            onAddItem}) => {
+                            onAddItem,
+                            message}) => {
 
     const classes = useStyles();
 
@@ -54,6 +55,11 @@ export const AddItem = ({
                 <Card className="submit-card">
                     <CardHeader title="Add new item"/>
                     <CardContent>
+                        { message.text.length > 0 &&
+                        <span style={{color:message.color}}>{message.text}</span>
+
+                        }
+                        <br/>
                         <TextValidator
                             className={classes.textFieldStyle}
                             label="Item name"
@@ -120,7 +126,7 @@ export const AddItem = ({
                             className={classes.textFieldStyle}
                             label="Image"
                             type="file"
-                            InputProps={{name:'image', id:"imageUploadField"}}
+                            InputProps={{name:'image', id:"imageUploadField",accept:"image/png"}}
                             onChange={handleFileChange}
                         /> <br/>
                         <Button
