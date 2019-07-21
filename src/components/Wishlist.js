@@ -49,15 +49,15 @@ export const Wishlist = ({props, user, items, onFilterByKeyword, handleDeleteWis
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center">Img</TableCell>
-                                    <TableCell align="center">Item</TableCell>
+                                    <TableCell align="center">Image</TableCell>
+                                    <TableCell align="center">Name</TableCell>
                                     <TableCell align="center">New price</TableCell>
                                     <TableCell align="center">Old price</TableCell>
                                     <TableCell align="center">Remove</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {items.length === 0 && <h1>No item in wishlist</h1>}
+                                {items.length === 0 && <h3 style={{marginLeft:"10px"}}>No item in wishlist.</h3>}
                                 {items.map(item => (
                                     <TableRow key={item._id}>
                                         <TableCell align="center">

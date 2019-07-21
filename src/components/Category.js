@@ -3,8 +3,21 @@ import React from 'react';
 
 // Component imports
 import { SimpleSelect } from './SimpleSelect';
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import {makeStyles} from "@material-ui/core";
 
-export const Category = ({categories, onSelect}) => {
+const useStyles = makeStyles(theme => ({
+    formControl: {
+        margin: theme.spacing(1),
+        width: "303px",
+    },
+}));
+
+export const Category = ({categories, onSelect, value}) => {
+    const classes = useStyles();
     // Set the AllCategories option to be markable
     categories
         .forEach(category => {
@@ -20,9 +33,24 @@ export const Category = ({categories, onSelect}) => {
     }
 
     return (
-        <SimpleSelect 
-            data={data} 
-            onSelect={onSelect}
-        />
+        <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="discount">
+                Category
+            </InputLabel>
+            <Select
+                value={value}
+                onChange={onSelect}
+                inputProps={{
+                    name: `categoryId`,
+                    id: `category`
+                }}
+            >
+                {categories.map(category => (
+                    <MenuItem key={category._id} value={category._id}>
+                        {category.name}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
     );
 };

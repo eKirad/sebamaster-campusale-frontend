@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.main-content {
+  padding-bottom: 64px;
+
+}
+.submit-card {
+  text-align: center;
+  margin: 80px auto 0 auto;
+  width: 400px;
+}

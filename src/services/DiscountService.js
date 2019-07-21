@@ -14,6 +14,16 @@ export default class DiscountService {
         });
     }
 
+    static getBulkDiscounts() {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${HttpService.baseURI()}/discounts/bulk`, (data) => {
+                resolve(data);
+            }, (textStatus) => {
+                reject(textStatus);
+            })
+        });
+    }
+
     static addDiscount(discount) {
         return new Promise((resolve, reject) => {
             HttpService.post(`${HttpService.baseURI()}/discounts`, discount, (data) => {

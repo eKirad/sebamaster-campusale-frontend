@@ -1,6 +1,5 @@
-import React, { useState }from 'react';
+import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
-
 
 
 import Card from '@material-ui/core/Card';
@@ -10,237 +9,137 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Page from './Page';
 import {SimpleSelect} from './SimpleSelect';
-
-const cardStyle = {
-    textAlign: 'center'
-}
-const simpleSelectStyle = {
-    width: '150px'
-}
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import {makeStyles} from "@material-ui/core";
 
 
-
-export const UserProfile = ({props, user, onEditUser, onFilterByKeyword}) => {
-    const [updatedUser, setUpdatedUser] = useState({ ...user });
-
-    const [emailTextFieldData, setEmailTextFieldData] = useState({
-        name: user.email,
-        isDisabled: true
-    });
-
-    const [passwordTextFieldData, setPasswordTextFieldData] = useState({
-        name: user.password,
-        isDisabled: true
-    });
-
-    const [selectGenderData, setSelectGenderData] = useState({
-        isDisabled: true,
-        label: `Gender`,
-        data: [ 
-            { _id: 1, name: `male` },
-            { _id: 2, name: `female` },
-            { _id: 3, name: `unknown` },
-        ]
-    });
-    
-    const [birthDateTextFieldData, setBirthdateTextFieldData] = useState({
-        name: user.birthdate,
-        isDisabled: true
-    });
-
-    const [selectLocationData, setSelectLocationData] = useState({
-        isDisabled: true,
-        label: `Location`,
-        data: [ 
-            { _id: 1, name: `Germany` },
-            { _id: 2, name: `US` },
-            { _id: 3, name: `UK` },
-        ]
-    });
-
-
-    const handleChangePassword = (e) => {
-        setPasswordTextFieldData({
-            ...passwordTextFieldData,
-            name: e.target.value
-        });
-        
-        setUpdatedUser({
-            ...updatedUser,
-            password: e.target.value
-        });
+const useStyles = makeStyles(theme => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
     }
+}));
 
-    const handleChangeEmail = (e) => {
-        setEmailTextFieldData({
-            ...emailTextFieldData,
-            name: e.target.value
-        });
 
-        setUpdatedUser({
-            ...updatedUser,
-            email: e.target.value
-        });
-    }
+export const UserProfile = ({props, user, message, handleInputChange, onEditUser, onFilterByKeyword}) => {
+    const classes = useStyles();
 
-    const handleChageGender = (e) => {
-        switch(e.value) {
-            case 1: 
-                setUpdatedUser({
-                    ...updatedUser,
-                    gender: `male`
-                });
-                break;
-            case 2: 
-            setUpdatedUser({
-                 ...updatedUser,
-                 gender: `female`
-            });
-            break;
-            case 3: 
-            setUpdatedUser({
-                ...updatedUser,
-                gender: `unknown`
-            });
-            break;
-        } 
-    }
-
-    const handleChageLocation = (e) => {
-        switch(e.value) {
-            case 1: 
-                setUpdatedUser({
-                    ...updatedUser,
-                    location: `Germany`
-                });
-                break;
-            case 2: 
-            setUpdatedUser({
-                 ...updatedUser,
-                 location: `US`
-            });
-            break;
-            case 3: 
-            setUpdatedUser({
-                ...updatedUser,
-                location: `UK`
-            });
-            break;
-        } 
-    }
-
-    const handleChangeBirthdate = (e) => {
-        setBirthdateTextFieldData({
-            ...birthDateTextFieldData,
-            name: e.target.value
-        });
-
-        setUpdatedUser({
-            ...updatedUser,
-            birthdate: e.target.value
-        });
-    }
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(updatedUser)
-        onEditUser(updatedUser);
+        onEditUser(user);
     }
-
 
     const handleEditProfile = () => {
-        setEmailTextFieldData({...emailTextFieldData,
-            isDisabled: false
-        });
-
-        setPasswordTextFieldData({...passwordTextFieldData,
-            isDisabled: false
-        });
-
-        setBirthdateTextFieldData({...birthDateTextFieldData,
-            isDisabled: false
-        });
-
-        setSelectGenderData({...selectGenderData,
-            isDisabled: false
-        });
-
-        setSelectLocationData({...selectLocationData,
-            isDisabled: false
-        });
-
-        setEmailTextFieldData({...emailTextFieldData,
-            isDisabled: false
-        });
+        setIsDisabled(!isDisabled);
     }
-    
-    return(
+    return (
         <Page
             onFilterByKeyword={onFilterByKeyword}
             props={props}
         >
-              <form  onSubmit = {handleSubmit}>
-            <Card style = {cardStyle}>
-                <CardContent>
-                    <TextField 
-                        label = "Username"
-                        id = "usernameField"
-                        type = "text"
-                        value = {user.username}
-                        disabled = {true}
-                        // onChange = { this.handleChangeUsername }
-                        // error = "Username is a required field"
+            <form onSubmit={handleSubmit}>
+                <Card className="submit-card">
+                    <CardContent>
+                        { message.text.length > 0 &&
+                        <span style={{color:message.color}}>{message.text}<br/></span>
+
+                        }
+                        <br/>
+                        <TextField
+                            label="Username"
+                            id="usernameField"
+                            type="text"
+                            value={user.username}
+                            disabled={true}
+
+                            // onChange = { this.handleChangeUsername }
+                            // error = "Username is a required field"
                         /> <br/>
-                    <TextField 
-                        label = "Email"
-                        id = "emailField"
-                        type = "text"
-                        value = {emailTextFieldData.name}
-                        disabled = {emailTextFieldData.isDisabled}
-                        onChange = {handleChangeEmail}
-                        // error = "Username is a required field"
-                    /> <br/>
-                    <TextField 
-                        label = "New Password"
-                        id = "passwordField"
-                        type = "password"
-                        disabled = {passwordTextFieldData.isDisabled}
-                        onChange = {handleChangePassword}
-                        // error = "Password is a required field"
-                    /> <br/> 
-                    <TextField 
-                        label = "Birthdate"
-                        id = "birthdateField"
-                        type = "date"
-                        disabled = {birthDateTextFieldData.isDisabled}
-                        onChange = {handleChangeBirthdate}
-                        // error = "Password is a required field"
-                    /> <br/> 
-                    <SimpleSelect 
-                        style = {simpleSelectStyle}
-                        data = {selectGenderData}
-                        onSelect = {(selectedOption) => handleChageGender(selectedOption)}
-                        disabled = {selectGenderData.isDisabled}
-                    />
-                    <SimpleSelect
-                        //defaultValue={user.location}
-                        value={selectLocationData}
-                        style={simpleSelectStyle}
-                        data={selectLocationData}
-                        onSelect={(selectedOption) => handleChageLocation(selectedOption)}
-                        disabled={selectLocationData.isDisabled}
-                    />
-                    <Button onClick = {handleEditProfile}>
-                        Edit profile
-                    </Button>
-                    <Button
-                        id = "saveBtn"
-                        type = "submit"
-                    >
-                        Save
-                    </Button>
-                </CardContent>
-            </Card>
+                        <TextField
+                            label="Email"
+                            id="emailField"
+                            type="text"
+                            value={user.email}
+                            InputProps ={{name: "email"}}
+                            disabled={isDisabled}
+                            onChange={handleInputChange}
+                            // error = "Username is a required field"
+                        /> <br/>
+                        <TextField
+                            label="New Password"
+                            id="passwordField"
+                            type="password"
+                            InputProps ={{name: "password"}}
+                            disabled={isDisabled}
+                            onChange={handleInputChange}
+                        /> <br/>
+                        <TextField
+                            label="Birthdate"
+                            id="birthdateField"
+                            type="date"
+                            disabled={isDisabled}
+                            InputLabelProps={{shrink: true}}
+                            InputProps ={{name: "dateOfBirth"}}
+                            value={user.dateOfBirth}
+                            onChange={handleInputChange}
+                        /> <br/>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="gender">
+                                Gender
+                            </InputLabel>
+                            <Select
+                                value={user.gender}
+                                onChange={handleInputChange}
+                                disabled={isDisabled}
+                                inputProps={{
+                                    name: `gender`,
+                                    id: `gender`
+                                }}
+                            >
+                                <MenuItem value=""/>
+                                <MenuItem value="male">Male</MenuItem>
+                                <MenuItem value="female">Female</MenuItem>
+                                <MenuItem value="divers">Divers</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <br/>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="location">
+                                Location
+                            </InputLabel>
+                            <Select
+                                value={user.location}
+                                onChange={handleInputChange}
+                                disabled={isDisabled}
+                                inputProps={{
+                                    name: `location`,
+                                    id: `location`
+                                }}
+                            >
+
+                                <MenuItem value=""/>
+                                <MenuItem value="DE">Germany</MenuItem>
+                                <MenuItem value="US">United States</MenuItem>
+                                <MenuItem value="UK">United Kingdom</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <br/>
+                        <Button onClick={handleEditProfile}>
+                            Edit profile
+                        </Button>
+                        <Button
+                            id="saveBtn"
+                            type="submit"
+                        >
+                            Save
+                        </Button>
+                    </CardContent>
+                </Card>
             </form>
         </Page>
     );

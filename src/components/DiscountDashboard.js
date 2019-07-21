@@ -3,12 +3,13 @@ import React, {useState} from 'react';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List'
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Dialog from '@material-ui/core/Dialog';
@@ -27,180 +28,167 @@ import {CheckboxList} from '../components/CheckboxList';
 
 const useStyles = makeStyles((theme) => ({
     card: {
-      minWidth: 275,
+        width:"100%"
     },
     bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+        fontSize: 14,
     },
     pos: {
-      marginBottom: 12,
+        marginBottom: 12,
     },
     root: {
         width: '100%',
         height: 400,
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
-      },
-  }));
+    },
+}));
 
 export const DiscountDashboard = ({
-    currentUser, 
-    discounts, 
-    onSelectedDiscount, 
-    onDeleteDiscount,
-    onUpdateDiscount,
-    onAddDiscount, 
-    onFilterByKeyword
-    }) => {
-        const classes = useStyles();
-        const [openAddNewDiscountDiaglog, setOpenAddNewDiscountDiaglog] = useState(false);
-        const [newDiscount, setNewDiscount] = useState({ }); 
-        const [selectedDiscountId, setSelectedDiscountId] = useState();
-        const [selectedItems, setSelectedItems] = useState([ ]);
-        const [dialogTitle, setDialogTitle] = useState(undefined);
+                                      currentUser,
+                                      currentDiscount,
+                                      discounts,
+                                      message,
+                                      handleAddDiscount,
+                                      handleUpdateDiscount,
+                                      handleInputChange,
+                                      onDeleteDiscount,
+                                      onAddDiscount,
+                                      onUpdateDiscount,
+                                      onFilterByKeyword
+                                  }) => {
+    const classes = useStyles();
+    const [openDiscountDialog, setOpenDiscountDialog] = useState(false);
+    const [dialogTitle, setDialogTitle] = useState(undefined);
+    const [dialogMode, setDialogMode] = useState("add");
 
-        const cardStyle = {
-            textAlign: 'center'
+    const handleOpenAddDiscountDialog = (e) => {
+        setDialogTitle(`Add`);
+        setDialogMode("add");
+        onAddDiscount();
+        setOpenDiscountDialog(true);
+    }
+
+    const handleCloseDiscountDialog = () => {
+        setOpenDiscountDialog(false);
+    }
+    
+    const handleOpenUpdateDialog = (discountId) => {
+        setDialogTitle(`Update`);
+        setDialogMode("update");
+        console.log(currentDiscount);
+        onUpdateDiscount(discountId);
+        setOpenDiscountDialog(true);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (dialogMode === "add") {
+            handleAddDiscount();
         }
-
-        const handleSubmit = () => {
-            // Need to be tranformed, in order to sent an array. For further information
-            // check lines 64-67 in the return JSX
-            onSelectedDiscount(selectedDiscountId, selectedItems[0]._id)
+        else if (dialogMode === "update") {
+            handleUpdateDiscount();
         }
+        setOpenDiscountDialog(false);
+    }
+    
+    return (
+        <Page onFilterByKeyword={onFilterByKeyword}>
+            <Button style={{float:"right"}} data-key="add" onClick={handleOpenAddDiscountDialog}>
+                Add new discount
+            </Button>
+            <Card className={classes.card}>
+                <CardHeader title="Discounts"/>
+                <CardContent>
+                    { message.text.length > 0 &&
+                    <span style={{color:message.color}}>{message.text}</span>
 
-        const onSelect = (selectedDiscountId) => {
-           setSelectedDiscountId(selectedDiscountId.value);
-        }
+                    }
+                    <br/>
+                    {discounts.map((discount) => (
+                        <ListItem>
+                            <ListItemText>
+                                {discount.name}
+                            </ListItemText>
+                            <IconButton
+                                onClick={() => handleOpenUpdateDialog (discount._id)}
+                            >
+                                <EditIcon/>
+                            </IconButton>
+                            <IconButton
+                                key={discount._id}
+                                onClick={() => onDeleteDiscount(discount._id)}
+                            >
+                                <DeleteIcon/>
+                            </IconButton>
+                        </ListItem>
+                    ))}
+                </CardContent>
+            </Card>
+            <Dialog
+                open={openDiscountDialog}
+                keepMounted
+                onClose={handleCloseDiscountDialog}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <form onSubmit={handleSubmit}>
+                    <DialogTitle id="alert-add-new-category-dialog-slide-title">
+                        {`${dialogTitle} discount`}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-add-new-category-dialog-slide-description">
+                            <TextField
+                                label="Name"
+                                type="text"
+                                onChange={handleInputChange}
+                                value={currentDiscount.name}
+                                inputProps={{
+                                    name: `name`,
+                                    id: `discountNameTextField`
+                                }}
 
-        const onSelectItem = (selectedItem) => {
-            setSelectedItems([
-                ...selectedItems,
-                selectedItem
-            ]);
-        }
-
-        const handleOpenAddDiscountDialog = (e) => {
-            setDialogTitle(`Add`);
-            setOpenAddNewDiscountDiaglog(true);
-        }
-
-        const handleCloseAddNewDiscountDialog = () => {
-            setOpenAddNewDiscountDiaglog(false);
-        }
-
-        const handleSubmitNewDiscount = () => {
-            console.log(newDiscount)
-            onAddDiscount(newDiscount);
-        }
-
-        const handleChangeDiscountName = (e) => {
-            setNewDiscount({
-                ...newDiscount,
-                name: e.target.value,
-                partnerId: currentUser.partnerId
-            });
-        }
-
-        const handleChangeDiscountAmount = (e) => {
-            setNewDiscount({
-                ...newDiscount,
-                amountInPercentage: e.target.value
-            });
-        }
-
-        const handleOpenUpdateDialog = () => {
-            setDialogTitle(`Update`);
-            setOpenAddNewDiscountDiaglog(true);
-        }
-
-
-        const discountsObj = {
-            label: `Discounts`,
-            isDisabled: false,
-            data: discounts
-        }
-
-        return(
-            <Page onFilterByKeyword={onFilterByKeyword}>
-                <Button data-key="add" onClick={handleOpenAddDiscountDialog}>
-                    Add new discount
-                </Button>
-                <Card className = {classes.card}>
-                    <CardContent>
-                        <Typography color = "textPrimary">
-                                Discounts
-                        </Typography>
-                            {discounts.map((discount) => (
-                                <ListItem key={discount._id}>
-                                    <ListItemText>
-                                        {discount.name}
-                                    </ListItemText>
-                                    <IconButton
-                                        accessKey="edit"
-                                        key={discount._id}
-                                        onClick = {handleOpenUpdateDialog}
-                                    >
-                                        <EditIcon/>
-                                    </IconButton>
-                                    <IconButton
-                                        key = {discount._id}
-                                        onClick = {() => onDeleteDiscount(discount._id)}
-                                    >
-                                        <DeleteIcon/>
-                                    </IconButton>
-                                </ListItem>
-                            ))}
-                        </CardContent>
-                    </Card>
-                    <Dialog
-                        open={openAddNewDiscountDiaglog}
-                        // TransitionComponent={Transition}
-                        keepMounted
-                        onClose={handleCloseAddNewDiscountDialog}
-                        aria-labelledby="alert-dialog-slide-title"
-                        aria-describedby="alert-dialog-slide-description"
-                    >
-                        <form onSubmit={handleSubmitNewDiscount}>
-                            <DialogTitle id="alert-add-new-category-dialog-slide-title">
-                                {`${dialogTitle} discount`}
-                            </DialogTitle>
-                            <DialogContent>
-                                <DialogContentText id="alert-add-new-category-dialog-slide-description">
-                                    <Typography>
-                                        <TextField 
-                                            label="Name"
-                                            id="discountNameTextField"
-                                            type="text"
-                                            onChange={handleChangeDiscountName}
-                                        /> <br/>
-                                        <TextField 
-                                            label="Amount in percentage"
-                                            id="discountAmountTextField"
-                                            type="text"
-                                            onChange={handleChangeDiscountAmount}
-                                        /> 
-                                    </Typography>
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    onClick={handleCloseAddNewDiscountDialog}>
-                                    Close
-                                </Button>
-                                <Button
-                                    type="submit"
-                                >
-                                    Add
-                                </Button>
-                            </DialogActions>
-                        </form>
-                    </Dialog>
-            </Page>
-        );
+                            /> <br/>
+                            <TextField
+                                label="Amount in percentage"
+                                type="text"
+                                onChange={handleInputChange}
+                                value={currentDiscount.amountInPercentage}
+                                inputProps={{
+                                    name: `amountInPercentage`,
+                                    id: `discountAmountTextField`
+                                }}
+                            /> <br/>
+                            <TextField
+                                label="Amount needed for bulk discount (Optional)"
+                                type="text"
+                                onChange={handleInputChange}
+                                value={currentDiscount.bulkAmount}
+                                inputProps={{
+                                    name: `bulkAmount`,
+                                    id: `bulkAmountTextField`
+                                }}
+                            />
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={handleCloseDiscountDialog}>
+                            Close
+                        </Button>
+                        <Button
+                            type="submit"
+                        >
+                            {dialogTitle}
+                        </Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
+        </Page>
+    );
 }   

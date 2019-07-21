@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,29 +12,6 @@ import Button from '@material-ui/core/Button';
 
 
 import Page from './Page';
-
-const useStyles = makeStyles(theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      backgroundColor: "#6197FA"
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 200,
-    },
-    dense: {
-      marginTop: 19,
-    },
-    menu: {
-      width: 200,
-    },
-    cardStyle: {
-        alignContent: 'center'
-    }
-  }));
-
 
 class UserLogin extends React.Component {
     constructor(props) {
@@ -77,14 +55,11 @@ class UserLogin extends React.Component {
     }
 
     render() {
-        const cardStyle = {
-            textAlign: 'center'
-        }
-
         return (
             <Page >
             <form  onSubmit = { this.handleSubmit }>
-                <Card style = {cardStyle}>
+                <Card className="submit-card">
+                    <CardHeader title="Log in"></CardHeader>
                     <CardContent>
                         <TextField 
                             label = "Username"

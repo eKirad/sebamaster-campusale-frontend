@@ -49,7 +49,7 @@ export default class ItemService {
 
     static addItem(item) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${HttpService.baseURI()}/items`, item, (data) => {
+            HttpService.postMultipart(`${HttpService.baseURI()}/items`, item, (data) => {
                 resolve(data);
             }, (textStatus) => {
                 reject(textStatus);

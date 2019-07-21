@@ -21,6 +21,7 @@ import {StyledLink} from './StyledLink';
 const useStyles = makeStyles(theme => ({
     appBar: {
       top: 'auto',
+        height:"64px",
       bottom: 0,
       backgroundColor: "#5308D6"
     },

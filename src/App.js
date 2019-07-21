@@ -12,9 +12,9 @@ import { WishlistView } from './views/WishlistView';
 import { BecomePartnerView } from './views/BecomePartnerView';
 import { PartnerDashboardView } from './views/PartnerDashboardView';
 import { AddItemView } from './views/AddItemView';
-import { AddDiscountView } from './views/AddDiscountView';
 import { CategoryDashboardView } from './views/CategoryDashboardView';
 import { DiscountDashboardView } from './views/DiscountDashboardView';
+import { BulkDiscountView } from "./views/BulkDiscountView";
 
 
 export default class App extends React.Component {
@@ -29,10 +29,10 @@ export default class App extends React.Component {
                 { component: UserSignupView, path: '/signup' },
                 { component: UserProfileView, path: '/profile/:id' },
                 { component: WishlistView, path: '/wishlist' },
+                { component: BulkDiscountView, path: '/bulk' },
                 { component: BecomePartnerView, path: '/become-partner' },
                 { component: PartnerDashboardView, path: '/partner-dashboard' },
                 { component: AddItemView, path: '/add-item' },
-                { component: AddDiscountView, path: '/add-discount' },
                 { component: CategoryDashboardView, path: '/category-dashboard' },
                 { component: DiscountDashboardView, path: '/discount-dashboard' },
             ]

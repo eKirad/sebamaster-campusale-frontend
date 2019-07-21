@@ -1,133 +1,137 @@
 // React imports
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 // Component imports
 import Page from './Page';
 import {Category} from './Category';
 import {SimpleSelect} from './SimpleSelect';
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import {makeStyles} from "@material-ui/core";
 
-export const AddItem = ({props, categories, discounts, onFilterByKeyword, onAddItem}) => {
-    const [item, setItem] = useState({ });
+const useStyles = makeStyles(theme => ({
+    textFieldStyle: {
+        width: '303px'
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        width: "303px",
+    },
+}));
 
-    const cardStyle = {
-        textAlign: 'center'
-    }
+export const AddItem = ({
+                            props,
+                            item,
+                            categories,
+                            discounts,
+                            handleInputChange,
+                            handleFileChange,
+                            onFilterByKeyword,
+                            onAddItem}) => {
 
-    const handleSubmit = () => {
-        onAddItem(item);
-    }
+    const classes = useStyles();
 
-    const onSelectDiscount = (selectedDiscount) => {
-        setItem({
-            ...item,
-            discount: selectedDiscount.value
-        });
-    }
-
-    const handleChangeItemName = (event) => {
-        setItem({
-            ...item,
-            name: event.target.value
-        });
-    }
-
-    const onSelectedCategory = (selectedCategory) => {
-        setItem({
-            ...item,
-            categoryId: selectedCategory.value
-        });
-    }
-
-    const handleChangeItemPrice = (event) => {
-        setItem({
-            ...item,
-            price: event.target.value
-        });
-    }
-
-    const handleChangeItemType = (event) => {
-        setItem({
-            ...item,
-            type: event.target.value
-        });
-    }
-
-    const handleChangeItemDescription = (event) => {
-        setItem({
-            ...item,
-            description: event.target.value
-        });
-    }
-
-    const handleChangeItemDiscountPercentage = (event) => {
-        setItem({
-            ...item,
-            discountPercentage: event.target.value
-        });
-    }
-
-    const discountsObj = {
-        label: `Discounts`,
-        isDisabled: false,
-        data: discounts
-    }
-
-    return(
+    return (
         <Page
             onFilterByKeyword={onFilterByKeyword}
             props={props}
         >
-            <form className="md-grid" onSubmit = {handleSubmit}>
-                <Card style = {cardStyle}>
+            <ValidatorForm
+                           className="md-grid"
+                           onSubmit={onAddItem}
+                           onError={errors => console.log(errors)}>
+                <Card className="submit-card">
+                    <CardHeader title="Add new item"/>
                     <CardContent>
-                        <Typography>
-                           Add new item
-                        </Typography>
-                        <TextField
-                            label = "Item name"
-                            id = "itemNameTextField"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeItemName}
+                        <TextValidator
+                            className={classes.textFieldStyle}
+                            label="Item name"
+                            id="itemNameTextField"
+                            name="name"
+                            value={item.name}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            type="text"
+                            onChange={handleInputChange}
                         /> <br/>
-                        <Category 
-                            categories = {categories}
-                            onSelect = {(selectedCategory) => onSelectedCategory(selectedCategory)}    
-                        /><br/>
-                        <SimpleSelect 
-                            data={discountsObj} 
-                            onSelect={onSelectDiscount}
+                        <Category
+                            categories={categories}
+                            onSelect={handleInputChange}
+                            value={item.categoryId}
                         />
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="discount">
+                                Discount
+                            </InputLabel>
+                            <Select
+                                value={item.discount}
+                                onChange={handleInputChange}
+                                inputProps={{
+                                    name: `discount`,
+                                    id: `discount`
+                                }}
+                            >
+                                {discounts.map(discount => (
+                                    <MenuItem key={discount._id} value={discount._id}>
+                                        {discount.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <TextValidator
+                            className={classes.textFieldStyle}
+                            label="Price"
+                            id="itemPriceTextField"
+                            onChange={handleInputChange}
+                            type="text"
+                            name="price"
+                            value={item.price}
+                            validators={['required', 'isNumber', 'isPositive']}
+                            errorMessages={['This field is required', 'Please enter a number', 'Price must be positive']}
+                        /><br/>
                         <TextField
-                            label = "Price"
-                            id = "itemPriceTextField"
-                            required = {true}
-                            type = "text"
-                            onChange = {handleChangeItemPrice}
+                            className={classes.textFieldStyle}
+                            label="Item description"
+                            value={item.description}
+                            InputProps={{name:'description', id:"itemDescriptionTextField"}}
+                            onChange={handleInputChange}
+                        /> <br/>
+                        <TextValidator
+                            className={classes.textFieldStyle}
+                            label="Item URL"
+                            InputProps={{name:'uri', id:"itemURLTextField"}}
+                            value={item.uri}
+                            validators={['required']}
+                            errorMessages={['This field is required']}
+                            onChange={handleInputChange}
                         /> <br/>
                         <TextField
-                            label = "Item description"
-                            id = "itemDescriptionTextField"
-                            required = {false}
-                            onChange = {handleChangeItemDescription}
+                            className={classes.textFieldStyle}
+                            label="Image"
+                            type="file"
+                            InputProps={{name:'image', id:"imageUploadField"}}
+                            onChange={handleFileChange}
                         /> <br/>
                         <Button
-                            id = "submittBtn"
-                            type = "submit"
+                            id="submitBtn"
+                            type="submit"
                         >
                             Submit
                         </Button>
                     </CardContent>
                 </Card>
-            </form>
+            </ValidatorForm>
         </Page>
     );
 }

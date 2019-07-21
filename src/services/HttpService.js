@@ -64,6 +64,47 @@ export default class HttpService {
         });
     }
 
+    static postMultipart(uri, data, onSuccess, onError) {
+        const token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if (token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+        var formData = new FormData();
+
+        for ( let key in data ) {
+            formData.append(key, data[key]);
+        }
+
+        fetch(uri, {
+            method: 'POST',
+            headers: header,
+            body: formData
+        })
+            .then((res) => {
+                if (this.checkIfAuthorized(res) === false) {
+                    // The user is unauthorized
+                    window.location = '/#login';
+                    return;
+                } else {
+                    return res.json();
+                }
+            })
+            .then((res) => {
+                if (res.error) {
+                    onError(res.error);
+                } else {
+                    if (res.hasOwnProperty('token')) {
+                        window.localStorage['jwtToken'] = res.token;
+                    }
+                    onSuccess(res);
+                }
+            })
+            .catch((e) => {
+                onError(e.message);
+            });
+    }
+
     static put(url, data, onSuccess, onError) {
         const token = window.localStorage['jwtToken'];
         let header = new Headers();

@@ -6,12 +6,10 @@ import {Link} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import UserIcon from '@material-ui/icons/AccountCircle';
 import DiscountIcon from '@material-ui/icons/MoneyOff';
-import CheckIcon from '@material-ui/icons/Check';
 import AdminUserIcon from '@material-ui/icons/SupervisedUserCircle'
 import PartnerIcon from '@material-ui/icons/Work'
 import FavIcon from '@material-ui/icons/Favorite';
@@ -24,12 +22,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // Component imports
 import {StyledLink} from './StyledLink';
@@ -45,18 +38,11 @@ const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2)
     },
-    menuButtonHovered: {
-        marginRight: theme.spacing(2),
-        color: "#50ECE2"
-    },
-    headerButtonHovered: {
-        color: "#50ECE2"
-    },
     headerButton: {
         color: "inherit"
     },
     title: {
-        flexGrow: 1,
+        //flexGrow: 1,
     },
     menuList: {
         textAlign: 'center'
@@ -70,6 +56,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCategory}) {
     const classes = useStyles();
+    const isSmallScreen = useMediaQuery('(min-width:700px)');
+    const headerLogo = isSmallScreen ? "/assets/img/CampuSale-Header.png" : "/assets/img/favicon.png";
     const [accountButton, setAccountButton] = useState(null);
 
     const handleShowAccountMenu = (event) => {
@@ -131,13 +119,13 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
                                 Partner dashboard
                             </ListItemText>
                         </MenuItem>
-                        <MenuItem 
+                        <MenuItem
                             component={Link}
                             to={`/category-dashboard`}>
                             <ListItemIcon>
                                 <CategoryIcon/>
                             </ListItemIcon>
-                            <ListItemText >
+                            <ListItemText>
                                 Category dashboard
                             </ListItemText>
                         </MenuItem>
@@ -213,7 +201,13 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
         } else {
             // Header for normal authorized user (students)
             userTypeJSX =
-                <span>
+                <span style={{float: "right"}}>
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to={`/bulk`}>
+                        Bulk Discounts
+                    </Button>
                     <IconButton
                         color="inherit"
                         onClick={handleShowAccountMenu}>
@@ -269,7 +263,7 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
                     component={Link}
                     to={`/signup`}>
                     Signup
-                </Button>   
+                </Button>
                 <Button
                     className={classes.headerButton}
                     component={Link}
@@ -284,17 +278,17 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
             <AppBar position="static" className={classes.toolbar}>
                 <Toolbar className={classes.toolbar}>
                     <Grid container spacing={1}>
-                        <Grid item xs={2}>
-                            <Typography variant="h6" className={classes.title}>
-                                <StyledLink to={'/'}>
-                                    CampuSale
-                                </StyledLink>
-                            </Typography>
+                        <Grid item xs={2} sm={2}>
+                            <StyledLink to={'/'}>
+
+                                <img style={{width: '90%', height: "44px", marginRight: '10px'}}
+                                     src={headerLogo}/>
+                            </StyledLink>
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={8} sm={8}>
                             <Search onFilter={(filterCriteria) => onFilterByKeyword(filterCriteria)}/>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2} sm={2}>
                             {userTypeJSX}
                         </Grid>
                     </Grid>

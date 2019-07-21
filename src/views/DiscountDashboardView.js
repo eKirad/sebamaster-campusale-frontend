@@ -14,9 +14,18 @@ export class DiscountDashboardView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            partnerDiscounts: [ ],
-            partnerItems: [ ],
-            currentUser: UserService.isAutehnticated() ? 
+            discounts: [],
+            currentDiscount: {
+                id: "",
+                name: "",
+                amountInPercentage: undefined,
+                bulkAmount: undefined,
+            },
+            message: {
+                text: "",
+                color: "red"
+            },
+            currentUser: UserService.isAutehnticated() ?
                 UserService.getCurrentUser() : undefined,
             loading: true
         }
@@ -24,15 +33,10 @@ export class DiscountDashboardView extends React.Component {
         this.handleDeleteDiscount = this.handleDeleteDiscount.bind(this);
         this.handleAddDiscount = this.handleAddDiscount.bind(this);
         this.handleUpdateDiscount = this.handleUpdateDiscount.bind(this);
+        this.onAddDiscount = this.onAddDiscount.bind(this);
+        this.onUpdateDiscount = this.onUpdateDiscount.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
-    }
-
-    onSelectedDiscount(selectedDiscountId, selectedItems) {
-        ItemService
-            .setItemDiscount(selectedDiscountId, selectedItems)
-            .then((discounts) => {
-            })
-            .catch(e => { console.error(e); });
     }
 
     componentDidMount() {
@@ -41,61 +45,133 @@ export class DiscountDashboardView extends React.Component {
             .getPartnerDiscounts()
             .then((discounts) => {
                 this.setState({
-                    partnerDiscounts: discounts,
+                    discounts: discounts,
                     loading: false
                 })
             })
-            .catch(e => { console.error(e); });
+            .catch(e => {
+                console.error(e);
+            });
+    }
 
-        // Get all the items of the corresponding partner
-        ItemService
-            .getPartnerItems()
-            .then((items) => {
-                this.setState({
-                    partnerItems: items,
-                    loading: false
-                })
-            })
-            .catch(e => { console.error(e); });
+    onUpdateDiscount(discountId) {
+        console.log(discountId)
+        let discount;
+        console.log(this.state.discounts)
+        for (let i = 0; i < this.state.discounts.length; i++) {
+            console.log(this.state.discounts[i]._id)
+
+            if (this.state.discounts[i]._id === discountId) {
+                console.log("girdim")
+                discount = {
+                    id: discountId,
+                    name: this.state.discounts[i].name,
+                    amountInPercentage: this.state.discounts[i].amountInPercentage,
+                    bulkAmount: this.state.discounts[i].bulkAmount,
+                }
+                break;
+            }
+        }
+
+        console.log("discount: " + discount)
+        this.setState({currentDiscount: discount});
+    }
+
+    onAddDiscount() {
+        let currentDiscount = {
+            id: "",
+            name: "",
+            amountInPercentage: undefined,
+            bulkAmount: undefined,
+        }
+        this.setState({currentDiscount})
     }
 
     handleDeleteDiscount(discountId) {
         DiscountService
             .deleteDiscount(discountId)
-            .then(() => { 
-                if (this.props.location.pathname !== '/discount-dashboard') {
-                    this.props.history.push('/discount-dashboard');
-                    window.location.reload();
-                } else {
-                    window.location.reload();
+            .then(() => {
+                let message = {
+                    text: "Discount removed successfully!",
+                    color: "green"
                 }
+                this.setState({message})
             })
-            .catch((e) => { console.error(e); });
+            .catch((e) => {
+                let message = {
+                    text: e,
+                    color: "red"
+                }
+                this.setState({message})
+            });
     }
 
-    handleAddDiscount(newDiscount) {
+    handleAddDiscount() {
+        let currDiscount = this.state.currentDiscount;
         DiscountService
-            .addDiscount(newDiscount)
-            .then((newDiscount) => { 
-                if (this.props.location.pathname !== '/discount-dashboard') {
-                    this.props.history.push('/discount-dashboard');
-                    window.location.reload();
-                } else {
-                    window.location.reload();
-                }
+            .addDiscount({
+                name: currDiscount.name,
+                amountInPercentage: currDiscount.amountInPercentage,
+                bulkAmount: currDiscount.bulkAmount,
+                partnerId: this.state.currentUser.partnerId
             })
-            .catch((e) => { console.error(e); });    
+            .then((newDiscount) => {
+                let discounts = this.state.discounts;
+                discounts.push(newDiscount)
+                this.setState({discounts})
+                let message = {
+                    text: "Discount added successfully!",
+                    color: "green"
+                }
+                this.setState({message})
+            })
+            .catch((e) => {
+                let message = {
+                    text: e,
+                    color: "red"
+                }
+                this.setState({message})
+            });
     }
 
-    handleUpdateDiscount(newDiscount) {
+    handleUpdateDiscount() {
         DiscountService
-            .updateDiscount(newDiscount)
-            .then((newDiscount) => { })
-            .catch(e => { console.error(e); })
+            .updateDiscount(this.state.currentDiscount)
+            .then((newDiscount) => {
+                let discounts = this.state.discounts
+                for(let i=0;i<discounts.length;i++)
+                {
+                    if(discounts[i]._id === newDiscount._id){
+                        discounts[i] = newDiscount
+                        break;
+                    }
+                }
+                this.setState({discounts});
+                let message = {
+                    text: "Discount updated successfully!",
+                    color: "green"
+                }
+                this.setState({message})
+            })
+            .catch(e => {
+                let message = {
+                    text: e,
+                    color: "red"
+                }
+                this.setState({message})
+            })
+    }
+
+    handleInputChange(e) {
+
+        let currentDiscount = this.state.currentDiscount;
+        currentDiscount[e.target.name] = e.target.value;
+        this.setState({currentDiscount});
+        console.log(this.state.currentDiscount)
     }
 
     filterItemsBySearchKeyword(keyword) {
-        this.props.history.push(`/?search=${keyword}`);   
+        this.props.history.push(`/?search=${keyword}`);
     }
 
     onFilterByKeyword(filterCriteria) {
@@ -106,18 +182,21 @@ export class DiscountDashboardView extends React.Component {
         if (this.state.loading) {
             return (<Loading/>);
         }
-
-        return(
+        console.log(this.state.currentDiscount)
+        return (
             <DiscountDashboard
                 props={this.props}
                 currentUser={this.state.currentUser}
-                discounts={this.state.partnerDiscounts}
-                onFilterByKeyword = {this.onFilterByKeyword}
-                onSelectedDiscount={(selectedDiscount, selectedItems) => this.onSelectedDiscount(selectedDiscount, selectedItems)}
+                currentDiscount={this.state.currentDiscount}
+                discounts={this.state.discounts}
+                message={this.state.message}
+                handleAddDiscount={this.handleAddDiscount}
+                handleUpdateDiscount={this.handleUpdateDiscount}
+                handleInputChange={this.handleInputChange}
                 onDeleteDiscount={this.handleDeleteDiscount}
-                onAddDiscount={this.handleAddDiscount} 
-                onUpdateDiscount={this.handleUpdateDiscount}
-                items={this.state.partnerItems}
+                onAddDiscount={this.onAddDiscount}
+                onUpdateDiscount={this.onUpdateDiscount}
+                onFilterByKeyword={this.onFilterByKeyword}
             />
         );
     }

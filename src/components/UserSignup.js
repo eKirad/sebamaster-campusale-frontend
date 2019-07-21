@@ -2,35 +2,14 @@
 import React from 'react';
 
 // Material UI imports
-import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { withRouter } from 'react-router-dom';
 
 
 import Page from './Page';
-
-const useStyles = makeStyles(theme => ({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: 200,
-    },
-    dense: {
-      marginTop: 19,
-    },
-    menu: {
-      width: 200,
-    },
-  }));
 
 export class UserSignup extends React.Component {
     constructor(props) {
@@ -83,14 +62,11 @@ export class UserSignup extends React.Component {
     }
 
     render() {
-        const cardStyle = {
-            textAlign: 'center'
-        }
-
         return (
             <Page>
             <form className="md-grid" onSubmit = {this.handleSubmit}>
-                <Card style = {cardStyle}>
+                <Card className="submit-card">
+                    <CardHeader title="Register"/>
                     <CardContent>
                         <TextField 
                             label = "Username"

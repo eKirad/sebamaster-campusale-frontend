@@ -35,7 +35,9 @@ export default class Page extends React.Component {
                     onAddNewCategory = {(newCategory) => this.handleAddNewCategory(newCategory)}
                     onFilterByKeyword = {this.props.onFilterByKeyword}
                 />
+                <div className="main-content">
                     {this.props.children}
+                </div>
                 <Footer
                     props = {this.props}
                     user = {this.state.user}

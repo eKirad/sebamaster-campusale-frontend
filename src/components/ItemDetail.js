@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 
 // Component imports
 import Page from './Page';
+import UserService from '../services/UserService'
 
 const classes = makeStyles(theme => ({
     root: {
@@ -30,6 +31,7 @@ export class ItemDetail extends React.Component {
     }
 
     render() {
+        const userRole = UserService.getCurrentUser().role
         return (
             <Page onFilterByKeyword={this.props.onFilterByKeyword}>
                 <div className={classes.root}>
@@ -45,6 +47,7 @@ export class ItemDetail extends React.Component {
                                     <Grid item xs={10}>
                                         <h1>
                                             {this.props.item.name}
+                                            {userRole === 'student' &&
                                             <IconButton onClick={this.props.onWishlistClick}>
                                                 {
                                                      this.props.itemInWishlist
@@ -57,6 +60,7 @@ export class ItemDetail extends React.Component {
                                                     <FavIcon/>
                                                 }
                                             </IconButton>
+                                            }
                                             <Button>
                                                 To the offer
                                             </Button>

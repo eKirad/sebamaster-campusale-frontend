@@ -14,17 +14,34 @@ export  class UserProfileView extends React.Component {
         this.state = {
             // user: UserService.isAutehnticated() ? UserService.getCurrentUser() : undefined
             user: undefined,
-            loading: true
+            loading: true,
+            message: {
+                text: "",
+                color: "red"
+            }
         }
 
         this.onFilterByKeyword = this.onFilterByKeyword.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     onEditUser(newUser) {
         UserService
             .updateUser(newUser)
-            .then((user) => { })
-            .catch(e => { console.error(e); })
+            .then((user) => {
+                let message = {
+                    text: "User is updated successfully!",
+                    color: "green"
+                };
+                this.setState({message});
+            })
+            .catch(e => {
+                let message = {
+                    text: e,
+                    color: "red"
+                };
+                this.setState({message});
+            })
     }
 
     componentDidMount() {
@@ -53,6 +70,12 @@ export  class UserProfileView extends React.Component {
         this.filterItemsBySearchKeyword(filterCriteria);
     }
 
+    handleInputChange(e)
+    {
+        let user = this.state.user;
+        user[e.target.name] = e.target.value;
+        this.setState(user);
+    }
     render() {
 
         if (this.state.loading) {
@@ -63,6 +86,8 @@ export  class UserProfileView extends React.Component {
             <UserProfile 
                 props = {this.props}
                 user = {this.state.user}
+                message= {this.state.message}
+                handleInputChange = {this.handleInputChange}
                 onEditUser = {(newUser) => this.onEditUser(newUser)}
                 onFilterByKeyword = {this.onFilterByKeyword}
                 />
