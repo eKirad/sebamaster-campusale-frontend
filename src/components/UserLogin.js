@@ -1,6 +1,7 @@
 // React imports
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Material UI imports
 import Card from '@material-ui/core/Card';
@@ -11,9 +12,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
-
+// Component imports
 import Page from './Page';
 
+const linkStyle = {
+    color: 'blue',
+    margin: '10px'
+}
 class UserLogin extends React.Component {
     constructor(props) {
         super(props);
@@ -56,12 +61,22 @@ class UserLogin extends React.Component {
     }
 
     render() {
+        console.log(this.props.message)
+        console.log(this.props.isLoginError)
         return (
             <Page >
             <ValidatorForm   className="md-grid"  onSubmit={this.handleSubmit}>
                 <Card className="submit-card">
                     <CardHeader title="Log in"></CardHeader>
                     <CardContent>
+                        { this.props.isLoginError ? 
+                            <span style={{color:this.props.message.color}}>
+                                {this.props.message.text}<br/>
+                                <Link style={linkStyle} to={'/signup'}>
+                                    Not registered? Please sign up
+                                </Link>
+                            </span>
+                        : null}
                     <TextValidator
                             label="Username"
                             id="usernameField"
