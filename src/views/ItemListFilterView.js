@@ -130,7 +130,7 @@ export class ItemListFilterView extends React.Component {
                 const itemNameItemDescription = `${item.name}-${item.description}`;
                 return (itemNameItemDescription.toLowerCase().includes(keyword.toLowerCase()))
             })
-        }, () => console.log("ITEMS : ", this.state.items));
+        });
 
         this.props.history.push('/');
     }
@@ -145,7 +145,7 @@ export class ItemListFilterView extends React.Component {
                 filteredByCategoryItems: filteredItemsoObject.filteredItems,
                 isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
                 selectedCategoryId: categoryId
-            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+            });
     
             this.props.history.push('/');
         } else {
@@ -155,7 +155,7 @@ export class ItemListFilterView extends React.Component {
                 filteredByCategoryItems: filteredItemsoObject.filteredItems,
                 isFilteredByCategory: filteredItemsoObject.isFilteredByCategory,
                 selectedCategoryId: categoryId
-            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+            });
     
             this.props.history.push('/');
         }
@@ -174,8 +174,6 @@ export class ItemListFilterView extends React.Component {
     }
 
     handleSelectPriceRange(minSelectedPrice, maxSelectedPrice) {
-        // this.filterItemsByPriceRange(minSelectedPrice, maxSelectedPrice);
-        console.log(minSelectedPrice, maxSelectedPrice)
 
         if (this.state.isFilteredByCategory) {
             if (this.state.isFilteredByPartner) {
@@ -186,7 +184,7 @@ export class ItemListFilterView extends React.Component {
                     items : filteredItemsoObject.filteredItems,
                     filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
                     isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
-                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+                });
             } else {
                 const filteredItemsoObject = this.fitlerItemsByPriceRange(this.state.filteredByCategoryItems, 
                     minSelectedPrice, maxSelectedPrice);
@@ -194,7 +192,7 @@ export class ItemListFilterView extends React.Component {
                     items : filteredItemsoObject.filteredItems,
                     filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
                     isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
-                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+                });
             }
         } else {
             const filteredItemsoObject = this.fitlerItemsByPriceRange(this.state.initialItems, 
@@ -203,7 +201,7 @@ export class ItemListFilterView extends React.Component {
                 items : filteredItemsoObject.filteredItems,
                 filteredByPriceRangeItems: filteredItemsoObject.filteredItems,
                 isFilteredByPriceRange: filteredItemsoObject.isFilteredByPriceRange,
-            }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+            });
         }
     }
 
@@ -218,26 +216,26 @@ export class ItemListFilterView extends React.Component {
                     filteredByCategoryAndPartnerItems: filteredItemsoObject.filteredItems,
                     filteredByPartnerItems: filteredItemsoObject.filteredItems,
                     isFilteredByPartner: true,
-                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+                });
             } else {
                 const filteredItemsoObject = this.filterItemsByPartner(this.state.items, partnerId);
                 this.setState({
                     items : filteredItemsoObject.filteredItems,
                     filteredByPartnerItems: filteredItemsoObject.filteredItems,
                     isFilteredByPartner: true
-                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByPartner));
+                });
             }  
         } else {
             if (this.state.isFilteredByCategory) {
                 this.setState({
                     items : this.state.filteredByCategoryItems,
                     isFilteredByPartner: false
-                }, () => console.log("ITEMS : ", this.state.items, this.state.isFilteredByCategory));
+                });
             } else {
                 this.setState({
                     items : this.state.initialItems,
                     isFilteredByPartner: false
-                }, () => console.log("ITEMS : ", this.state.items));
+                });
             }
         }
     }
