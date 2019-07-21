@@ -19,7 +19,11 @@ const classes = makeStyles(theme => ({
       padding: theme.spacing(2),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+      marginBottom:"20px"
     },
+    grid: {
+        marginBottom:"20px"
+    }
   }));
 
 export const ItemListFilter = ({
@@ -36,20 +40,18 @@ export const ItemListFilter = ({
         <Page 
             props={props}
             onFilterByKeyword={onFilterByKeyword}>
-            <div className={classes.root}>
-                <Grid container spacing={3}>
-                    <Grid item xs={3}>
-                        <Paper className={classes.paper}>
-                            <Filter
+            <div className={classes.root} >
+                <Grid container spacing={3} >
+                    <Grid item xs={2}>
+                        <Filter
                                 categories={categories}
                                 partners={partners}
                                 onSelectCategory={onSelectCategory}
                                 onSelectPartner={onSelectPartner}
                                 onSelectPriceRange={onSelectPriceRange}
-                            />
-                        </Paper>    
+                        />  
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs={10} className={classes.grid}>
                         <Paper className={classes.paper}>
                             <ItemList items={items}/>                        
                         </Paper>

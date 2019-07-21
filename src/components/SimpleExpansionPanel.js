@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    expansion: {
+        margin: theme.spacing(1),
+    }
   }));
 
 export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, singlePartner }) => {
@@ -28,7 +31,7 @@ export const SimpleExpansionPanel = ({ title, usage, partners, onSelectPartner, 
     
     if (usage === `filter`) {
         return(
-            <ExpansionPanel>
+            <ExpansionPanel className={classes.expansion}>
                 <ExpansionPanelSummary
                     expandIcon = {<ExpandMoreIcon/>}
                     aria-controls="panel1a-content"

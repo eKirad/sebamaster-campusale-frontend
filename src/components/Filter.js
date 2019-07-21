@@ -26,7 +26,6 @@ export const Filter = ({
 
     return(
         <Grid>
-            <p>Filter</p>
             <Grid item xs={12}>
             <Category 
                 categories={categories}
@@ -38,14 +37,7 @@ export const Filter = ({
                     usage={usage} 
                     partners={partners}
                     onSelectPartner={onSelectPartner}
-                />
-            <Grid 
-                item xs = {10}
-                style = {linkStyle}>
-                <RangeSlider
-                    onSelectPriceRange = {onSelectPriceRange}
-                />
-            </Grid>
+            />
         </Grid>
     );
 };
