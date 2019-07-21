@@ -61,8 +61,6 @@ class UserLogin extends React.Component {
     }
 
     render() {
-        console.log(this.props.message)
-        console.log(this.props.isLoginError)
         return (
             <Page >
             <ValidatorForm   className="md-grid"  onSubmit={this.handleSubmit}>

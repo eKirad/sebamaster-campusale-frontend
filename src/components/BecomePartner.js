@@ -58,7 +58,6 @@ export const BecomePartner = ({ onSubmitPartner }) => {
             ...partner,
             location: event.target.value
         });
-        console.log(partner)
     }
 
     const validateTextFields = () => {

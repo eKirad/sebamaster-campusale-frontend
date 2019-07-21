@@ -55,14 +55,10 @@ export class DiscountDashboardView extends React.Component {
     }
 
     onUpdateDiscount(discountId) {
-        console.log(discountId)
         let discount;
-        console.log(this.state.discounts)
         for (let i = 0; i < this.state.discounts.length; i++) {
-            console.log(this.state.discounts[i]._id)
 
             if (this.state.discounts[i]._id === discountId) {
-                console.log("girdim")
                 discount = {
                     id: discountId,
                     name: this.state.discounts[i].name,
@@ -73,7 +69,6 @@ export class DiscountDashboardView extends React.Component {
             }
         }
 
-        console.log("discount: " + discount)
         this.setState({currentDiscount: discount});
     }
 
@@ -167,7 +162,6 @@ export class DiscountDashboardView extends React.Component {
         let currentDiscount = this.state.currentDiscount;
         currentDiscount[e.target.name] = e.target.value;
         this.setState({currentDiscount});
-        console.log(this.state.currentDiscount)
     }
 
     filterItemsBySearchKeyword(keyword) {
@@ -182,7 +176,6 @@ export class DiscountDashboardView extends React.Component {
         if (this.state.loading) {
             return (<Loading/>);
         }
-        console.log(this.state.currentDiscount)
         return (
             <DiscountDashboard
                 props={this.props}

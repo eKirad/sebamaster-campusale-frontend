@@ -62,14 +62,12 @@ export class AddItemView extends React.Component {
         let item = this.state.item;
         item[e.target.name] = e.target.value;
         this.setState({item});
-        console.log(this.state.item)
     }
     handleFileChange(e) {
 
         let item = this.state.item;
         item.image = e.target.files[0];
         this.setState({item});
-        console.log(this.state.item)
     }
     addItem(e) {
         e.preventDefault();
@@ -77,7 +75,6 @@ export class AddItemView extends React.Component {
         // the item gets linked to the corresponding partner
         let item = this.state.item;
         item.partnerId = this.state.currentUser.partnerId;
-        console.log(item)
         let filename = item.image.name.split('.');
         if(filename[1]!=='png')
         {

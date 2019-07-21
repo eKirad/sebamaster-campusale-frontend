@@ -81,7 +81,6 @@ export const DiscountDashboard = ({
     const handleOpenUpdateDialog = (discountId) => {
         setDialogTitle(`Update`);
         setDialogMode("update");
-        console.log(currentDiscount);
         onUpdateDiscount(discountId);
         setOpenDiscountDialog(true);
     }

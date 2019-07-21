@@ -30,13 +30,11 @@ export class BulkDiscountView extends React.Component {
     addPost(e){
         e.preventDefault();
         const discountId = this.state.selectedDiscount ;
-        console.log(discountId);
         PostService.addPost(discountId)
             .then((newPost) => {
                 newPost.joined = true;
                 let posts = this.state.posts;
                 posts.push(newPost);
-                console.log(posts)
                 this.setState(posts);
             })
             .catch(e => { console.error(e); });
@@ -114,7 +112,6 @@ export class BulkDiscountView extends React.Component {
                 <Loading/>
             );
         } else {
-            console.log(this.state.selectedDiscount)
             return(
                 <BulkDiscount
                     props = {this.props}

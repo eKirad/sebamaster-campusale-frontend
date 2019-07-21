@@ -76,7 +76,6 @@ export class CategoryDashboardView extends React.Component {
             );
         }
 
-        console.log(this.state.categories)
         return(
             <CategoryDashboard 
                 props={this.props}
