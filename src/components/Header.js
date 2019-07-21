@@ -83,7 +83,7 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
         if (user.role === `admin`) {
             // Header for admin authorized user
             userTypeJSX =
-                <span>
+                <span style={{float: "right"}}>
                     <IconButton
                         color="inherit"
                         onClick={handleShowAccountMenu}>
@@ -142,7 +142,7 @@ export default function ButtonAppBar({props, user, onFilterByKeyword, onAddNewCa
         } else if (user.role === `partner`) {
             // Header for partner authorized user
             userTypeJSX =
-                <span>
+                <span style={{float: "right"}}>
                     <IconButton
                         color="inherit"
                         onClick={handleShowAccountMenu}>
