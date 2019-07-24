@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
     formControl: {
       margin: theme.spacing(1),
-      width: "303px",
+      width: "195px",
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -23,6 +23,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const SimpleSelect = ({data, defaultValue, onSelect}) => {
+    console.log(data)
+    
     const classes = useStyles();
     const [ values, setValues ] = useState({
         name: ``

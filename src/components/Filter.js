@@ -9,6 +9,8 @@ import { SimpleSelect } from './SimpleSelect';
 import {Category} from './Category';
 import {RangeSlider} from './RangeSlider';
 import {SimpleExpansionPanel} from './SimpleExpansionPanel';
+import {SimpleSelectCategory} from './SimpleSelectCategory';
+
 
 export const Filter = ({ 
     categories, 
@@ -27,7 +29,7 @@ export const Filter = ({
     return(
         <Grid>
             <Grid item xs={12}>
-            <Category 
+            <SimpleSelectCategory 
                 categories={categories}
                 onSelect={onSelectCategory}    
             />
