@@ -86,6 +86,16 @@ export class DiscountDashboardView extends React.Component {
         DiscountService
             .deleteDiscount(discountId)
             .then(() => {
+
+                let discounts = this.state.discounts
+                for(let i=0;i<discounts.length;i++)
+                {
+                    if(discounts[i]._id === discountId){
+                        discounts.splice(i,1);
+                        break;
+                    }
+                }
+                this.setState({discounts});
                 let message = {
                     text: "Discount removed successfully!",
                     color: "green"

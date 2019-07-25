@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const DiscountDashboard = ({
+                                      props,
                                       currentUser,
                                       currentDiscount,
                                       discounts,
@@ -97,7 +98,9 @@ export const DiscountDashboard = ({
     }
     
     return (
-        <Page onFilterByKeyword={onFilterByKeyword}>
+        <Page
+            props={props}
+            onFilterByKeyword={onFilterByKeyword}>
             <Button style={{float:"right"}} data-key="add" onClick={handleOpenAddDiscountDialog}>
                 Add new discount
             </Button>
