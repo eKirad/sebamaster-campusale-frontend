@@ -23,8 +23,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const SimpleSelect = ({data, defaultValue, onSelect}) => {
-    console.log(data)
-    
     const classes = useStyles();
     const [ values, setValues ] = useState({
         name: ``
